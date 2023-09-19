@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public class FunctionLibrary {
     WebDriver driver;
-    int timeOut=Integer.parseInt(rearFromConfig("config.properties","timeout"));
+    int timeOut=Integer.parseInt(readFromConfig("config.properties","timeout"));
 
     public FunctionLibrary(WebDriver driver) {
         this.driver = driver;
@@ -52,7 +52,7 @@ public class FunctionLibrary {
     }
 
 
-    public String rearFromConfig(String fileName, String key){
+    public String readFromConfig(String fileName, String key){
         Properties properties=new Properties();
         FileInputStream fileInputStream;
         try {
