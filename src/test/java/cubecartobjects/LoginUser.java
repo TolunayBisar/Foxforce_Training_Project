@@ -1,7 +1,8 @@
 package cubecartobjects;
 
 public class LoginUser {
-    private String username; private String password;
+    private String username;
+    private String password;
 
     public LoginUser() {
     }
