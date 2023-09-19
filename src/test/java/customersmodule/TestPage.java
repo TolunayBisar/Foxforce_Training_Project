@@ -2,33 +2,51 @@ package customersmodule;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class TestPage extends  BaseClass{
-    WebDriver driver;
+public class TestPage extends BaseClass{
+
     LoginPage loginPage;
-    CustomerListPage customerListPage;
+
     FunctionLibrary functionLibrary;
     DashboardPage dashboardPage;
+    CustomerListPage customerListPage;
 
 @BeforeClass
    public void setUp(){
-        openBrowser();
+        openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
         loginPage.logIn();
-        functionLibrary = new FunctionLibrary(driver);
+        dashboardPage = new DashboardPage(driver);
         customerListPage = new CustomerListPage(driver);
+        functionLibrary = new FunctionLibrary(driver);
+
    }
    @Test
    public void viewDashboard(){
-       Assertions.assertTrue(dashboardPage.verifyDashboardPage());
+       Assert.assertTrue(dashboardPage.verifyDashboardPage());
    }
    @Test
     public void createCustomerGroups(){
+    dashboardPage.clickOnCustomersLink();
+    customerListPage.addCustomerGroup();
+    Assert.assertTrue(customerListPage.verifyCustomerGroupUpdatedMessage());
+   }
 
+   @Test
+    public void searchCustomer(){
+    dashboardPage.clickOnCustomersLink();
+    customerListPage.searchCustomer();
+    Assert.assertTrue(customerListPage.verifySearchCustomer());
+
+
+   }
+   @AfterClass
+    public void tearDown(){
+    dashboardPage.logout();
 
    }
 }

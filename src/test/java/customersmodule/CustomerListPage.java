@@ -14,15 +14,17 @@ import java.util.List;
 
 public class CustomerListPage {
     WebDriver driver;
+
     FunctionLibrary functionLibrary;
     ScreenShotUtility screenShotUtility;
+    BaseClass baseClass = new BaseClass();
     Faker faker = new Faker();
     String groupName;
 
 
     // 1. Create Group
-    @FindBy(xpath = "//*[@id=\"tab_customer-groups\"]/a")
-    WebElement customerGroupsLink;
+    @FindBy(css = "div[id='tab_customer-groups']")
+    WebElement customerGroupsTab;
     @FindBy(name = "group_add[group_name]")
     WebElement customerGroupsNameInputField;
     @FindBy(name = "group_add[group_description]")
@@ -35,7 +37,7 @@ public class CustomerListPage {
 
     // 2.SearchCustomer
     @FindBy(css = "div[id='tab_sidebar']")
-    WebElement searchCustomerLink;
+    WebElement searchCustomerTab;
     @FindBy(css = "#customer_id")
     WebElement searchCustomerBox;
     @FindBy(xpath = "(//input[@value=\"Go\"])[1]")
@@ -46,19 +48,19 @@ public class CustomerListPage {
 
     // 2. GDPR Tools
     @FindBy(css = "#email")
-    WebElement email;
+    WebElement emailField;
     @FindBy(xpath = "//*[@value=\"Create Report\"]")
     WebElement createReportButton;
 
 
     // 3. GDPR tool create report
     @FindBy(xpath = "//*[@id=\"tab_control\"]/div[5]")
-    WebElement GDPRToolsLink;
+    WebElement GDPRToolsTab;
     @FindBy(xpath = "//td[text()='Polatalimdar291291@hotmail.com']")
     WebElement consentPage;
     //    String xpath = String.format("//td[text()='%s']",email);
 
-    // delete
+    // delete Customer Group
     @FindAll(@FindBy(css = "fieldset#group-list div strong span"))
     List<WebElement> groups;
 
@@ -71,8 +73,8 @@ public class CustomerListPage {
 
     // 1. Create Group
     public void addCustomerGroup() {
-        functionLibrary.waitForElementPresent(customerGroupsLink);
-        customerGroupsLink.click();
+        functionLibrary.waitForElementPresent(customerGroupsTab);
+        customerGroupsTab.click();
         functionLibrary.waitForElementPresent(customerGroupsNameInputField);
         groupName=faker.commerce().department();
         customerGroupsNameInputField.sendKeys(groupName);
@@ -83,7 +85,7 @@ public class CustomerListPage {
     }
 
     public boolean verifyCustomerGroupUpdatedMessage() {
-        screenShotUtility.takeScreenShot("AddCustomerGroup", driver);
+        //screenShotUtility.takeScreenShot("AddCustomerGroup", driver);
         if (customerGroupUpdatedMessage.isDisplayed()) {
             System.out.println("Customer Group added.");
             return true;
@@ -96,7 +98,7 @@ public class CustomerListPage {
 
     // 2. deleteCustomerGroup Method
     public void deleteCustomerGroup(){
-        customerGroupsLink.click();
+        customerGroupsTab.click();
         List<WebElement> beforeDelete = groups;
         for (WebElement group : beforeDelete){
            // if (group.getText())
@@ -105,21 +107,21 @@ public class CustomerListPage {
 
     }
 
-
     // 3. SearchCustomer
     public void searchCustomer() {
-        functionLibrary.waitForElementPresent(searchCustomerLink);
-        searchCustomerLink.click();
+        functionLibrary.waitForElementPresent(searchCustomerTab);
+        searchCustomerTab.click();
         functionLibrary.waitForElementPresent(searchCustomerBox);
         searchCustomerBox.sendKeys();
         functionLibrary.waitForElementPresent(goButton);
         goButton.click();
     }
 
+
     public boolean verifySearchCustomer() {
-        screenShotUtility.takeScreenShot("SearchCustomer", driver);
+        //screenShotUtility.takeScreenShot("SearchCustomer", driver);
         functionLibrary.waitForElementPresent(searchCustomerSuccessMessage);
-        if (searchCustomerLink.isDisplayed()) {
+        if (searchCustomerTab.isDisplayed()) {
             System.out.println("Search customer was successful ");
             return true;
 
@@ -130,6 +132,17 @@ public class CustomerListPage {
 
     }
     public void createReport(){
+        functionLibrary.waitForElementPresent(GDPRToolsTab);
+        GDPRToolsTab.click();
+        functionLibrary.waitForElementPresent(emailField);
+        emailField.sendKeys();
+        functionLibrary.waitForElementPresent(createReportButton);
+        createReportButton.click();
 
     }
+
+//    public boolean verifyCreateReport(){
+//
+//
+//    }
 }

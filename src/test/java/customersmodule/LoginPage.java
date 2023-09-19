@@ -23,6 +23,7 @@ public class LoginPage {
     }
 
     public void logIn(){
+        functionLibrary.waitForElementPresent(userNameField);
         userNameField.sendKeys(functionLibrary.readFromConfig("config.properties", "username1"));
         PasswordField.sendKeys(functionLibrary.readFromConfig("config.properties","password"));
         loginButton.click();

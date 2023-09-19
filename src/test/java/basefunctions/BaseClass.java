@@ -7,14 +7,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseClass {
-    WebDriver driver;
-    public void openBrowser(){
+    public WebDriver driver;
+    public void openBrowser(String url){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options=new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver=new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.get("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
+        driver.get(url);
     }
     public void closeBrowser(){
         driver.close();

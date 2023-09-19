@@ -13,7 +13,6 @@ import java.util.List;
 public class DashboardPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
-    BaseClass basePage = new BaseClass();
     @FindBy(css = "#tab_dashboard a")
     WebElement dashboardLink;
     @FindBy(linkText = "Customer List")
@@ -65,6 +64,7 @@ public class DashboardPage {
 
     public void logout() {
         logoutLink.click();
+        driver.quit();
     }
 
 }

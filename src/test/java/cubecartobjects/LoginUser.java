@@ -19,4 +19,6 @@ public class LoginUser {
     public String getPassword() {
         return password;
     }
+
+
 }
