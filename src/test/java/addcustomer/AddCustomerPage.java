@@ -28,7 +28,7 @@ public class AddCustomerPage {
     WebElement customerList;
     @FindBy(linkText = "Add Customer")
     WebElement addCustomer;
-    @FindBy(id = "customer_status")
+    @FindBy(xpath = "//img[@class='checkbox cbs']")
     WebElement status;
     @FindBy(id = "cust-title")
     WebElement title;
@@ -82,9 +82,9 @@ public class AddCustomerPage {
     WebElement state;
     @FindBy(id = "edit_postcode")
     WebElement zipCode;
-    @FindBy(id = "billing")
+    @FindBy(xpath = "//*[@id=\"address-form\"]/fieldset/div[12]/span/div")
     WebElement billing;
-    @FindBy(id = "default")
+    @FindBy(xpath = "//*[@id=\"address-form\"]/fieldset/div[13]/span/div")
     WebElement defaultAddress;
     @FindBy(xpath = "//input[@type='button']")
     WebElement addButton;
@@ -180,7 +180,7 @@ public class AddCustomerPage {
         town.sendKeys(Town);
         functionLibrary.waitForElementPresent(country);
         Select selectCountry = new Select(country);
-        selectCountry.selectByIndex(8);
+        selectCountry.selectByVisibleText("United States");
         functionLibrary.waitForElementPresent(state);
         Select selectState = new Select(state);
         selectState.selectByIndex(0);
