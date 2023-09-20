@@ -4,11 +4,13 @@ import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
 import basefunctions.ScreenShotUtility;
 import com.github.javafaker.Faker;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -17,9 +19,11 @@ public class CustomerListPage {
 
     FunctionLibrary functionLibrary;
     ScreenShotUtility screenShotUtility;
+    DashboardPage dashboardPage;
     BaseClass baseClass = new BaseClass();
     Faker faker = new Faker();
     String groupName;
+    Boolean verify = true;
 
 
     // 1. Create Group
@@ -62,8 +66,10 @@ public class CustomerListPage {
 
 
     // 5.delete Customer Group
-    @FindAll(@FindBy(css = "fieldset#group-list div strong span"))
+    @FindAll(@FindBy(xpath=String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']")))
     List<WebElement> groups;
+    @FindBy(xpath ="parent::strong/preceding-sibling::span//i" )
+    WebElement deleteIcon;
 
 
     public CustomerListPage(WebDriver driver) {
@@ -99,12 +105,22 @@ public class CustomerListPage {
 
     // 2. deleteCustomerGroup Method
     public void deleteCustomerGroup(){
+        dashboardPage.clickOnCustomersLink();
         customerGroupsTab.click();
-        List<WebElement> beforeDelete = groups;
-        for (WebElement group : beforeDelete){
-           // if (group.getText())
-        }
+        String groupName = "Clothing";
+        WebElement groupToDelete = driver.findElement(By.xpath(String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']",groupName)));
+        WebElement deleteIcon = groupToDelete.findElement(By.xpath("parent::strong/preceding-sibling::span//i"));
+        deleteIcon.click();
+        driver.switchTo().alert().accept();
 
+        driver.navigate().refresh();
+        List<WebElement> groupsAfterDelete = driver.findElements(By.cssSelector("fieldset#group-list div strong span"));
+        for(WebElement group : groupsAfterDelete){
+            if(group.getText().equalsIgnoreCase(groupName)){
+                verify = false;
+            }
+        }
+        Assert.assertTrue(verify);
 
     }
 
