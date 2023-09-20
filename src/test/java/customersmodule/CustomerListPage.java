@@ -46,21 +46,22 @@ public class CustomerListPage {
     WebElement searchCustomerSuccessMessage;
 
 
-    // 2. GDPR Tools
+    // 3. GDPR Tools
     @FindBy(css = "#email")
     WebElement emailField;
     @FindBy(xpath = "//*[@value=\"Create Report\"]")
     WebElement createReportButton;
 
 
-    // 3. GDPR tool create report
+    // 4. GDPR tool create report
     @FindBy(xpath = "//*[@id=\"tab_control\"]/div[5]")
     WebElement GDPRToolsTab;
     @FindBy(xpath = "//td[text()='Polatalimdar291291@hotmail.com']")
     WebElement consentPage;
-    //    String xpath = String.format("//td[text()='%s']",email);
+       // String xpath = String.format("//td[text()='%s']",emailField);
 
-    // delete Customer Group
+
+    // 5.delete Customer Group
     @FindAll(@FindBy(css = "fieldset#group-list div strong span"))
     List<WebElement> groups;
 
@@ -141,8 +142,14 @@ public class CustomerListPage {
 
     }
 
-//    public boolean verifyCreateReport(){
-//
-//
-//    }
+    public boolean verifyCreateReport(){
+        functionLibrary.waitForElementPresent(consentPage);
+        if (consentPage.isDisplayed()){
+            System.out.println("Create Report was successful!");
+            return true;
+        }else {
+            System.out.println("Create Report was not successful!");
+            return false;
+        }
+    }
 }
