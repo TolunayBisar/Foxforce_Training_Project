@@ -70,8 +70,8 @@ public class LoginPage {
 
     public void loginAndLogOut(String userName, String password) {
         logIn(userName, password);
-        DashBoardPage dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.logout();
+        DashBoardPage dashBoardPag = new DashBoardPage(driver);
+        dashBoardPag.logout();
 
     }
 }

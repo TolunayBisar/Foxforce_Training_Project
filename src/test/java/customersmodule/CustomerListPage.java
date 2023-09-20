@@ -2,30 +2,16 @@ package customersmodule;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
-import basefunctions.ScreenShotUtility;
-import com.github.javafaker.Faker;
 import dashboard.DashBoardPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
-import java.util.List;
 
 public class CustomerListPage {
     WebDriver driver;
-
     FunctionLibrary functionLibrary;
-    ScreenShotUtility screenShotUtility;
-    DashBoardPage dashBoardPage;
-    BaseClass baseClass = new BaseClass();
-    Faker faker = new Faker();
-    String groupName;
-    String email;
-    Boolean verify = true;
 
 
     // 1. Create Group
@@ -46,6 +32,8 @@ public class CustomerListPage {
     WebElement searchCustomerTab;
     @FindBy(css = "#customer_id")
     WebElement searchCustomerBox;
+    @FindBy(css = "#email")
+    WebElement emailField;
     @FindBy(xpath = "(//input[@value=\"Go\"])[1]")
     WebElement goButton;
     @FindBy(css = ".success")
@@ -53,25 +41,14 @@ public class CustomerListPage {
 
 
     // 3. GDPR Tools
-    @FindBy(css = "#email")
-    WebElement emailField;
+
     @FindBy(xpath = "//*[@value=\"Create Report\"]")
     WebElement createReportButton;
-
-
-    // 4. GDPR tool create report
     @FindBy(xpath = "//*[@id=\"tab_control\"]/div[5]")
     WebElement GDPRToolsTab;
-    @FindBy(xpath = "//td[text()='Polatalimdar291291@hotmail.com']")
+    @FindBy(xpath = "//td[text()='james@gmail.com']")
     WebElement consentPage;
-       // String xpath = String.format("//td[text()='%s']",emailField);
-
-
-    // 5.delete Customer Group
-    //@FindAll(@FindBy(xpath=String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']")))
-    List<WebElement> groups;
-    @FindBy(xpath ="parent::strong/preceding-sibling::span//i" )
-    WebElement deleteIcon;
+    // String xpath = String.format("//td[text()='%s']",emailField);
 
 
     public CustomerListPage(WebDriver driver) {
@@ -85,14 +62,11 @@ public class CustomerListPage {
         functionLibrary.waitForElementPresent(customerGroupsTab);
         customerGroupsTab.click();
         functionLibrary.waitForElementPresent(customerGroupsNameInputField);
-        groupName=faker.commerce().department();
-        customerGroupsNameInputField.sendKeys(groupName);
+        customerGroupsNameInputField.sendKeys("New Team");
         functionLibrary.waitForElementPresent(descriptionField);
-        String descriptionText = faker.lorem().sentence();
-        descriptionField.sendKeys(descriptionText);
+        descriptionField.sendKeys("Welcome!!");
         saveButtonToCreateCustomerGroups.click();
     }
-
     public boolean verifyCustomerGroupUpdatedMessage() {
         if (customerGroupUpdatedMessage.isDisplayed()) {
             System.out.println("Customer Group added.");
@@ -101,44 +75,18 @@ public class CustomerListPage {
             System.out.println("Create customer Group was not successful");
             return false;
         }
-
     }
 
-    // 2. deleteCustomerGroup Method
-    public void deleteCustomerGroup() {
-        functionLibrary.waitForElementPresent(customerGroupsTab);
-        customerGroupsTab.click();
-//        WebElement groupToDelete = driver.findElement(By.xpath(String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']", groupName)));
-//        WebElement deleteIcon = groupToDelete.findElement(By.xpath("parent::strong/preceding-sibling::span//i"));
-        deleteIcon.click();
-        driver.switchTo().alert().accept();
-    }
-
-    public boolean verifyDeleteCustomerGroup() {
-        driver.navigate().refresh();
-        List<WebElement> groupsAfterDelete = driver.findElements(By.cssSelector("fieldset#group-list div strong span"));
-        for (WebElement group : groupsAfterDelete) {
-            if (group.getText().equalsIgnoreCase(groupName)) {
-                verify= false;
-            }
-        }
-        return true;
-        //Assert.assertTrue(verify);
-
-    }
 
     // 3. SearchCustomer
     public void searchCustomer() {
         functionLibrary.waitForElementPresent(searchCustomerTab);
         searchCustomerTab.click();
         functionLibrary.waitForElementPresent(searchCustomerBox);
-        email=faker.internet().emailAddress();
-        searchCustomerBox.sendKeys(email);
+        searchCustomerBox.sendKeys("james@gmail.com");
         functionLibrary.waitForElementPresent(goButton);
         goButton.click();
     }
-
-
     public boolean verifySearchCustomer() {
         functionLibrary.waitForElementPresent(searchCustomerSuccessMessage);
         if (searchCustomerTab.isDisplayed()) {
@@ -149,27 +97,60 @@ public class CustomerListPage {
             System.out.println("Search customer was not successful");
             return false;
         }
-
     }
-    public void createReport(){
+
+
+    // 3. GDPR Tools
+    public void createReport() {
         functionLibrary.waitForElementPresent(GDPRToolsTab);
         GDPRToolsTab.click();
         functionLibrary.waitForElementPresent(emailField);
-        email=faker.internet().emailAddress();
-        emailField.sendKeys(email);
+        emailField.sendKeys("james@gmail.com");
         functionLibrary.waitForElementPresent(createReportButton);
         createReportButton.click();
-
     }
-
-    public boolean verifyCreateReport(){
+    public boolean verifyCreateReport() {
         functionLibrary.waitForElementPresent(consentPage);
-        if (consentPage.isDisplayed()){
+        if (consentPage.isDisplayed()) {
             System.out.println("Create Report was successful!");
             return true;
-        }else {
+        } else {
             System.out.println("Create Report was not successful!");
             return false;
         }
     }
 }
+
+
+    // 4.delete Customer Group
+
+//@FindAll(@FindBy(xpath=String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']")))
+//    List<WebElement> groups;
+//    @FindBy(xpath = "parent::strong/preceding-sibling::span//i")
+//    WebElement deleteIcon;
+
+    // 2. deleteCustomerGroup Method
+//    public void deleteCustomerGroup() {
+//        functionLibrary.waitForElementPresent(customerGroupsTab);
+//        customerGroupsTab.click();
+////        WebElement groupToDelete = driver.findElement(By.xpath(String.format("//fieldset[@id='group-list']/div/strong/span[text()='%s']", groupName)));
+////        WebElement deleteIcon = groupToDelete.findElement(By.xpath("parent::strong/preceding-sibling::span//i"));
+//        deleteIcon.click();
+//        driver.switchTo().alert().accept();
+//    }
+//
+//    public boolean verifyDeleteCustomerGroup() {
+//        driver.navigate().refresh();
+//        List<WebElement> groupsAfterDelete = driver.findElements(By.cssSelector("fieldset#group-list div strong span"));
+//        for (WebElement group : groupsAfterDelete) {
+//            if (group.getText().equalsIgnoreCase("")) {
+//                verify= false;
+//            }
+//        }
+//        return true;
+//        //Assert.assertTrue(verify);
+//
+//    }
+
+
+

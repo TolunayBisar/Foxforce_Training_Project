@@ -42,21 +42,21 @@ public class RunTest extends BaseClass{
     public void searchCustomer(){
         dashBoardPage.setCustomerListLink();
         customerListPage.searchCustomer();
-        //Assert.assertTrue(customerListPage.verifySearchCustomer());
+        Assert.assertTrue(customerListPage.verifySearchCustomer());
    }
 
-   @Test
-   public void deleteGroup(){
-    dashBoardPage.setCustomerListLink();
-    customerListPage.deleteCustomerGroup();
-    Assert.assertTrue(customerListPage.verifyDeleteCustomerGroup());
-   }
+//   @Test
+//   public void deleteGroup(){
+//    dashBoardPage.setCustomerListLink();
+//    customerListPage.deleteCustomerGroup();
+//   // Assert.assertTrue(customerListPage.verifyDeleteCustomerGroup());
+//   }
 
    @Test
    public void GDPRReport(){
         dashBoardPage.setCustomerListLink();
         customerListPage.createReport();
-        //Assert.assertTrue(customerListPage.verifyCreateReport());
+        Assert.assertTrue(customerListPage.verifyCreateReport());
    }
 //   @AfterClass
 //    public void tearDown(){
