@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 
 public class LoginPage {
-    WebDriver driver;
+    public WebDriver driver;
     FunctionLibrary functionLibrary;
     // define element by@
     @FindBy(id = "username")
