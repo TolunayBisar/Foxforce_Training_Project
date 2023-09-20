@@ -18,7 +18,7 @@ public class ScreenShotUtility {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd-HH:ss");
         String timeStamp = dateTime.toString(formatter);
         File screenShotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        String folderName = functionLibrary.rearFromConfig("config.properties", "imageFolder");
+        String folderName = functionLibrary.readFromConfig("config.properties", "imageFolder");
         File file = new File(folderName + File.separator + imageName + "_" + timeStamp + ".jpg");
         try {
             FileUtils.copyFile(screenShotFile, file);
