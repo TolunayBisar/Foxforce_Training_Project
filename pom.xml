@@ -7,16 +7,13 @@
 <groupId>org.example</groupId>
 <artifactId>foxforce</artifactId>
 <version>1.0-SNAPSHOT</version>
+
 <properties>
     <maven.compiler.source>14</maven.compiler.source>
     <maven.compiler.target>14</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 </properties>
-    <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+
 
     <dependencies>
 
@@ -211,4 +208,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
