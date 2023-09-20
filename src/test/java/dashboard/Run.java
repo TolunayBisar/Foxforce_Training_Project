@@ -3,6 +3,7 @@ package dashboard;
 
 import basefunctions.BaseClass;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -55,6 +56,12 @@ public class Run extends BaseClass {
     public void loginTest() {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
+    }
+
+    @AfterClass
+    public void tearDown(){
+        driver.close();
+        driver.quit();
     }
 
 
