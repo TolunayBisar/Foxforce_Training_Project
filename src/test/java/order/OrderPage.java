@@ -75,7 +75,7 @@ public class OrderPage {
 
     @FindBy (id="sum_ship_product")
     WebElement shipProduct;
-    @FindBy(id="1sum_ship_tracking")
+    @FindBy(id="sum_ship_tracking")
     WebElement trackNo;
 
     @FindBy(id="sum_weight")
@@ -89,8 +89,7 @@ public class OrderPage {
 
     @FindBy(id="ajax_name")
     WebElement productNameField;
-    @FindBy(xpath = "//span[@name='5']")
-    WebElement productSelect;
+
 
     @FindBy(id="ajax_price")
     WebElement unitePriceField;
@@ -117,7 +116,7 @@ WebElement internalNoteField;
 WebElement publicNoteField;
 @FindBy(xpath = "//input[@value='Save']")
 WebElement saveButton;
-@FindBy(linkText = "Order successfully created.")
+@FindBy(xpath = "//div[contains(text(),'Order successfully created.')]")
 WebElement verifyMessageOfCreateOrder;
 
 
@@ -128,8 +127,8 @@ WebElement verifyMessageOfCreateOrder;
         functionLibrary = new FunctionLibrary(driver);
 
         readCustomerInfoList = new ReadCustomerInfoList(driver);
-        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(1),"28","DHL","Monday",
-                "D1234",1.5,3,"book",10,10,10,
+        orderObject = new OrderObject("ersin","28","DHL","Monday",
+                "D"+System.currentTimeMillis(),1.5,3,"book",10,10,10,
                 "This is important shippment","Pls give us feedback as soon as you get product");
     }
 
@@ -188,7 +187,7 @@ WebElement verifyMessageOfCreateOrder;
         functionLibrary.waitForElementPresent(cityField);
         cityField.sendKeys("Istanbul");
         Select select = new Select(countryField);
-        select.selectByVisibleText("Istanbul");
+        select.selectByVisibleText("Turkey");
         functionLibrary.waitForElementPresent(zipField);
         zipField.sendKeys("345000");
 
@@ -200,7 +199,7 @@ WebElement verifyMessageOfCreateOrder;
         functionLibrary.waitForElementPresent(dispatchDateField);
         dispatchDateField.click();
         for (int i = 0; i < dateButton.size(); i++) {
-            if (dateButton.get(i).getText() == orderObject.getDispatchDate()) {
+            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate()) ) {
                 dateButton.get(i).click();
             }
 
@@ -221,7 +220,7 @@ WebElement verifyMessageOfCreateOrder;
         quantityField.sendKeys(String.valueOf(orderObject.getQuantity()));
         functionLibrary.waitForElementPresent(productNameField);
         productNameField.sendKeys(orderObject.getProductName());
-        productSelect.click();
+
         functionLibrary.waitForElementPresent(unitePriceField);
         unitePriceField.sendKeys(String.valueOf(50));
         functionLibrary.waitForElementPresent(addProductIcon);
@@ -255,16 +254,6 @@ WebElement verifyMessageOfCreateOrder;
         if (verifyMessageOfCreateOrder.isDisplayed())
             System.out.println("order created successfully");
         return true;
-
-
-
-
-
-
-
-
-
-
 
     }
 }
