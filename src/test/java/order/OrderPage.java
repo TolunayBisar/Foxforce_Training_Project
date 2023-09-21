@@ -119,6 +119,9 @@ WebElement saveButton;
 @FindBy(xpath = "//div[contains(text(),'Order successfully created.')]")
 WebElement verifyMessageOfCreateOrder;
 
+@FindBy(linkText = "Search Orders")
+WebElement searchTab;
+
 
 
     public OrderPage(WebDriver driver) {
@@ -256,6 +259,14 @@ WebElement verifyMessageOfCreateOrder;
         return true;
 
     }
+
+    //search Order
+    public void searchOrder(){
+        functionLibrary.waitForElementPresent(searchTab);
+        searchTab.click();
+    }
+
+
 }
 
 
