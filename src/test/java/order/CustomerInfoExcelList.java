@@ -31,7 +31,18 @@ public class CustomerInfoExcelList extends BaseClass {
     }
 
 
-    public void writeToExcel(String fileName, String sheetName, List<String> content) {
+    public void writeToExcel(String fileName,String folderName, String sheetName, List<String> content) {
+
+        String projectPath = System.getProperty("user.dir");// this is fix value, there is case sensitive.
+        String folderLocation = projectPath + File.separator + folderName;// folder location
+        // /Users/tolunaybisar/IdeaProjects/CubeCartApplication202303/files/myfile.txt
+        File folder = new File(folderLocation);// create one file in folder location.
+        if (!folder.exists()) {
+            folder.mkdir();  // the method for creating folder
+            System.out.println("folder is created");
+        }
+//        String finalFileLocation = folderLocation + File.separator + fileName + extention;
+//        File file = new File(finalFileLocation);
 
         File file = new File(fileName); // create file first
         FileOutputStream outputStream = null; //FileOutputStream outputStream = new FileOutputStream(file)
@@ -83,7 +94,8 @@ public class CustomerInfoExcelList extends BaseClass {
             //System.out.println(Arrays.toString(s));
             CustomerInfoExcelList writeToExcelFile = new CustomerInfoExcelList(baseClass.driver);
             String fileName = "CustomerInfoFolder/CustomerName.xlsx";
-            writeToExcelFile.writeToExcel(fileName, "1.Page", customerInfoList);
+            String folderName="CustomerInfoFolder";
+            writeToExcelFile.writeToExcel(fileName, folderName,"1.Page", customerInfoList);
 
         }
     }
