@@ -5,16 +5,22 @@ import basefunctions.FunctionLibrary;
 import dashboard.DashBoardPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 
 public class CustomerListPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
 
+    @FindAll(
+            @FindBy(xpath = "//*[@id=\"customer-list\"]/child::table[last()]/tbody/tr"))
+    List<WebElement> customersList ;
 
-    // 1. Create Group
+
     @FindBy(css = "div[id='tab_customer-groups']")
     WebElement customerGroupsTab;
     @FindBy(name = "group_add[group_name]")
@@ -27,7 +33,6 @@ public class CustomerListPage {
     WebElement customerGroupUpdatedMessage;
 
 
-    // 2.SearchCustomer
     @FindBy(css = "div[id='tab_sidebar']")
     WebElement searchCustomerTab;
     @FindBy(css = "#customer_id")
@@ -40,21 +45,29 @@ public class CustomerListPage {
     WebElement searchCustomerSuccessMessage;
 
 
-    // 3. GDPR Tools
-
     @FindBy(xpath = "//*[@value=\"Create Report\"]")
     WebElement createReportButton;
     @FindBy(xpath = "//*[@id=\"tab_control\"]/div[5]")
     WebElement GDPRToolsTab;
     @FindBy(xpath = "//td[text()='james@gmail.com']")
     WebElement consentPage;
-    // String xpath = String.format("//td[text()='%s']",emailField);
 
 
     public CustomerListPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
+    }
+
+
+    public boolean viewAtLeaseOneCustomer() {
+        if (customersList.size() >= 1) {
+            System.out.println("See at least one customer");
+            return true;
+        } else {
+            System.out.println("See at least nul customer");
+            return false;
+        }
     }
 
     // 1. Create Group

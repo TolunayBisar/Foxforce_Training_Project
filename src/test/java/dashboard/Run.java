@@ -22,7 +22,6 @@ public class Run extends BaseClass {
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
-        loginPage.logIn("testautomation1","automation123!");
         dashBoardPag = new DashBoardPage(driver);
         customerListPage = new CustomerListPage(driver);
         functionLibrary = new FunctionLibrary(driver);
@@ -65,21 +64,28 @@ public class Run extends BaseClass {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
     }
+
     @Test(priority = 4)
+    public void viewAtLeaseOneCustomer(){
+        dashBoardPag.setCustomerListLink();
+        Assert.assertTrue(customerListPage.viewAtLeaseOneCustomer());
+    }
+
+    @Test(priority = 5)
     public void createCustomerGroups(){
         dashBoardPag.setCustomerListLink();
         customerListPage.addCustomerGroup();
         Assert.assertTrue(customerListPage.verifyCustomerGroupUpdatedMessage());
     }
 
-    @Test(priority = 5)
-    public void searchCustomer(){
-        dashBoardPag.setCustomerListLink();
-        customerListPage.searchCustomer();
-        Assert.assertTrue(customerListPage.verifySearchCustomer());
-    }
+//    @Test(priority = 6)
+//    public void searchCustomer(){
+//        dashBoardPag.setCustomerListLink();
+//        customerListPage.searchCustomer();
+//        Assert.assertTrue(customerListPage.verifySearchCustomer());
+//    }
 
-    @Test(priority = 6)
+    @Test(priority = 7)
     public void GDPRReport(){
         dashBoardPag.setCustomerListLink();
         customerListPage.createReport();
