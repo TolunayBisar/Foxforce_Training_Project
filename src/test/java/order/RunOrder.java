@@ -36,6 +36,11 @@ public class RunOrder extends BaseClass {
         orderPage.verifyCheckUncheckAllClick();
 
     }
+    @Test
+    public void billingAddress(){
+        orderPage.createOrder();
+
+    }
 
 
 

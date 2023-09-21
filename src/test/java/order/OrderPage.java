@@ -1,6 +1,7 @@
 package order;
 
 import basefunctions.FunctionLibrary;
+import cubecartobjects.OrderObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -13,6 +14,8 @@ import java.util.List;
 public class OrderPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
+    OrderObject orderObject;
+    ReadCustomerInfoList readCustomerInfoList;
     @FindAll(@FindBy(xpath = "//div/table[last()]/tbody/tr"))
     List<WebElement> orderList;
 
@@ -40,6 +43,8 @@ public class OrderPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
+        orderObject = new OrderObject();
+        readCustomerInfoList = new ReadCustomerInfoList(driver);
     }
 
 
@@ -79,12 +84,18 @@ public class OrderPage {
         functionLibrary.waitForElementPresent(orderStatusField);
         orderStatusField.click();
         Select statusDropdown = new Select(orderStatusField);
-        for (int i = 1; i <= 6; i++) {
-            statusDropdown.selectByIndex(i);
+      // for (int i = 1; i <= 3; i++) {
+            statusDropdown.selectByIndex(0);
          functionLibrary.waitForElementPresent(billingTab);
          billingTab.click();
+         functionLibrary.waitForElementPresent(customerInfoField);
+        System.out.println(readCustomerInfoList.readCustomerInfo());
+         customerInfoField.sendKeys(readCustomerInfoList.readCustomerInfo().get(1));
+         functionLibrary.sleep(1);
 
-        }
+
+       // }
+        System.out.println(readCustomerInfoList.readCustomerInfo());
 
     }
 }
