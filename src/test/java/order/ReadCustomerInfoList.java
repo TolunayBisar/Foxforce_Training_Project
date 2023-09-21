@@ -43,30 +43,28 @@ public class ReadCustomerInfoList extends BaseClass {
         }
         XSSFSheet sheet = workbook.getSheet("1.Page");
 
-        //XSSFSheet sheet = workbook.getSheetAt(0);
+
         int rowCount = sheet.getLastRowNum();
         int cellCount=sheet.getRow(0).getLastCellNum();// column count
-        System.out.println(rowCount);//2
-        System.out.println(cellCount);//2
+        System.out.println(rowCount);
+        System.out.println(cellCount);
         List<String> c = new ArrayList<>();
 
         for (int row =0; row<=rowCount;row++){
             XSSFRow rows = sheet.getRow(row);
             for (int column = 0; column<cellCount;column++){
                 XSSFCell columns = rows.getCell(column);
-                switch (columns.getCellType()){
-                    case STRING :
-                        System.out.print(columns.getStringCellValue());
-                        //System.out.println(columns);
-                        c.add(columns.getStringCellValue());
 
-                        break;
-                }
+                        System.out.print(columns.getStringCellValue());
+
+                        c.add(columns.getStringCellValue());
 
 
             }
+
             System.out.println();
         }
+        System.out.println(c);
         return c;
 
     }

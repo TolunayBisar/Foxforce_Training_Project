@@ -39,6 +39,52 @@ public class OrderPage {
     @FindBy(id="sum_name")
     WebElement customerInfoField;
 
+    @FindBy(xpath = "//span[@name='1']")
+    WebElement customerSelect;
+
+    @FindBy(id="ajax_title")
+    WebElement title;
+
+    @FindBy(id="sum_company_name")
+    WebElement companyName;
+
+    @FindBy(id="sum_line1")
+    WebElement addressField;
+    @FindBy(id="sum_town")
+    WebElement cityField;
+
+    @FindBy(id="sum_country")
+    WebElement countryField;
+
+    @FindBy(id="sum_postcode")
+    WebElement zipField;
+    @FindBy(linkText = "Delivery")
+    WebElement deliveryTab;
+
+    @FindBy(linkText = "Copy from Billing Address")
+    WebElement copyAddLink;
+
+    @FindBy(id="sum_ship_date")
+    WebElement dispatchDateField;
+
+    @FindAll(@FindBy(xpath = "//table[@class='ui-datepicker-calendar']/tbody/tr/td"))
+    List<WebElement> dateButton;
+
+    @FindBy(id="sum_ship_method")
+    WebElement shipMethod;
+
+    @FindBy (id="sum_ship_product")
+    WebElement shipProduct;
+    @FindBy(id="1sum_ship_tracking")
+    WebElement trackNo;
+
+    @FindBy(id="sum_weight")
+    WebElement weight;
+
+    @FindBy(linkText = "Inventory")
+    WebElement inventoryTab;
+
+
     public OrderPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -89,13 +135,51 @@ public class OrderPage {
          functionLibrary.waitForElementPresent(billingTab);
          billingTab.click();
          functionLibrary.waitForElementPresent(customerInfoField);
-        System.out.println(readCustomerInfoList.readCustomerInfo());
-         customerInfoField.sendKeys(readCustomerInfoList.readCustomerInfo().get(1));
+         customerInfoField.sendKeys(readCustomerInfoList.readCustomerInfo().get(0));
          functionLibrary.sleep(1);
+         customerSelect.click();
+         functionLibrary.waitForElementPresent(title);
+         title.sendKeys("Mr");
+         functionLibrary.waitForElementPresent(companyName);
+         companyName.sendKeys("Limon");
+         functionLibrary.waitForElementPresent(addressField);
+         addressField.sendKeys("fatih");
+         functionLibrary.waitForElementPresent(cityField);
+         cityField.sendKeys("Istanbul");
+         Select select = new Select(countryField);
+         select.selectByVisibleText("Istanbul");
+         functionLibrary.waitForElementPresent(zipField);
+         zipField.sendKeys("345000");
+
+         //Delivery Tab
+         functionLibrary.waitForElementPresent(deliveryTab);
+         deliveryTab.click();
+         functionLibrary.waitForElementPresent(copyAddLink);
+         copyAddLink.click();
+         functionLibrary.waitForElementPresent(dispatchDateField);
+         dispatchDateField.click();
+         for (int i=0;i< dateButton.size();i++){
+         if (dateButton.get(i).getText()=="28"){
+             dateButton.get(i).click();
+         }
+
+         }
+         functionLibrary.waitForElementPresent(shipMethod);
+         shipMethod.sendKeys("DHL");
+         functionLibrary.waitForElementPresent(shipProduct);
+         shipProduct.sendKeys("phone");
+         functionLibrary.waitForElementPresent(trackNo);
+         trackNo.sendKeys("D3456");
+         functionLibrary.waitForElementPresent(weight);
+         weight.sendKeys("1kg");
+
+
+
+
 
 
        // }
-        System.out.println(readCustomerInfoList.readCustomerInfo());
+
 
     }
 }
