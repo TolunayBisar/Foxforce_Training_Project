@@ -132,14 +132,14 @@ WebElement searchTab;
         readCustomerInfoList = new ReadCustomerInfoList(driver);
         orderObject = new OrderObject("ersin","28","DHL","Monday",
                 "D"+System.currentTimeMillis(),1.5,3,"book",10,10,10,
-                "This is important shippment","Pls give us feedback as soon as you get product");
+                "This is important shipment","Pls give us feedback as soon as you get product");
     }
 
 
     // Verify at least one order in list
     public boolean verifyOrder() {
         if (orderList.size() >= 1)
-            System.out.println("There is at leat on order in list");
+            System.out.println("There is at least on order in list");
         System.out.printf("There are %d orders in this list", orderList.size());
 
 
@@ -181,8 +181,8 @@ WebElement searchTab;
         customerInfoField.sendKeys(orderObject.getCustomerInfo());
         functionLibrary.sleep(1);
         customerSelect.click();
-        functionLibrary.waitForElementPresent(title);
-        title.sendKeys("Mr");
+        //functionLibrary.waitForElementPresent(title);
+        //title.sendKeys("Mr");
         functionLibrary.waitForElementPresent(companyName);
         companyName.sendKeys("Limon");
         functionLibrary.waitForElementPresent(addressField);
