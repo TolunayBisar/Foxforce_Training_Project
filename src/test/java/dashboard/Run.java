@@ -2,6 +2,8 @@ package dashboard;
 
 
 import basefunctions.BaseClass;
+import basefunctions.FunctionLibrary;
+import mailinglist.MailingList;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -11,12 +13,15 @@ import org.testng.annotations.Test;
 public class Run extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
+    MailingList mailingList;
+    FunctionLibrary functionLibrary;
 
     @BeforeClass
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
         dashBoardPag = new DashBoardPage(driver);
+        mailingList = new MailingList(driver);
     }
 
     @Test(priority = 1, dataProvider = "loginData")
@@ -57,5 +62,13 @@ public class Run extends BaseClass {
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
     }
 
+    @Test(priority = 4)
+    public void mailingList() {
+        loginPage.logIn("testautomation1", "automation123!");
+        Assert.assertTrue(dashBoardPag.verifyDashboardPage());
+        dashBoardPag.clickOnMailingListLink();
+        // mailingList.clickAndVeriFyMailingListDashboard();
+        mailingList.filterMailingList();
+    }
 
 }
