@@ -67,12 +67,13 @@ public class ExcelObject {
         functionLibrary = new FunctionLibrary(driver);
 
         readCustomerInfoList = new ReadCustomerInfoList(driver);
-        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(0), "28", "DHL", "Monday",
-                "D" + System.currentTimeMillis(), 1.5, 3, "book", 10, 10, 10,
-                "This is important shippment", "Pls give us feedback as soon as you get product");
+
     }
 
     public void createOrder() {
+        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(0), "28", "DHL", "Monday",
+                "D" + System.currentTimeMillis(), 1.5, 3, "book", 10, 10, 10,
+                "This is important shippment", "Pls give us feedback as soon as you get product");
 
         functionLibrary.waitForElementPresent(createOrderTab);
         createOrderTab.click();

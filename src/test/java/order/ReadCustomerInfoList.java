@@ -55,16 +55,17 @@ public class ReadCustomerInfoList extends BaseClass {
             for (int column = 0; column<cellCount;column++){
                 XSSFCell columns = rows.getCell(column);
 
-                        System.out.print(columns.getStringCellValue());
+
 
                         c.add(columns.getStringCellValue());
 
 
-            }
 
-            System.out.println();
+            }System.out.println(c);
+
+
         }
-        System.out.println(c);
+        System.out.println(c.size());
         return c;
 
     }
