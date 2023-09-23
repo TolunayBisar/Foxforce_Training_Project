@@ -5,6 +5,7 @@ import basefunctions.FunctionLibrary;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -61,5 +62,8 @@ public class TestForMailing extends BaseClass {
         mailingList.deleteEmail();
         Assert.assertTrue(mailingList.verifySuccess());
     }
-
+//@AfterClass
+//    public void close(){
+//        closeBrowser();
+//}
 }
