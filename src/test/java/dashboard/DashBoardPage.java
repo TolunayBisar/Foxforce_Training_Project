@@ -57,7 +57,7 @@ public class DashBoardPage {
         TransactionLogsLink.click();
     }
 
-    public void clickONNewsLettersLink() {
+    public void clickOnNewsLettersLink() {
         functionLibrary.waitForElementPresent(newsLettersLink);
         newsLettersLink.click();
     }

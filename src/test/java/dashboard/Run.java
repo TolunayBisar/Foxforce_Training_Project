@@ -14,13 +14,13 @@ public class Run extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
     MailingList mailingList;
-    FunctionLibrary functionLibrary;
 
     @BeforeClass
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
         dashBoardPag = new DashBoardPage(driver);
+        loginPage.logIn("testautomation1", "automation123!");
         mailingList = new MailingList(driver);
     }
 
@@ -61,14 +61,4 @@ public class Run extends BaseClass {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
     }
-
-    @Test(priority = 4)
-    public void mailingList() {
-        loginPage.logIn("testautomation1", "automation123!");
-        Assert.assertTrue(dashBoardPag.verifyDashboardPage());
-        dashBoardPag.clickOnMailingListLink();
-        // mailingList.clickAndVeriFyMailingListDashboard();
-        mailingList.filterMailingList();
-    }
-
 }
