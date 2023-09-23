@@ -22,8 +22,9 @@ public class RunExcel extends BaseClass {
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
-        loginPage.logIn("testautomation1", "automation123!");
         dashBoardPage = new DashBoardPage(driver);
+        loginPage.logIn("testautomation1", "automation123!");
+
         dashBoardPage.setOrderLink();
 
         excelObject= new ExcelObject(driver);

@@ -1,6 +1,5 @@
 package order;
 
-import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -15,18 +14,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadCustomerInfoList {
+public class ReadOrderInfoList {
     WebDriver driver;
     FunctionLibrary functionLibrary;
 
-    public ReadCustomerInfoList(WebDriver driver) {
+    public ReadOrderInfoList(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
     }
 
-    public List<String> readCustomerInfo() {
-        String file = "CustomerInfoFolder/CustomerName.xlsx";
+    public List<List<String>> readOrderInfo() {
+        String file = "CustomerInfoFolder/orderName.xlsx";
 
 
         FileInputStream inputStream = null;
@@ -41,32 +40,46 @@ public class ReadCustomerInfoList {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        XSSFSheet sheet = workbook.getSheet("1.Page");
+        XSSFSheet sheet = workbook.getSheet("2.Page");
 
 
         int rowCount = sheet.getLastRowNum();
         int cellCount = sheet.getRow(0).getLastCellNum();// column count
         System.out.println(rowCount);
         System.out.println(cellCount);
-        List<String> c = new ArrayList<>();
+        List<String> c1 = new ArrayList<>();
+        List<String> c2 = new ArrayList<>();
+        List<List<String>> c = new ArrayList<>();
 
-        for (int row = 0; row < rowCount; row++) {
-            XSSFRow rows = sheet.getRow(row);
+            XSSFRow row1 = sheet.getRow(0);
             for (int column = 0; column < cellCount; column++) {
-                XSSFCell columns = rows.getCell(column);
+                XSSFCell columns = row1.getCell(column);
 
-                c.add(columns.getStringCellValue());
+                c1.add(columns.getStringCellValue());
 
             }
-            System.out.println(c);
+            System.out.println(c1);
+
+        XSSFRow row2 = sheet.getRow(0);
+        for (int column = 0; column < cellCount; column++) {
+            XSSFCell columns = row2.getCell(column);
+
+            c2.add(columns.getStringCellValue());
 
         }
+        System.out.println(c2);
+       c.add(c1);
+       c.add(c2);
+
         //System.out.println(c.size());
+
         return c;
 
     }
 
 
 }
+
+
 
 

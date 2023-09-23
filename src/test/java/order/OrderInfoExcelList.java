@@ -11,7 +11,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.io.File;
@@ -21,19 +20,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
-public class CustomerInfoExcelList extends BaseClass {
+public class OrderInfoExcelList extends BaseClass {
     WebDriver driver;
     FunctionLibrary functionLibrary;
 
-    public CustomerInfoExcelList(WebDriver driver) {
+    public OrderInfoExcelList(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
     }
 
 
-    public void writeToExcel(String fileName,String folderName, String sheetName, List<String> content) {
+    public void writeOrderToExcel(String fileName,String folderName, String sheetName,LinkedHashMap<String,String> content) {
 
         String projectPath = System.getProperty("user.dir");// this is fix value, there is case sensitive.
         String folderLocation = projectPath + File.separator + folderName;// folder location
@@ -55,18 +55,35 @@ public class CustomerInfoExcelList extends BaseClass {
         }
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet(sheetName);
-        int rowSize = content.size();
-        for (int rowNumber = 0; rowNumber < rowSize; rowNumber++) {
-            XSSFRow row = sheet.createRow(rowNumber);
-            String[] rowContent = content.get(rowNumber).split(",");//{testautomation1,automationtest123!}
-            // =[testautomation1,automationtest123!]
-            int totalCell = rowContent.length;
-            for (int cellNumber = 0; cellNumber < totalCell; cellNumber++) {
-                XSSFCell cell = row.createCell(cellNumber);
-                cell.setCellValue(rowContent[cellNumber]);
-            }
+
+        List<String> rowContent= new ArrayList<>();
+        List<String> rowContent1= new ArrayList<>();
+        Set<String> keySet = content.keySet();
+        for (String key: keySet) {
+            rowContent.add(key);
+            String value = content.get(key);
+            rowContent1.add(value);
 
         }
+        int rowNumber=0;
+
+            XSSFRow row = sheet.createRow(rowNumber);
+
+            for (int cellNumber = 0; cellNumber < rowContent.size(); cellNumber++) {
+                XSSFCell cell = row.createCell(cellNumber);
+                cell.setCellValue(rowContent.get(cellNumber));
+            }
+
+
+        int rowNumber1=1;
+        XSSFRow row1 = sheet.createRow(rowNumber1);
+
+
+        for (int cellNumber = 0; cellNumber < rowContent1.size(); cellNumber++) {
+            XSSFCell cell = row1.createCell(cellNumber);
+            cell.setCellValue(rowContent1.get(cellNumber));
+        }
+
         try {
             workbook.write(outputStream);
         } catch (IOException e) {
@@ -80,30 +97,26 @@ public class CustomerInfoExcelList extends BaseClass {
 
     }
 
+
+
     public static void main(String[] args) {
         BaseClass baseClass = new BaseClass();
         baseClass.openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         LoginPage login = new LoginPage(baseClass.driver);
         login.logIn("testautomation1", "automation123!");
-        WebElement customerList = baseClass.driver.findElement(By.linkText("Customer List"));
-        customerList.click();
 
-        List<String> customerInfoList = new ArrayList<>();
-        List<WebElement> customerNames = baseClass.driver.findElements(By.xpath("//i[@class='fa fa-user registered']/parent::td/following-sibling::td[1]/a"));
-        for (int i = 0; i < customerNames.size(); i++) {
-            customerInfoList.add(customerNames.get(i).getText());
-            //String[] s = userInfo.get(0).split(",");
-            //System.out.println(Arrays.toString(s));
-            CustomerInfoExcelList writeToExcelFile = new CustomerInfoExcelList(baseClass.driver);
-            String fileName = "CustomerInfoFolder/CustomerName.xlsx";
+        DashBoardPage dashBoardPage = new DashBoardPage(baseClass.driver);
+        dashBoardPage.setOrderLink();
+        LinkedHashMap<String,String> orderList = new LinkedHashMap<>();
+        List<WebElement> orderNumbers= baseClass.driver.findElements(By.xpath
+                ("//tbody//td[2]/a[@title='Edit']"));
+        List<WebElement> customers= baseClass.driver.findElements(By.xpath
+                ("//tbody//td[4]/a"));
+        for (int i=0;i< orderNumbers.size();i++){
+            orderList.put(orderNumbers.get(i).getText(),customers.get(i).getText());
+            OrderInfoExcelList writeOrderToExcel = new OrderInfoExcelList(baseClass.driver);
+            String fileName = "CustomerInfoFolder/orderName.xlsx";
             String folderName="CustomerInfoFolder";
-            writeToExcelFile.writeToExcel(fileName, folderName,"1.Page", customerInfoList);}
-
-
-
-            }
-
+            writeOrderToExcel.writeOrderToExcel(fileName, folderName,"2.Page", orderList);}
     }
-
-
-
+}

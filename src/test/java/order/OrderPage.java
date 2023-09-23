@@ -2,6 +2,7 @@ package order;
 
 import basefunctions.FunctionLibrary;
 import cubecartobjects.OrderObject;
+import dashboard.DashBoardPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -10,12 +11,15 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Random;
 
 public class OrderPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
     OrderObject orderObject;
     ReadCustomerInfoList readCustomerInfoList;
+    ReadOrderInfoList readOrderInfoList;
+    DashBoardPage dashBoardPage;
     @FindAll(@FindBy(xpath = "//div/table[last()]/tbody/tr"))
     List<WebElement> orderList;
 
@@ -122,7 +126,20 @@ WebElement verifyMessageOfCreateOrder;
 @FindBy(linkText = "Search Orders")
 WebElement searchTab;
 
+@FindBy(xpath = "//span/input[@name='search[order_number]']")
+WebElement orderNumberField;
 
+@FindBy(xpath = "//input[@value='Search']")
+WebElement searchButton;
+
+@FindBy(xpath = "//div[text()='Orders have been found that match your search criteria.']")
+WebElement searchOrderSeccussfulMsg;
+
+@FindAll(@FindBy(xpath = "//i[@title='Edit']"))
+List<WebElement> editIcons ;
+
+@FindBy(xpath = "//div[text()='Order successfully updated.']")
+WebElement editSuccessMsg;
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -130,9 +147,9 @@ WebElement searchTab;
         functionLibrary = new FunctionLibrary(driver);
 
         readCustomerInfoList = new ReadCustomerInfoList(driver);
-        orderObject = new OrderObject("ersin","28","DHL","Monday",
-                "D"+System.currentTimeMillis(),1.5,3,"book",10,10,10,
-                "This is important shipment","Pls give us feedback as soon as you get product");
+        readOrderInfoList = new ReadOrderInfoList(driver);
+        dashBoardPage = new DashBoardPage(driver);
+
     }
 
 
@@ -167,22 +184,27 @@ WebElement searchTab;
 
     //Create order
     public void createOrder() {
+        Random random = new Random();
+        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)),"28","DHL","Monday",
+                "D"+System.currentTimeMillis(),1.5,3,"book",10,10,10,
+                "This is important shipment","Pls give us feedback as soon as you get product");
 
         functionLibrary.waitForElementPresent(createOrderTab);
         createOrderTab.click();
+
+        //Order Summary
         functionLibrary.waitForElementPresent(orderStatusField);
         orderStatusField.click();
         Select statusDropdown = new Select(orderStatusField);
-        // for (int i = 1; i <= 3; i++) {
-        statusDropdown.selectByIndex(0);
+        statusDropdown.selectByIndex(random.nextInt(5));
+
+        //Billing Tab
         functionLibrary.waitForElementPresent(billingTab);
         billingTab.click();
         functionLibrary.waitForElementPresent(customerInfoField);
         customerInfoField.sendKeys(orderObject.getCustomerInfo());
         functionLibrary.sleep(1);
         customerSelect.click();
-        //functionLibrary.waitForElementPresent(title);
-        //title.sendKeys("Mr");
         functionLibrary.waitForElementPresent(companyName);
         companyName.sendKeys("Limon");
         functionLibrary.waitForElementPresent(addressField);
@@ -264,10 +286,138 @@ WebElement searchTab;
     public void searchOrder(){
         functionLibrary.waitForElementPresent(searchTab);
         searchTab.click();
+        Random random = new Random();
+        orderNumberField.sendKeys(readOrderInfoList.readOrderInfo().get(0).
+                get(random.nextInt(23)));
+        searchButton.click();
+    }
+
+    public boolean verifySearchOrder(){
+        functionLibrary.waitForElementPresent(searchOrderSeccussfulMsg);
+        if (searchOrderSeccussfulMsg.isDisplayed()){
+            System.out.println("You fund that order");
+
+        }
+        return true;
+    }
+
+    //Edit
+
+    public void editOrder(){
+        dashBoardPage.setOrderLink();
+        Random random = new Random();
+        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)),"26","MNG","Sunday",
+                "M"+System.currentTimeMillis(),1,10,"Iphone",1000,10,10,
+                "This is dangerous shipment","Thanks for your supporting");
+        editIcons.get(random.nextInt(24)).click();
+        orderStatusField.click();
+        Select select = new Select(orderStatusField);
+        select.selectByIndex(random.nextInt(6));
+        functionLibrary.waitForElementPresent(billingTab);
+        billingTab.click();
+        functionLibrary.sleep(1);
+       title.clear();
+       title.sendKeys("Mr");
+        functionLibrary.waitForElementPresent(companyName);
+        companyName.clear();
+        companyName.sendKeys("AAA");
+        functionLibrary.waitForElementPresent(addressField);
+        addressField.clear();
+        addressField.sendKeys("silivri");
+        functionLibrary.waitForElementPresent(cityField);
+        cityField.clear();
+        cityField.sendKeys("Izmir");
+        functionLibrary.waitForElementPresent(countryField);
+        countryField.click();
+        Select select1 = new Select(countryField);
+
+        select1.selectByIndex(12);
+        functionLibrary.waitForElementPresent(zipField);
+        zipField.clear();
+        zipField.sendKeys("3000s");
+
+        functionLibrary.waitForElementPresent(deliveryTab);
+        deliveryTab.click();
+        functionLibrary.waitForElementPresent(copyAddLink);
+        copyAddLink.click();
+        functionLibrary.waitForElementPresent(dispatchDateField);
+        dispatchDateField.click();
+        for (int i = 0; i < dateButton.size(); i++) {
+            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate()) ) {
+                dateButton.get(i).click();
+            }
+
+        }
+        functionLibrary.waitForElementPresent(shipMethod);
+        shipMethod.clear();
+        shipMethod.sendKeys(orderObject.getShippingMethod());
+        functionLibrary.waitForElementPresent(shipProduct);
+        shipProduct.clear();
+        shipProduct.sendKeys(orderObject.getShippingDate());
+        functionLibrary.waitForElementPresent(trackNo);
+        trackNo.clear();
+        trackNo.sendKeys(orderObject.getDeliveryTracking());
+        functionLibrary.waitForElementPresent(weight);
+        weight.clear();
+        weight.sendKeys(String.valueOf(orderObject.getWeight()));
+
+        //inventory tab
+        functionLibrary.waitForElementPresent(inventoryTab);
+        inventoryTab.click();
+        functionLibrary.waitForElementPresent(quantityField);
+        quantityField.clear();
+        quantityField.sendKeys(String.valueOf(orderObject.getQuantity()));
+        functionLibrary.waitForElementPresent(productNameField);
+        productNameField.clear();
+        productNameField.sendKeys(orderObject.getProductName());
+
+        functionLibrary.waitForElementPresent(unitePriceField);
+        unitePriceField.clear();
+        unitePriceField.sendKeys(String.valueOf(50000));
+        functionLibrary.waitForElementPresent(addProductIcon);
+        addProductIcon.click();
+        functionLibrary.waitForElementPresent(discountDropdown);
+        Select select2 = new Select(discountDropdown);
+        select2.selectByValue("f");
+        functionLibrary.waitForElementPresent(discountField);
+        discountField.sendKeys(String.valueOf(orderObject.getDiscountAmount()));
+        functionLibrary.waitForElementPresent(shippingCost);
+        shippingCost.clear();
+        shippingCost.sendKeys(String.valueOf(orderObject.getShippingCost()));
+        functionLibrary.waitForElementPresent(tax);
+        tax.clear();
+        tax.sendKeys(String.valueOf(orderObject.getTaxAmount()));
+        functionLibrary.waitForElementPresent(addIcon);
+        addIcon.click();
+
+
+        // Note Tab
+        functionLibrary.waitForElementPresent(noteTab);
+        noteTab.click();
+        functionLibrary.waitForElementPresent(internalNoteField);
+        internalNoteField.clear();
+        internalNoteField.sendKeys(orderObject.getInternalNotes());
+        functionLibrary.waitForElementPresent(publicNoteField);
+        publicNoteField.clear();
+        publicNoteField.sendKeys(orderObject.getPublicNotes());
+        functionLibrary.waitForElementPresent(saveButton);
+        saveButton.click();
+    }
+
+    public boolean verifyEdit(){
+        functionLibrary.waitForElementPresent(editSuccessMsg);
+        if (editSuccessMsg.isDisplayed())
+            System.out.println("edit successful!");
+        return true;
     }
 
 
+
 }
+
+
+
+
 
 
 

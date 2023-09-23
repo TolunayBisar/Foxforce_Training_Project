@@ -51,16 +51,29 @@ public class RunOrder extends BaseClass {
         Assert.assertTrue(orderPage.verifyOrderCreated());
 
     }
-
-
-
-
-
-    @AfterClass
-    public void tearDown(){
-
-        closeBrowser();
+    @Test
+    public void searchOrder(){
+        orderPage.searchOrder();
+        orderPage.verifySearchOrder();
+        Assert.assertTrue(orderPage.verifySearchOrder());
     }
+
+    @Test
+    public void editOrder(){
+        orderPage.editOrder();
+        orderPage.verifyEdit();
+        Assert.assertTrue(orderPage.verifyEdit());
+    }
+
+
+
+
+
+   @AfterClass
+   public void tearDown(){
+
+      closeBrowser();
+   }
 
 
 
