@@ -140,6 +140,14 @@ List<WebElement> editIcons ;
 
 @FindBy(xpath = "//div[text()='Order successfully updated.']")
 WebElement editSuccessMsg;
+@FindAll(@FindBy(xpath = "//i[@title='Delete']"))
+List<WebElement> deleteIcons;
+
+@FindBy(xpath ="//div[text()='Order successfully deleted.']")
+WebElement verifyDeleteMsg;
+
+@FindBy(xpath = "//div[@class='pagination']/span/strong")
+WebElement totalOrderCount;
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -408,6 +416,28 @@ WebElement editSuccessMsg;
         functionLibrary.waitForElementPresent(editSuccessMsg);
         if (editSuccessMsg.isDisplayed())
             System.out.println("edit successful!");
+        return true;
+    }
+
+    //Delete Order
+    public int deleteOrderWithIcon(){
+
+        functionLibrary.waitForElementPresent(deleteIcons.get(0));
+
+        System.out.println(deleteIcons.size());
+        int beforeDelete= deleteIcons.size();
+        deleteIcons.get(0).click();
+        driver.switchTo().alert().accept();
+        System.out.println(deleteIcons.size());
+        int afterDelete= deleteIcons.size();
+        return beforeDelete-afterDelete;
+    }
+    public boolean verifyDelete(){
+        OrderPage orderPage = new OrderPage(driver);
+        orderPage.deleteOrderWithIcon();
+
+        if (verifyDeleteMsg.isDisplayed())
+            System.out.println("You have deleted the order");
         return true;
     }
 

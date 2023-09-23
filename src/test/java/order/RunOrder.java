@@ -65,6 +65,13 @@ public class RunOrder extends BaseClass {
         Assert.assertTrue(orderPage.verifyEdit());
     }
 
+@Test
+public void deleteOrder(){
+        orderPage.deleteOrderWithIcon();
+        Assert.assertTrue((orderPage.deleteOrderWithIcon()==1)&& (orderPage.verifyDelete()));
+}
+
+
 
 
 
