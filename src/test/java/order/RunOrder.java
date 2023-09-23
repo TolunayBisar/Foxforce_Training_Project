@@ -31,44 +31,50 @@ public class RunOrder extends BaseClass {
 
 
     }
-    @Test
+    @Test(priority = 1)
     public void orderListVerify(){
 
         Assert.assertTrue(orderPage.verifyOrder());
 
 
     }
-    @Test
+    @Test(priority = 2)
     public void verifyCheckUncheckLick(){
         orderPage.verifyCheckUncheckAllClick();
         Assert.assertTrue(orderPage.verifyCheckUncheckAllClick());
 
     }
-    @Test
+    @Test(priority = 3,invocationCount = 3)
     public void createOrder(){
         orderPage.createOrder();
         orderPage.verifyOrderCreated();
         Assert.assertTrue(orderPage.verifyOrderCreated());
 
     }
-    @Test
+    @Test(priority = 4)
     public void searchOrder(){
         orderPage.searchOrder();
         orderPage.verifySearchOrder();
         Assert.assertTrue(orderPage.verifySearchOrder());
     }
 
-    @Test
+    @Test(priority = 5)
     public void editOrder(){
         orderPage.editOrder();
         orderPage.verifyEdit();
         Assert.assertTrue(orderPage.verifyEdit());
     }
 
-@Test
+@Test(priority = 6)
 public void deleteOrder(){
         orderPage.deleteOrderWithIcon();
         Assert.assertTrue((orderPage.deleteOrderWithIcon()==1)&& (orderPage.verifyDelete()));
+}
+
+@Test(priority = 7)
+public void deleteAndPrintWithDropdown(){
+        orderPage.dropdownOnOrderPage();
+        Assert.assertTrue(orderPage.verifyDeleteWithDropdown());
 }
 
 
@@ -76,8 +82,9 @@ public void deleteOrder(){
 
 
 
-   @AfterClass
-   public void tearDown(){
+
+  @AfterClass
+  public void tearDown(){
 
       closeBrowser();
    }

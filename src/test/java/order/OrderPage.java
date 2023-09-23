@@ -1,6 +1,7 @@
 package order;
 
 import basefunctions.FunctionLibrary;
+import basefunctions.ScreenShotUtility;
 import cubecartobjects.OrderObject;
 import dashboard.DashBoardPage;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ public class OrderPage {
     ReadCustomerInfoList readCustomerInfoList;
     ReadOrderInfoList readOrderInfoList;
     DashBoardPage dashBoardPage;
+    ScreenShotUtility screenShotUtility;
     @FindAll(@FindBy(xpath = "//div/table[last()]/tbody/tr"))
     List<WebElement> orderList;
 
@@ -40,27 +42,27 @@ public class OrderPage {
     @FindBy(xpath = "//div[@id='tab_order_billing']/a[text()='Billing']")
     WebElement billingTab;
 
-    @FindBy(id="sum_name")
+    @FindBy(id = "sum_name")
     WebElement customerInfoField;
 
     @FindBy(xpath = "//span[@name='1']")
     WebElement customerSelect;
 
-    @FindBy(id="ajax_title")
+    @FindBy(id = "ajax_title")
     WebElement title;
 
-    @FindBy(id="sum_company_name")
+    @FindBy(id = "sum_company_name")
     WebElement companyName;
 
-    @FindBy(id="sum_line1")
+    @FindBy(id = "sum_line1")
     WebElement addressField;
-    @FindBy(id="sum_town")
+    @FindBy(id = "sum_town")
     WebElement cityField;
 
-    @FindBy(id="sum_country")
+    @FindBy(id = "sum_country")
     WebElement countryField;
 
-    @FindBy(id="sum_postcode")
+    @FindBy(id = "sum_postcode")
     WebElement zipField;
     @FindBy(linkText = "Delivery")
     WebElement deliveryTab;
@@ -68,21 +70,21 @@ public class OrderPage {
     @FindBy(linkText = "Copy from Billing Address")
     WebElement copyAddLink;
 
-    @FindBy(id="sum_ship_date")
+    @FindBy(id = "sum_ship_date")
     WebElement dispatchDateField;
 
     @FindAll(@FindBy(xpath = "//table[@class='ui-datepicker-calendar']/tbody/tr/td"))
     List<WebElement> dateButton;
 
-    @FindBy(id="sum_ship_method")
+    @FindBy(id = "sum_ship_method")
     WebElement shipMethod;
 
-    @FindBy (id="sum_ship_product")
+    @FindBy(id = "sum_ship_product")
     WebElement shipProduct;
-    @FindBy(id="sum_ship_tracking")
+    @FindBy(id = "sum_ship_tracking")
     WebElement trackNo;
 
-    @FindBy(id="sum_weight")
+    @FindBy(id = "sum_weight")
     WebElement weight;
 
     @FindBy(linkText = "Inventory")
@@ -91,63 +93,74 @@ public class OrderPage {
     @FindBy(xpath = "//tr[@class='update-subtotal inline-add']/td[1]/input[1]")
     WebElement quantityField;
 
-    @FindBy(id="ajax_name")
+    @FindBy(id = "ajax_name")
     WebElement productNameField;
 
 
-    @FindBy(id="ajax_price")
+    @FindBy(id = "ajax_price")
     WebElement unitePriceField;
 
     @FindBy(xpath = "//a[@target='inventory-list']/i")
     WebElement addProductIcon;
-    @FindBy(id="discount_type")
+    @FindBy(id = "discount_type")
     WebElement discountDropdown;
-    @FindBy(id="discount")
+    @FindBy(id = "discount")
     WebElement discountField;
-    @FindBy(id="shipping")
+    @FindBy(id = "shipping")
     WebElement shippingCost;
     @FindBy(xpath = "//input[@class='textbox number-right tax not-empty']")
     WebElement tax;
-@FindBy(xpath = "//a[@target='tax-list']/i")
-WebElement addIcon;
+    @FindBy(xpath = "//a[@target='tax-list']/i")
+    WebElement addIcon;
 
-@FindBy(xpath = "//div[@id='tab_order_notes']/a")
-WebElement noteTab;
+    @FindBy(xpath = "//div[@id='tab_order_notes']/a")
+    WebElement noteTab;
 
-@FindBy(name = "note")
-WebElement internalNoteField;
-@FindBy(name = "summary[note_to_customer]")
-WebElement publicNoteField;
-@FindBy(xpath = "//input[@value='Save']")
-WebElement saveButton;
-@FindBy(xpath = "//div[contains(text(),'Order successfully created.')]")
-WebElement verifyMessageOfCreateOrder;
+    @FindBy(name = "note")
+    WebElement internalNoteField;
+    @FindBy(name = "summary[note_to_customer]")
+    WebElement publicNoteField;
+    @FindBy(xpath = "//input[@value='Save']")
+    WebElement saveButton;
+    @FindBy(xpath = "//div[contains(text(),'Order successfully created.')]")
+    WebElement verifyMessageOfCreateOrder;
 
-@FindBy(linkText = "Search Orders")
-WebElement searchTab;
+    @FindBy(linkText = "Search Orders")
+    WebElement searchTab;
 
-@FindBy(xpath = "//span/input[@name='search[order_number]']")
-WebElement orderNumberField;
+    @FindBy(xpath = "//span/input[@name='search[order_number]']")
+    WebElement orderNumberField;
 
-@FindBy(xpath = "//input[@value='Search']")
-WebElement searchButton;
+    @FindBy(xpath = "//input[@value='Search']")
+    WebElement searchButton;
 
-@FindBy(xpath = "//div[text()='Orders have been found that match your search criteria.']")
-WebElement searchOrderSeccussfulMsg;
+    @FindBy(xpath = "//div[text()='Orders have been found that match your search criteria.']")
+    WebElement searchOrderSeccussfulMsg;
 
-@FindAll(@FindBy(xpath = "//i[@title='Edit']"))
-List<WebElement> editIcons ;
+    @FindAll(@FindBy(xpath = "//i[@title='Edit']"))
+    List<WebElement> editIcons;
 
-@FindBy(xpath = "//div[text()='Order successfully updated.']")
-WebElement editSuccessMsg;
-@FindAll(@FindBy(xpath = "//i[@title='Delete']"))
-List<WebElement> deleteIcons;
+    @FindBy(xpath = "//div[text()='Order successfully updated.']")
+    WebElement editSuccessMsg;
+    @FindAll(@FindBy(xpath = "//i[@title='Delete']"))
+    List<WebElement> deleteIcons;
 
-@FindBy(xpath ="//div[text()='Order successfully deleted.']")
-WebElement verifyDeleteMsg;
+    @FindBy(xpath = "//div[text()='Order successfully deleted.']")
+    WebElement verifyDeleteMsg;
 
-@FindBy(xpath = "//div[@class='pagination']/span/strong")
-WebElement totalOrderCount;
+    @FindBy(name = "multi-status")
+    WebElement editStatusDropdown;
+    @FindBy(name = "multi-action")
+    WebElement printOrDeleteDropdown;
+    @FindAll(@FindBy(name = "multi-order[]"))
+    List<WebElement> checkboxes;
+
+    @FindBy(xpath = "//input[@name='go']")
+    WebElement goButton;
+
+    @FindAll(@FindBy(name = "custom-checkbox selected"))
+    List<WebElement> checkboxSelected;
+
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -157,6 +170,7 @@ WebElement totalOrderCount;
         readCustomerInfoList = new ReadCustomerInfoList(driver);
         readOrderInfoList = new ReadOrderInfoList(driver);
         dashBoardPage = new DashBoardPage(driver);
+        screenShotUtility = new ScreenShotUtility();
 
     }
 
@@ -193,9 +207,9 @@ WebElement totalOrderCount;
     //Create order
     public void createOrder() {
         Random random = new Random();
-        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)),"28","DHL","Monday",
-                "D"+System.currentTimeMillis(),1.5,3,"book",10,10,10,
-                "This is important shipment","Pls give us feedback as soon as you get product");
+        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)), "28", "DHL", "Monday",
+                "D" + System.currentTimeMillis(), 1.5, 3, "book", 10, 10, 10,
+                "This is important shipment", "Pls give us feedback as soon as you get product");
 
         functionLibrary.waitForElementPresent(createOrderTab);
         createOrderTab.click();
@@ -232,7 +246,7 @@ WebElement totalOrderCount;
         functionLibrary.waitForElementPresent(dispatchDateField);
         dispatchDateField.click();
         for (int i = 0; i < dateButton.size(); i++) {
-            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate()) ) {
+            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate())) {
                 dateButton.get(i).click();
             }
 
@@ -282,8 +296,8 @@ WebElement totalOrderCount;
         saveButton.click();
     }
 
-        // verify create order
-        public boolean verifyOrderCreated(){
+    // verify create order
+    public boolean verifyOrderCreated() {
         if (verifyMessageOfCreateOrder.isDisplayed())
             System.out.println("order created successfully");
         return true;
@@ -291,7 +305,7 @@ WebElement totalOrderCount;
     }
 
     //search Order
-    public void searchOrder(){
+    public void searchOrder() {
         functionLibrary.waitForElementPresent(searchTab);
         searchTab.click();
         Random random = new Random();
@@ -300,9 +314,9 @@ WebElement totalOrderCount;
         searchButton.click();
     }
 
-    public boolean verifySearchOrder(){
-        functionLibrary.waitForElementPresent(searchOrderSeccussfulMsg);
-        if (searchOrderSeccussfulMsg.isDisplayed()){
+    public boolean verifySearchOrder() {
+
+        if (searchOrderSeccussfulMsg.isDisplayed()) {
             System.out.println("You fund that order");
 
         }
@@ -311,21 +325,21 @@ WebElement totalOrderCount;
 
     //Edit
 
-    public void editOrder(){
+    public void editOrder() {
         dashBoardPage.setOrderLink();
         Random random = new Random();
-        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)),"26","MNG","Sunday",
-                "M"+System.currentTimeMillis(),1,10,"Iphone",1000,10,10,
-                "This is dangerous shipment","Thanks for your supporting");
-        editIcons.get(random.nextInt(24)).click();
+        orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)), "26", "MNG", "Sunday",
+                "M" + System.currentTimeMillis(), 1, 10, "Iphone", 1000, 10, 10,
+                "This is dangerous shipment", "Thanks for your supporting");
+        editIcons.get(random.nextInt(editIcons.size())).click();
         orderStatusField.click();
         Select select = new Select(orderStatusField);
         select.selectByIndex(random.nextInt(6));
         functionLibrary.waitForElementPresent(billingTab);
         billingTab.click();
         functionLibrary.sleep(1);
-       title.clear();
-       title.sendKeys("Mr");
+        title.clear();
+        title.sendKeys("Mr");
         functionLibrary.waitForElementPresent(companyName);
         companyName.clear();
         companyName.sendKeys("AAA");
@@ -351,7 +365,7 @@ WebElement totalOrderCount;
         functionLibrary.waitForElementPresent(dispatchDateField);
         dispatchDateField.click();
         for (int i = 0; i < dateButton.size(); i++) {
-            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate()) ) {
+            if (dateButton.get(i).getText().equals(orderObject.getDispatchDate())) {
                 dateButton.get(i).click();
             }
 
@@ -412,7 +426,7 @@ WebElement totalOrderCount;
         saveButton.click();
     }
 
-    public boolean verifyEdit(){
+    public boolean verifyEdit() {
         functionLibrary.waitForElementPresent(editSuccessMsg);
         if (editSuccessMsg.isDisplayed())
             System.out.println("edit successful!");
@@ -420,19 +434,20 @@ WebElement totalOrderCount;
     }
 
     //Delete Order
-    public int deleteOrderWithIcon(){
+    public int deleteOrderWithIcon() {
 
         functionLibrary.waitForElementPresent(deleteIcons.get(0));
 
         System.out.println(deleteIcons.size());
-        int beforeDelete= deleteIcons.size();
+        int beforeDelete = deleteIcons.size();
         deleteIcons.get(0).click();
         driver.switchTo().alert().accept();
         System.out.println(deleteIcons.size());
-        int afterDelete= deleteIcons.size();
-        return beforeDelete-afterDelete;
+        int afterDelete = deleteIcons.size();
+        return beforeDelete - afterDelete;
     }
-    public boolean verifyDelete(){
+
+    public boolean verifyDelete() {
         OrderPage orderPage = new OrderPage(driver);
         orderPage.deleteOrderWithIcon();
 
@@ -441,6 +456,38 @@ WebElement totalOrderCount;
         return true;
     }
 
+    public void dropdownOnOrderPage() {
+        Random random = new Random();
+        checkboxes.get(random.nextInt(checkboxes.size())).click();
+        checkboxes.get(random.nextInt(checkboxes.size())).click();
+        checkboxes.get(random.nextInt(checkboxes.size())).click();
+        functionLibrary.waitForElementPresent(editStatusDropdown);
+        Select select = new Select(editStatusDropdown);
+        select.selectByIndex(random.nextInt(6));
+        functionLibrary.waitForElementPresent(printOrDeleteDropdown);
+        Select select1 = new Select(printOrDeleteDropdown);
+        select1.selectByIndex(1);
+        goButton.click();
+        screenShotUtility.takeScreenShot("verifyPrint", driver);
+        driver.navigate().back();
+
+
+        checkboxes.get(1).click();
+        checkboxes.get(2).click();
+        checkboxes.get(3).click();
+        System.out.println("The quantities of selected checkboxes are " + checkboxSelected.size());
+        select.selectByIndex(random.nextInt(6));
+        select1.selectByIndex(2);
+        goButton.click();
+        driver.switchTo().alert().accept();
+
+    }
+
+    public boolean verifyDeleteWithDropdown() {
+        if ( verifyDeleteMsg.isDisplayed())
+            System.out.println("multiple delete with dropdown is successful");
+        return true;
+    }
 
 
 }
