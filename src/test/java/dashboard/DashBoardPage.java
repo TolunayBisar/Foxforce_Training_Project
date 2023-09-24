@@ -47,7 +47,7 @@ public class DashBoardPage {
         customerListLink.click();
     }
 
-    public void clickONOrderLink() {
+    public void clickOnOrdersLink() {
         functionLibrary.waitForElementPresent(orderLink);
         orderLink.click();
     }
