@@ -468,10 +468,17 @@ public class OrderPage {
         System.out.println(deleteIcons.size());
         int beforeDelete = deleteIcons.size();
 
-        functionLibrary.waitForElementPresent(deleteIcons.get(5));
-        deleteIcons.get(5).click();
-        driver.switchTo().alert().accept();
-        System.out.println(deleteIcons.size());
+
+            functionLibrary.waitForElementPresent(deleteIcons.get(4));
+            deleteIcons.get(4).click();
+            driver.switchTo().alert().accept();
+
+            System.out.println(deleteIcons.size());
+
+
+
+
+
         int afterDelete = deleteIcons.size();
         return beforeDelete - afterDelete;
     }
