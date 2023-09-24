@@ -28,7 +28,7 @@ public class LoginPage {
         functionLibrary = new FunctionLibrary(driver);
     }
 
-    public boolean veriFyCubeCartLogo() {
+    public boolean verifyCubeCartLogo() {
         functionLibrary.waitForElementPresent(cubeCartLogo);
         if (cubeCartLogo.isDisplayed()) {
             System.out.println("CubeCart succesfully loginAndLogOut");
@@ -36,7 +36,7 @@ public class LoginPage {
         return true;
     }
 
-    public boolean veriFyinvalid() {
+    public boolean verifyInvalid() {
         functionLibrary.waitForElementPresent(loginButton);
         if (invalidVeriFy.isDisplayed()) {
             System.out.println("Invalid input");
@@ -49,18 +49,14 @@ public class LoginPage {
         functionLibrary.waitForElementPresent(userNameField);
         userNameField.sendKeys(userName);
     }
-
     public void enterPassword(String password) {
         functionLibrary.waitForElementPresent(userPasswordField);
         userPasswordField.sendKeys(password);
-
     }
-
     public void clickLoginButton() {
         functionLibrary.waitForElementPresent(loginButton);
         loginButton.click();
     }
-
     public void logIn(String userName, String password) {
         enterUserName(userName);
         enterPassword(password);

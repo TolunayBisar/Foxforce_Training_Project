@@ -1,13 +1,16 @@
 package mailinglist;
 
 import basefunctions.FunctionLibrary;
+import com.github.javafaker.Faker;
 import dashboard.DashBoardPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
 import java.util.List;
 import java.util.Random;
 
@@ -15,49 +18,47 @@ public class MailingList {
     WebDriver driver;
     FunctionLibrary functionLibrary;
     DashBoardPage dashBoardPage;
+    Faker faker = new Faker();
     // Admin shoud be find element for mailing list page
     @FindBy(xpath = "//div[@id=\"general\"]/h3")
     WebElement mailingListDashboard;
     @FindBy(name = "email_filter")
-    WebElement emailFilter;
+    WebElement emailFilterInputBoxInMailingList;
     @FindBy(xpath = "(//input[@name='submit'])[1]")
-    WebElement filterGoButton;
+    WebElement emailFilterGoButton;
     @FindBy(css = "//td//div[@class=\"custom-checkbox\"]")
     WebElement checkBoxList;
     @FindBy(xpath = "//select[@name=\"multi_subscriber_action\"]")
-    WebElement dropDown;
-    @FindBy(xpath = "//select[@name=\"multi_subscriber_action\"]/option[@value=\"delete\"]")
-    WebElement remove;
+    WebElement dropDownInMailingList;
     @FindBy(css = "input[name='go']")
-    WebElement checkGoButton;
+    WebElement checkBoxGoButton;
     @FindBy(xpath = "//input[@id='email_history']")
-    WebElement email;
+    WebElement sentEmailBoxForSearchSubscriber;
     @FindBy(xpath = "(//input[@type='button'])[1]")
-    WebElement emailGoButton;
+    WebElement sentEmailBoxGoButton;
     @FindBy(xpath = "//div[@id='cboxLoadedContent']/div[1]")
-    WebElement logMessage;
+    WebElement logForEmailMessage;
     @FindBy(css = "#cboxClose")
-    WebElement closeButton;
-    @FindBy(css = ".success")
-    WebElement successMessage;
-    // Admin shoud be find element for importSubscribers page
+    WebElement closeButtonForLogMessage;
+
     @FindBy(xpath = "//a[contains(text(),'Import Subscribers')]")
-    WebElement importSubscribers;
+    WebElement importSubscribersTab;
     @FindBy(xpath = "//textarea[@class='textbox']")
-    WebElement textBox;
-    @FindBy(xpath = "(//label[text()='Emails (Comma Separated)']/following::input)[2]")
-    WebElement textBoxGoButton;
-    @FindBy(xpath = "//div[@id='gui_message']//div[1]")
-    WebElement guiMessage;
-    @FindBy(xpath = "//div/div[@class=\"error\"]")
-    WebElement errorMessage;
-    // Admin have to find element for export subscribers
+    WebElement textBoxInImportSubscribers;
+    @FindBy(xpath = "//div[@class=\"form_control\"]/input[@value=\"Go\"]")
+    WebElement goButtonInImportSubscribers;
+    @FindAll(
+            @FindBy(xpath = "//div[@id=\"gui_message\"]/div[@class=\"success\"]"))
+    List<WebElement> guiMessages;
+
     @FindBy(xpath = "//a[contains(text(),'Export Subscribers')]")
     WebElement exportLinks;
     @FindBy(xpath = "//input[@id='format']")
     WebElement formatBox;
     @FindBy(xpath = "//input[@value='Export']")
     WebElement exportButton;
+    String emailAddress = faker.internet().emailAddress();
+
     public MailingList(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -81,9 +82,9 @@ public class MailingList {
         System.out.println("Total mailing lists: " + totalLists);
         String mailNameToFilter = "anar";
         //List<WebElement> filteredMailInfo = new ArrayList<>();
-        emailFilter.sendKeys(mailNameToFilter);
-        filterGoButton.click();
-        Select select = new Select(dropDown);
+        emailFilterInputBoxInMailingList.sendKeys(mailNameToFilter);
+        emailFilterGoButton.click();
+        Select select = new Select(dropDownInMailingList);
         List<WebElement> checkCustomBox = driver.findElements(By.xpath("//table//tbody/tr/td//div[@class=\"custom-checkbox\"]"));
         Random random = new Random();
         System.out.println(checkCustomBox);
@@ -92,15 +93,15 @@ public class MailingList {
 
     //searchSubscribersNewsletter
     public void searchSubscribersNewsletter() {
-        email.sendKeys("anar@gmail.com");
-        emailGoButton.click();
+        sentEmailBoxForSearchSubscriber.sendKeys(emailAddress);
+        sentEmailBoxGoButton.click();
         functionLibrary.sleep(1);
-        closeButton.click();
+        closeButtonForLogMessage.click();
     }
 
-    public boolean veriFyNofoundMessage() {
-        functionLibrary.waitForElementPresent(logMessage);
-        if (logMessage.isDisplayed()) {
+    public boolean verifyNoFoundMessage() {
+        functionLibrary.waitForElementPresent(logForEmailMessage);
+        if (logForEmailMessage.isDisplayed()) {
             System.out.println("No found email");
         }
         return true;
@@ -108,29 +109,29 @@ public class MailingList {
 
     // Admin creat method for importSubscribers
     public void importSubscribers() {
-        importSubscribers.click();
-        textBox.sendKeys("anar1@gmail.com");
-        textBoxGoButton.click();
+        importSubscribersTab.click();
+        textBoxInImportSubscribers.sendKeys(emailAddress);
+        goButtonInImportSubscribers.click();
         functionLibrary.sleep(2);
     }
 
-    public boolean veriFysubscriber() {
-        functionLibrary.waitForElementPresent(guiMessage);
-        if (errorMessage.isDisplayed()){
-            System.out.println("No subscribers were added");
+    public boolean verifySuccessfullyImportSubscriber() {
+        if (!guiMessages.isEmpty()) {
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     //Admin should be creat method for exportsubscribers
     public void exportSubscribers() {
         exportLinks.click();
-        formatBox.sendKeys("anar@gmail.com");
+        formatBox.sendKeys(emailAddress);
         functionLibrary.sleep(1);
         exportButton.click();
     }
 
-    public boolean veriFyExportButton() {
+    public boolean verifyExportButton() {
         functionLibrary.waitForElementPresent(exportButton);
         if (formatBox.isDisplayed())
             if (exportButton.isDisplayed()) {
@@ -138,23 +139,25 @@ public class MailingList {
             }
         return true;
     }
-    public void deleteEmail(){
+
+    public void deleteEmail() {
         functionLibrary.waitForElementPresent(mailingListDashboard);
-        Select select = new Select(dropDown);
+        Select select = new Select(dropDownInMailingList);
         List<WebElement> checkCustomBox = driver.findElements(By.xpath("//table//tbody/tr/td//div[@class=\"custom-checkbox\"]"));
         Random random = new Random();
-        System.out.println(checkCustomBox);
+
         WebElement toSelected = checkCustomBox.get(random.nextInt(checkCustomBox.size()));
-       toSelected.click();
-       remove.click();
-      checkGoButton.click();
+        toSelected.click();
+        select.selectByVisibleText("Remove");
+        checkBoxGoButton.click();
     }
-    public boolean verifySuccess(){
-        functionLibrary.waitForElementPresent(successMessage);
-        if (successMessage.isDisplayed()) {
-            System.out.println("Newsletter subscriber has been removed.");
-    }
-        return true;
+
+    public boolean verifyEmailSuccessfullyDeletedFromMailingList() {
+        if (!guiMessages.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

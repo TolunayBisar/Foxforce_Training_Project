@@ -6,6 +6,7 @@ import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,7 +26,7 @@ public class TestForMailing extends BaseClass {
     }
 
     @Test(priority = 1)
-    public void mailingListdashboard() {
+    public void mailingListDashboard() {
         // test and verify mailing list page
         dashBoardPag.clickOnMailingListLink();
         Assert.assertTrue(mailingList.veriFyMailingListDashboard());
@@ -38,7 +39,7 @@ public class TestForMailing extends BaseClass {
         mailingList.filterMailingList();
         // test and verify search email function
         mailingList.searchSubscribersNewsletter();
-        Assert.assertTrue(mailingList.veriFyNofoundMessage());
+        Assert.assertTrue(mailingList.verifyNoFoundMessage());
     }
 
     @Test(priority = 3)
@@ -46,6 +47,7 @@ public class TestForMailing extends BaseClass {
         // test and verify importsubscribers
         dashBoardPag.clickOnMailingListLink();
         mailingList.importSubscribers();
+        Assert.assertTrue(mailingList.verifySuccessfullyImportSubscriber());
     }
 
     @Test(priority = 5)
@@ -53,17 +55,18 @@ public class TestForMailing extends BaseClass {
         // test and verify exportSubscribers
         dashBoardPag.clickOnMailingListLink();
         mailingList.exportSubscribers();
-        Assert.assertTrue(mailingList.veriFyExportButton());
+        Assert.assertTrue(mailingList.verifyExportButton());
     }
 
     @Test(priority = 6)
     public void deleteMailingList() {
         dashBoardPag.clickOnMailingListLink();
         mailingList.deleteEmail();
-        Assert.assertTrue(mailingList.verifySuccess());
+        Assert.assertTrue(mailingList.verifyEmailSuccessfullyDeletedFromMailingList());
     }
-//@AfterClass
-//    public void close(){
-//        closeBrowser();
-//}
+
+    @AfterClass
+    public void close() {
+        closeBrowser();
+    }
 }
