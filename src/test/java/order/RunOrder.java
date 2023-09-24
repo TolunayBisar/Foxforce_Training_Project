@@ -5,11 +5,15 @@ import basefunctions.BaseClass;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import org.testng.annotations.Test;
+
+
 
 public class RunOrder extends BaseClass {
     LoginPage loginPage;
@@ -31,20 +35,21 @@ public class RunOrder extends BaseClass {
 
 
     }
-    @Test(priority = 1)
+
+    @Test(priority = 2)
     public void orderListVerify(){
 
         Assert.assertTrue(orderPage.verifyOrder());
 
 
     }
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void verifyCheckUncheckLick(){
         orderPage.verifyCheckUncheckAllClick();
         Assert.assertTrue(orderPage.verifyCheckUncheckAllClick());
 
     }
-    @Test(priority = 3,invocationCount = 3)
+    @Test(priority = 1,invocationCount = 6)
     public void createOrder(){
         orderPage.createOrder();
         orderPage.verifyOrderCreated();
@@ -53,8 +58,9 @@ public class RunOrder extends BaseClass {
     }
     @Test(priority = 4)
     public void searchOrder(){
+        orderPage.createOrderList();
         orderPage.searchOrder();
-        orderPage.verifySearchOrder();
+        //orderPage.verifySearchOrder();
         Assert.assertTrue(orderPage.verifySearchOrder());
     }
 
@@ -67,6 +73,7 @@ public class RunOrder extends BaseClass {
 
 @Test(priority = 6)
 public void deleteOrder(){
+
         orderPage.deleteOrderWithIcon();
         Assert.assertTrue((orderPage.deleteOrderWithIcon()==1)&& (orderPage.verifyDelete()));
 }
@@ -86,8 +93,8 @@ public void deleteAndPrintWithDropdown(){
   @AfterClass
   public void tearDown(){
 
-      closeBrowser();
-   }
+     closeBrowser();
+  }
 
 
 

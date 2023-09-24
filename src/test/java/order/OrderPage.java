@@ -4,6 +4,7 @@ import basefunctions.FunctionLibrary;
 import basefunctions.ScreenShotUtility;
 import cubecartobjects.OrderObject;
 import dashboard.DashBoardPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -137,6 +139,9 @@ public class OrderPage {
     @FindBy(xpath = "//div[text()='Orders have been found that match your search criteria.']")
     WebElement searchOrderSeccussfulMsg;
 
+    @FindBy(xpath = "//strong[text()='No orders found.']")
+    WebElement noFundMsg;
+
     @FindAll(@FindBy(xpath = "//i[@title='Edit']"))
     List<WebElement> editIcons;
 
@@ -144,6 +149,9 @@ public class OrderPage {
     WebElement editSuccessMsg;
     @FindAll(@FindBy(xpath = "//i[@title='Delete']"))
     List<WebElement> deleteIcons;
+
+    @FindBy(xpath = "//tbody/tr[1]/td/a/i[@title='Delete']")
+    WebElement firstDeleteIcon;
 
     @FindBy(xpath = "//div[text()='Order successfully deleted.']")
     WebElement verifyDeleteMsg;
@@ -160,6 +168,9 @@ public class OrderPage {
 
     @FindAll(@FindBy(name = "custom-checkbox selected"))
     List<WebElement> checkboxSelected;
+
+    @FindBy(xpath = "//div[text()='Selected orders have been deleted.']")
+    WebElement verifyDeleteWithDropdown;
 
 
     public OrderPage(WebDriver driver) {
@@ -304,13 +315,27 @@ public class OrderPage {
 
     }
 
+    public void createOrderList(){
+        LinkedHashMap<String,String> orderList = new LinkedHashMap<>();
+        List<WebElement> orderNumbers= driver.findElements(By.xpath
+                ("//tbody//td[2]/a[@title='Edit']"));
+        List<WebElement> customers= driver.findElements(By.xpath
+                ("//tbody//td[4]/a"));
+        for (int i=0;i< orderNumbers.size();i++){
+            orderList.put(orderNumbers.get(i).getText(),customers.get(i).getText());
+            OrderInfoExcelList writeOrderToExcel = new OrderInfoExcelList(driver);
+            String fileName = "CustomerInfoFolder/orderName.xlsx";
+            String folderName="CustomerInfoFolder";
+            writeOrderToExcel.writeOrderToExcel(fileName, folderName,"2.Page", orderList);}
+    }
+
     //search Order
     public void searchOrder() {
         functionLibrary.waitForElementPresent(searchTab);
         searchTab.click();
         Random random = new Random();
         orderNumberField.sendKeys(readOrderInfoList.readOrderInfo().get(0).
-                get(random.nextInt(23)));
+                get(random.nextInt(checkboxes.size())));
         searchButton.click();
     }
 
@@ -318,9 +343,11 @@ public class OrderPage {
 
         if (searchOrderSeccussfulMsg.isDisplayed()) {
             System.out.println("You fund that order");
+            return true;
 
-        }
-        return true;
+        }else if (noFundMsg.isDisplayed())
+            System.out.println("Nofund");
+        return false;
     }
 
     //Edit
@@ -436,11 +463,13 @@ public class OrderPage {
     //Delete Order
     public int deleteOrderWithIcon() {
 
-        functionLibrary.waitForElementPresent(deleteIcons.get(0));
+
 
         System.out.println(deleteIcons.size());
         int beforeDelete = deleteIcons.size();
-        deleteIcons.get(0).click();
+
+        functionLibrary.waitForElementPresent(deleteIcons.get(5));
+        deleteIcons.get(5).click();
         driver.switchTo().alert().accept();
         System.out.println(deleteIcons.size());
         int afterDelete = deleteIcons.size();
@@ -451,7 +480,7 @@ public class OrderPage {
         OrderPage orderPage = new OrderPage(driver);
         orderPage.deleteOrderWithIcon();
 
-        if (verifyDeleteMsg.isDisplayed())
+        if (verifyDeleteMsg.isDisplayed()&&orderPage.deleteOrderWithIcon()==1)
             System.out.println("You have deleted the order");
         return true;
     }
@@ -472,19 +501,18 @@ public class OrderPage {
         driver.navigate().back();
 
 
-        checkboxes.get(1).click();
-        checkboxes.get(2).click();
-        checkboxes.get(3).click();
+//        checkboxes.get(1).click();
+//        checkboxes.get(2).click();
         System.out.println("The quantities of selected checkboxes are " + checkboxSelected.size());
         select.selectByIndex(random.nextInt(6));
-        select1.selectByIndex(2);
+        select1.selectByValue("delete");
         goButton.click();
         driver.switchTo().alert().accept();
 
     }
 
     public boolean verifyDeleteWithDropdown() {
-        if ( verifyDeleteMsg.isDisplayed())
+        if ( verifyDeleteWithDropdown.isDisplayed())
             System.out.println("multiple delete with dropdown is successful");
         return true;
     }
