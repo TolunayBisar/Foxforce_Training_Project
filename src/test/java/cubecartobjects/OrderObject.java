@@ -3,14 +3,14 @@ package cubecartobjects;
 public class OrderObject {
     private String customerInfo; private String dispatchDate; private String shippingMethod;
     private String shippingDate; private String deliveryTracking; private double weight;
-    private int quantity; private int productName; private double discountAmount;
+    private int quantity; private String productName; private double discountAmount;
     private double shippingCost; private double taxAmount; private String internalNotes;
     private String publicNotes;
 
     public OrderObject() {
     }
 
-    public OrderObject(String customerInfo, String dispatchDate, String shippingMethod, String shippingDate, String deliveryTracking, double weight, int quantity, int productName, double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes) {
+    public OrderObject(String customerInfo, String dispatchDate, String shippingMethod, String shippingDate, String deliveryTracking, double weight, int quantity, String productName, double discountAmount, double shippingCost, double taxAmount, String internalNotes, String publicNotes) {
         this.customerInfo = customerInfo;
         this.dispatchDate = dispatchDate;
         this.shippingMethod = shippingMethod;
@@ -54,7 +54,7 @@ public class OrderObject {
         return quantity;
     }
 
-    public int getProductName() {
+    public String getProductName() {
         return productName;
     }
 
