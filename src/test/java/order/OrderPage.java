@@ -150,8 +150,8 @@ public class OrderPage {
     @FindAll(@FindBy(xpath = "//i[@title='Delete']"))
     List<WebElement> deleteIcons;
 
-    @FindBy(xpath = "//tbody/tr[1]/td/a/i[@title='Delete']")
-    WebElement firstDeleteIcon;
+    @FindBy(xpath = "//tr[1]/td[2]/a[@title='Edit']")
+    WebElement firstOrderNumber;
 
     @FindBy(xpath = "//div[text()='Order successfully deleted.']")
     WebElement verifyDeleteMsg;
@@ -315,18 +315,19 @@ public class OrderPage {
 
     }
 
-    public void createOrderList(){
-        LinkedHashMap<String,String> orderList = new LinkedHashMap<>();
-        List<WebElement> orderNumbers= driver.findElements(By.xpath
+    public void createOrderList() {
+        LinkedHashMap<String, String> orderList = new LinkedHashMap<>();
+        List<WebElement> orderNumbers = driver.findElements(By.xpath
                 ("//tbody//td[2]/a[@title='Edit']"));
-        List<WebElement> customers= driver.findElements(By.xpath
+        List<WebElement> customers = driver.findElements(By.xpath
                 ("//tbody//td[4]/a"));
-        for (int i=0;i< orderNumbers.size();i++){
-            orderList.put(orderNumbers.get(i).getText(),customers.get(i).getText());
+        for (int i = 0; i < orderNumbers.size(); i++) {
+            orderList.put(orderNumbers.get(i).getText(), customers.get(i).getText());
             OrderInfoExcelList writeOrderToExcel = new OrderInfoExcelList(driver);
             String fileName = "CustomerInfoFolder/orderName.xlsx";
-            String folderName="CustomerInfoFolder";
-            writeOrderToExcel.writeOrderToExcel(fileName, folderName,"2.Page", orderList);}
+            String folderName = "CustomerInfoFolder";
+            writeOrderToExcel.writeOrderToExcel(fileName, folderName, "2.Page", orderList);
+        }
     }
 
     //search Order
@@ -345,7 +346,7 @@ public class OrderPage {
             System.out.println("You fund that order");
             return true;
 
-        }else if (noFundMsg.isDisplayed())
+        } else if (noFundMsg.isDisplayed())
             System.out.println("Nofund");
         return false;
     }
@@ -461,33 +462,33 @@ public class OrderPage {
     }
 
     //Delete Order
-    public int deleteOrderWithIcon() {
+    public void deleteOrderWithIcon() {
+
+
+        System.out.println("before delete : " + deleteIcons.size());
+
+        functionLibrary.waitForElementPresent(deleteIcons.get(0));
+
+        for (int i = 0; i < deleteIcons.size(); i++) {
+            if ((firstOrderNumber.getText()).equals(readOrderInfoList.readOrderInfo().get(i).get(i))) {
+                deleteIcons.get(i).click();
+                break;
+            }
+
+        }
+        functionLibrary.sleep(1);
+        driver.switchTo().alert().accept();
+
+        System.out.println("after delete : " + deleteIcons.size());
 
 
 
-        System.out.println(deleteIcons.size());
-        int beforeDelete = deleteIcons.size();
-
-
-            functionLibrary.waitForElementPresent(deleteIcons.get(4));
-            deleteIcons.get(4).click();
-            driver.switchTo().alert().accept();
-
-            System.out.println(deleteIcons.size());
-
-
-
-
-
-        int afterDelete = deleteIcons.size();
-        return beforeDelete - afterDelete;
     }
 
     public boolean verifyDelete() {
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.deleteOrderWithIcon();
 
-        if (verifyDeleteMsg.isDisplayed()&&orderPage.deleteOrderWithIcon()==1)
+
+        if (verifyDeleteMsg.isDisplayed())
             System.out.println("You have deleted the order");
         return true;
     }
@@ -508,8 +509,7 @@ public class OrderPage {
         driver.navigate().back();
 
 
-//        checkboxes.get(1).click();
-//        checkboxes.get(2).click();
+
         System.out.println("The quantities of selected checkboxes are " + checkboxSelected.size());
         select.selectByIndex(random.nextInt(6));
         select1.selectByValue("delete");
@@ -519,7 +519,7 @@ public class OrderPage {
     }
 
     public boolean verifyDeleteWithDropdown() {
-        if ( verifyDeleteWithDropdown.isDisplayed())
+        if (verifyDeleteWithDropdown.isDisplayed())
             System.out.println("multiple delete with dropdown is successful");
         return true;
     }

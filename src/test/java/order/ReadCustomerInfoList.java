@@ -58,7 +58,7 @@ public class ReadCustomerInfoList {
                 c.add(columns.getStringCellValue());
 
             }
-            System.out.println(c);
+            //System.out.println(c);
 
         }
         //System.out.println(c.size());

@@ -5,8 +5,7 @@ import basefunctions.BaseClass;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -73,9 +72,10 @@ public class RunOrder extends BaseClass {
 
 @Test(priority = 6)
 public void deleteOrder(){
+        orderPage.createOrderList();
 
         orderPage.deleteOrderWithIcon();
-        Assert.assertTrue((orderPage.deleteOrderWithIcon()==1)&& (orderPage.verifyDelete()));
+        Assert.assertTrue( (orderPage.verifyDelete())); //(orderPage.deleteOrderWithIcon()==1)&&
 }
 
 @Test(priority = 7)

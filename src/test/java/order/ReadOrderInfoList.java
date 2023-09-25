@@ -45,8 +45,8 @@ public class ReadOrderInfoList {
 
         int rowCount = sheet.getLastRowNum();
         int cellCount = sheet.getRow(0).getLastCellNum();// column count
-        System.out.println(rowCount);
-        System.out.println(cellCount);
+//        System.out.println("Row count: "+rowCount);
+//        System.out.println("Column count: "+cellCount);
         List<String> c1 = new ArrayList<>();
         List<String> c2 = new ArrayList<>();
         List<List<String>> c = new ArrayList<>();
@@ -58,20 +58,20 @@ public class ReadOrderInfoList {
                 c1.add(columns.getStringCellValue());
 
             }
-            System.out.println(c1);
+            //System.out.println("Order Number : "+c1);
 
-        XSSFRow row2 = sheet.getRow(0);
+        XSSFRow row2 = sheet.getRow(1);
         for (int column = 0; column < cellCount; column++) {
             XSSFCell columns = row2.getCell(column);
 
             c2.add(columns.getStringCellValue());
 
         }
-        System.out.println(c2);
+        //System.out.println("Customer Name: "+c2);
        c.add(c1);
        c.add(c2);
 
-        //System.out.println(c.size());
+        //System.out.println("total list : "+c);
 
         return c;
 
