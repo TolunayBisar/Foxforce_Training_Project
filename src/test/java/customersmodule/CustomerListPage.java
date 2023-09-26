@@ -2,6 +2,8 @@ package customersmodule;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
+import cubecartobjects.CustomerGroupObject;
+import cubecartobjects.CustomerObject;
 import dashboard.DashBoardPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,13 +73,13 @@ public class CustomerListPage {
     }
 
     // 1. Create Group
-    public void addCustomerGroup() {
+    public void addCustomerGroup(CustomerGroupObject customerGroupObject) {
         functionLibrary.waitForElementPresent(customerGroupsTab);
         customerGroupsTab.click();
         functionLibrary.waitForElementPresent(customerGroupsNameInputField);
-        customerGroupsNameInputField.sendKeys("New Team");
+        customerGroupsNameInputField.sendKeys(customerGroupObject.getGroupName());
         functionLibrary.waitForElementPresent(descriptionField);
-        descriptionField.sendKeys("Welcome!!");
+        descriptionField.sendKeys(customerGroupObject.getGroupDescription());
         saveButtonToCreateCustomerGroups.click();
     }
     public boolean verifyCustomerGroupUpdatedMessage() {
@@ -114,11 +116,11 @@ public class CustomerListPage {
 
 
     // 3. GDPR Tools
-    public void createReport() {
+    public void createReport(CustomerObject customerObject) {
         functionLibrary.waitForElementPresent(GDPRToolsTab);
         GDPRToolsTab.click();
         functionLibrary.waitForElementPresent(emailField);
-        emailField.sendKeys("james@gmail.com");
+        emailField.sendKeys(customerObject.getEmail());
         functionLibrary.waitForElementPresent(createReportButton);
         createReportButton.click();
     }
