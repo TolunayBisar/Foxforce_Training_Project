@@ -1,4 +1,4 @@
-package addcustomer;
+package customersmodule;
 
 import basefunctions.FunctionLibrary;
 import basefunctions.ScreenShotUtility;
