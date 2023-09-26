@@ -1,7 +1,6 @@
 package dashboard;
 
 
-import addcustomer.AddCustomerPage;
 import basefunctions.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -9,19 +8,15 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
-
 public class Run extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
-    AddCustomerPage addCustomerPage;
 
     @BeforeClass
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
         dashBoardPag = new DashBoardPage(driver);
-        addCustomerPage = new AddCustomerPage(driver);
-
     }
 
     @Test(priority = 1, dataProvider = "loginData")
@@ -60,11 +55,6 @@ public class Run extends BaseClass {
     public void loginTest() {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
-    }
-    @Test(priority = 4)
-    public void addCustomer(){
-        addCustomerPage.addCustomer();
-        Assert.assertTrue(addCustomerPage.verifySuccessfully());
     }
 
 
