@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
-    WebDriver driver;
+   public WebDriver driver;
     FunctionLibrary functionLibrary;
     @FindBy(xpath = "//a[@href=\"#dashboard\"]")
     WebElement dashBoardLink;
@@ -68,6 +68,7 @@ public class DashBoardPage {
     }
 
     public void logout() {
+
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
 }
