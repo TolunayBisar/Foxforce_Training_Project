@@ -106,7 +106,7 @@ public class OrderInfoExcelList extends BaseClass {
         login.logIn("testautomation1", "automation123!");
 
         DashBoardPage dashBoardPage = new DashBoardPage(baseClass.driver);
-        dashBoardPage.setOrderLink();
+        dashBoardPage.clickOnOrdersLink();
         LinkedHashMap<String,String> orderList = new LinkedHashMap<>();
         List<WebElement> orderNumbers= baseClass.driver.findElements(By.xpath
                 ("//tbody//td[2]/a[@title='Edit']"));

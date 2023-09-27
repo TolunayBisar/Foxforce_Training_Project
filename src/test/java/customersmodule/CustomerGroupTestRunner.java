@@ -32,14 +32,14 @@ public class CustomerGroupTestRunner extends BaseClass {
     }
     @Test(priority = 1)
     public void viewAtLeaseOneCustomer(){
-        dashBoardPag.setCustomerListLink();
+        dashBoardPag.clickOnCustomerListLink();
         Assert.assertTrue(customerListPage.viewAtLeaseOneCustomer());
     }
 
     @Test(priority = 2)
     public void createCustomerGroups(){
         CustomerGroupObject customerGroupObject = new CustomerGroupObject("New Team","Welcome!!");
-        dashBoardPag.setCustomerListLink();
+        dashBoardPag.clickOnCustomerListLink();
         customerListPage.addCustomerGroup(customerGroupObject);
         Assert.assertTrue(customerListPage.verifyCustomerGroupUpdatedMessage());
     }
@@ -48,7 +48,7 @@ public class CustomerGroupTestRunner extends BaseClass {
     public void GDPRReport(){
         CustomerObject customerObject = new CustomerObject();
         customerObject.setEmail("james@gmail.com");
-        dashBoardPag.setCustomerListLink();
+        dashBoardPag.clickOnCustomerListLink();
         customerListPage.createReport(customerObject);
         Assert.assertTrue(customerListPage.verifyCreateReport());
     }
