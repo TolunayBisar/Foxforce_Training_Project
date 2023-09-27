@@ -27,7 +27,7 @@ public class RunOrder extends BaseClass {
         loginPage = new LoginPage(driver);
         loginPage.logIn("testautomation1", "automation123!");
         dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.setOrderLink();
+        dashBoardPage.clickOnOrdersLink();
         orderPage= new OrderPage(driver);
 
 
