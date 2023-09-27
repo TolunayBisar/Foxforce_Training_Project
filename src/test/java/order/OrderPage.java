@@ -354,7 +354,7 @@ public class OrderPage {
     //Edit
 
     public void editOrder() {
-        dashBoardPage.setOrderLink();
+        dashBoardPage.clickOnOrdersLink();
         Random random = new Random();
         orderObject = new OrderObject(readCustomerInfoList.readCustomerInfo().get(random.nextInt(24)), "26", "MNG", "Sunday",
                 "M" + System.currentTimeMillis(), 1, 10, "Iphone", 1000, 10, 10,
