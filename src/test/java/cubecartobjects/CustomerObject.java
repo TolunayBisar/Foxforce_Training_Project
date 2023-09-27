@@ -121,5 +121,9 @@ public class CustomerObject {
     public String getCustomerGroup() {
         return customerGroup;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
 
