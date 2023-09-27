@@ -66,7 +66,7 @@ public class MailingList {
     }
 
     // Admin user should be click mailing list button and verify mailing list dashboard should be displayed
-    public boolean veriFyMailingListDashboard() {
+    public boolean verifyMailingListDashboard() {
         functionLibrary.waitForElementPresent(mailingListDashboard);
         if (mailingListDashboard.isDisplayed()) {
             System.out.println("Invalid input");
@@ -84,7 +84,7 @@ public class MailingList {
         //List<WebElement> filteredMailInfo = new ArrayList<>();
         emailFilterInputBoxInMailingList.sendKeys(mailNameToFilter);
         emailFilterGoButton.click();
-        Select select = new Select(dropDownInMailingList);
+        //Select select = new Select(dropDownInMailingList);
         List<WebElement> checkCustomBox = driver.findElements(By.xpath("//table//tbody/tr/td//div[@class=\"custom-checkbox\"]"));
         Random random = new Random();
         System.out.println(checkCustomBox);

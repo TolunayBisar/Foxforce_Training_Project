@@ -10,24 +10,21 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
-public class TestLogin extends BaseClass {
+public class TestForLogin extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
-    MailingList mailingList;
 
     @BeforeClass
     public void setUp() {
         openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
         loginPage = new LoginPage(driver);
         dashBoardPag = new DashBoardPage(driver);
-        loginPage.logIn("testautomation1", "automation123!");
-        mailingList = new MailingList(driver);
     }
 
     @Test(priority = 1, dataProvider = "loginData")
     public void invalidLoginTest(String userName, String password) {
         loginPage.logIn(userName, password);
-        Assert.assertTrue(loginPage.verifyInvalid());
+        Assert.assertTrue(loginPage.veriFyinvalid());
     }
 
     @DataProvider
@@ -43,7 +40,7 @@ public class TestLogin extends BaseClass {
     @Test(priority = 2, dataProvider = "validloginData")
     public void validLoginTest(String userName, String password) {
         loginPage.loginAndLogOut(userName, password);
-        Assert.assertTrue(loginPage.verifyCubeCartLogo());
+        Assert.assertTrue(loginPage.veriFyCubeCartLogo());
     }
 
     @DataProvider
@@ -61,4 +58,5 @@ public class TestLogin extends BaseClass {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
     }
+
 }

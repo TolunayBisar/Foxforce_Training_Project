@@ -6,7 +6,6 @@ import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -29,15 +28,14 @@ public class TestForMailing extends BaseClass {
     public void mailingListDashboard() {
         // test and verify mailing list page
         dashBoardPag.clickOnMailingListLink();
-        Assert.assertTrue(mailingList.veriFyMailingListDashboard());
+        Assert.assertTrue(mailingList.verifyMailingListDashboard());
     }
 
     @Test(priority = 2)
     public void filterAndSearchEmail() {
         // test filter mailing list
         dashBoardPag.clickOnMailingListLink();
-        mailingList.filterMailingList();
-        // test and verify search email function
+        mailingList.filterMailingList();  // test and verify search email function
         mailingList.searchSubscribersNewsletter();
         Assert.assertTrue(mailingList.verifyNoFoundMessage());
     }
