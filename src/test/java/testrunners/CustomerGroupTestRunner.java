@@ -1,10 +1,11 @@
-package customersmodule;
+package testrunners;
 
 
 import basefunctions.BaseClass;
-import basefunctions.FunctionLibrary;
+import basefunctions.TestDataHolder;
 import cubecartobjects.CustomerGroupObject;
 import cubecartobjects.CustomerObject;
+import customersmodule.CustomerListPage;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
@@ -13,20 +14,18 @@ import org.testng.annotations.Test;
 
 
 public class CustomerGroupTestRunner extends BaseClass {
+    TestDataHolder testDataHolder;
     LoginPage loginPage;
-    FunctionLibrary functionLibrary= new FunctionLibrary();
     DashBoardPage dashBoardPag;
     CustomerListPage customerListPage;
-    String url = functionLibrary.readFromConfig("config.properties","url");
-    String userName = functionLibrary.readFromConfig("config.properties","username1");
-    String passWord = functionLibrary.readFromConfig("config.properties","password");
 
 
     @BeforeClass
     public void setUp() {
-        openBrowser(url);
+        testDataHolder = new TestDataHolder();
+        openBrowser(testDataHolder.url);
         loginPage = new LoginPage(driver);
-        loginPage.logIn(userName,passWord);
+        loginPage.logIn(testDataHolder.userName, testDataHolder.passWord);
         dashBoardPag = new DashBoardPage(driver);
         customerListPage = new CustomerListPage(driver);
     }
