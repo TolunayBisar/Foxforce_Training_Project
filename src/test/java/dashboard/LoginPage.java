@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 
 public class LoginPage {
-    WebDriver driver;
+    public WebDriver driver;
     FunctionLibrary functionLibrary;
     // define element by@
     @FindBy(id = "username")
@@ -66,8 +66,8 @@ public class LoginPage {
 
     public void loginAndLogOut(String userName, String password) {
         logIn(userName, password);
-        DashBoardPage dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.logout();
+        DashBoardPage dashBoardPag = new DashBoardPage(driver);
+        dashBoardPag.logout();
 
     }
 }
