@@ -83,7 +83,7 @@ public class NewslettersPage {
     String[] newsletterNameAndUrlArray = new String[2];
 
     public void createDefaultNewsletter() {
-        dashBoardPage.setNewsLettersLink();
+        dashBoardPage.clickOnNewsLettersLink();
         createNewsletterButton.click();
         actions = new Actions(driver);
         newsLetterSubjectInputField.sendKeys(newsletterObject.getNewsLetterSubject());
@@ -123,7 +123,7 @@ public class NewslettersPage {
     }
 
     public void sendNewsletter() {
-        dashBoardPage.setNewsLettersLink();
+        dashBoardPage.clickOnNewsLettersLink();
         for (WebElement newsletterElement : listOfNewsletters) {
             if (newsletterElement.getText().equalsIgnoreCase(newsletterSubject)) {
                 newsletterElement.findElement(By.xpath("parent::td/following-sibling::td/span/a")).click();
@@ -133,7 +133,7 @@ public class NewslettersPage {
         }
     }
     public boolean verifyNewsletterSuccessfullySent() {
-        dashBoardPage.setNewsLettersLink();
+        dashBoardPage.clickOnNewsLettersLink();
         functionLibrary.sleep(100);
         boolean resultOfMessage = !successfulMessage.isEmpty();
         dashBoardPage.clickOnEmailLogLink();
@@ -165,7 +165,7 @@ public class NewslettersPage {
     }
 
     public void editNewsletter() {
-        dashBoardPage.setNewsLettersLink();
+        dashBoardPage.clickOnNewsLettersLink();
         int indexOfNewsLetterToEdit = random.nextInt(listOfNewsletters.size());
         WebElement newsletterSubjectElementToEdit = listOfNewsletters.get(indexOfNewsLetterToEdit);
         newsletterNameAndUrlArray[0]  = newsletterSubjectElementToEdit.getText();
@@ -182,7 +182,7 @@ public class NewslettersPage {
     }
 
     public void deleteNewsletter() {
-        dashBoardPage.setNewsLettersLink();
+        dashBoardPage.clickOnNewsLettersLink();
         int indexOfDeletedNewsLetter = random.nextInt(listOfNewsletters.size());
         newsletterNameAndUrlArray[0] = listOfNewsletters.get(indexOfDeletedNewsLetter).getText();
         newsletterNameAndUrlArray[1] = listOfNewsletters.get(indexOfDeletedNewsLetter).getAttribute("href");
