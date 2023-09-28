@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
-    WebDriver driver;
+   public WebDriver driver;
     FunctionLibrary functionLibrary;
     @FindBy(xpath = "//a[@href=\"#dashboard\"]")
     WebElement dashBoardLink;
@@ -42,32 +42,33 @@ public class DashBoardPage {
         return false;
     }
 
-    public void setCustomerListLink() {
+    public void clickOnCustomerListLink() {
         functionLibrary.waitForElementPresent(customerListLink);
         customerListLink.click();
     }
 
-    public void setOrderLink() {
+    public void clickOnOrdersLink() {
         functionLibrary.waitForElementPresent(orderLink);
         orderLink.click();
     }
 
-    public void setTransactionLogsLink() {
+    public void clickOnTransactionLogsLink() {
         functionLibrary.waitForElementPresent(TransactionLogsLink);
         TransactionLogsLink.click();
     }
 
-    public void setNewsLettersLink() {
+    public void clickOnNewsLettersLink() {
         functionLibrary.waitForElementPresent(newsLettersLink);
         newsLettersLink.click();
     }
 
-    public void setMailingListLink() {
+    public void clickOnMailingListLink() {
         functionLibrary.waitForElementPresent(mailingListLink);
         mailingListLink.click();
     }
 
     public void logout() {
+
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
 }
