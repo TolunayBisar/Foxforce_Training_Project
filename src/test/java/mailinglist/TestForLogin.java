@@ -1,14 +1,16 @@
-package dashboard;
+package mailinglist;
 
 
 import basefunctions.BaseClass;
+import dashboard.DashBoardPage;
+import dashboard.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
-public class Run extends BaseClass {
+public class TestForLogin extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
 
@@ -56,6 +58,5 @@ public class Run extends BaseClass {
         loginPage.logIn("testautomation1", "automation123!");
         Assert.assertTrue(dashBoardPag.verifyDashboardPage());
     }
-
 
 }

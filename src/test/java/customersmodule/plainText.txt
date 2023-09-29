@@ -1,0 +1,19 @@
+Here are 5 interview questions and answers related to test automation with Java and Selenium:
+
+1. What is Test Automation?
+
+Answer: Test automation is the process of using automated tools and scripts to execute tests on software applications to verify their functionality, performance, and reliability.
+2. Why is Test Automation important?
+
+Answer: Test automation helps in speeding up testing, increasing test coverage, reducing human errors, and enabling frequent testing, which is essential for Agile and Continuous Integration/Continuous Deployment (CI/CD) processes.
+3. What is Selenium?
+
+Answer: Selenium is an open-source framework for automating web browsers. It allows testers to interact with web elements and perform actions like clicking, typing, and verifying content on web pages.
+4. List the components of Selenium.
+
+Answer: Selenium WebDriver, Selenium IDE, Selenium Grid, and Selenium RC (deprecated).
+5. What is WebDriver in Selenium?
+
+Answer: WebDriver is the central component of Selenium that provides a programming interface to control browsers and interact with web elements.
+
+These questions and answers cover a wide range of topics related to test automation with Java and Selenium. Depending on the specific job role and requirements, you may encounter variations of these questions during interviews.
