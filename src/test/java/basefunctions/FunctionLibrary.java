@@ -1,15 +1,24 @@
 package basefunctions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import cubecartobjects.OptionGroupObject;
+import cubecartobjects.OptionGroups;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class FunctionLibrary {
@@ -106,12 +115,41 @@ public class FunctionLibrary {
     }
 
     // Serialization
-    public void writeJson(){
+    //public void writeJson(){
+    public static void main(String[] args) {
+
+
+
+
+
         OptionGroupObject optionGroupObject1=new OptionGroupObject("Dish","A Quality");
         OptionGroupObject optionGroupObject2=new OptionGroupObject("Salmon Fish","Import from Norway ");
         OptionGroupObject optionGroupObject3=new OptionGroupObject("Apple","Fresh");
         OptionGroupObject optionGroupObject4=new OptionGroupObject("Carpet","AA Quality");
+        List<OptionGroupObject> optionGroupObjects =new ArrayList<>();
+        optionGroupObjects.add(optionGroupObject1);
+        optionGroupObjects.add(optionGroupObject2);
+        optionGroupObjects.add(optionGroupObject3);
+        optionGroupObjects.add(optionGroupObject4);
+        System.out.println(optionGroupObjects);
+        OptionGroups optionGroups = new OptionGroups(optionGroupObjects);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String optionGroupInfo = null;
 
+        try {
+            optionGroupInfo = objectMapper.writeValueAsString(optionGroups);// convert Object value to
+            System.out.println(optionGroupInfo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        // String with this method. then we will write this String value to Jason file.
+
+
+        try {
+            FileUtils.writeStringToFile(new File("jsonFile/OptionGroupInfo.json"),optionGroupInfo);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
