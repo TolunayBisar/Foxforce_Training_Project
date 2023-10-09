@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Developer in Test Interview Q&A Newsletter</title>
+    <style>
+        /* Add your custom CSS styles here to make the newsletter beautiful */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .subscribe-form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .subscribe-input {
+            padding: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .subscribe-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .subscribe-button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Software Developer in Test Interview Q&A Newsletter</h1>
+            <p>Stay up-to-date with the latest interview questions and answers!</p>
+        </div>
+        <div class="content">
+            <p>Dear Subscriber,</p>
+            <p>We are thrilled to introduce our Software Developer in Test Interview Q&A Newsletter. Here's why you should subscribe:</p>
+            <ul>
+                <li>Get access to exclusive interview questions and expert answers.</li>
+                <li>Stay ahead in your software testing career.</li>
+                <li>Learn from industry professionals.</li>
+                <li>Receive valuable insights and tips.</li>
+            </ul>
+            <p>Subscribe now to boost your career!</p>
+        </div>
+        <div class="subscribe-form">
+            <form action="your-subscription-handler.php" method="post">
+                <input type="email" class="subscribe-input" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="subscribe-button">Subscribe</button>
+            </form>
+        </div>
+        <div class="footer">
+            <p>Fox Force | Beach Crescent 487, Vancouver | +1 604 724 0635</p>
+            <p>Newsletter by Alim Hamut</p>
+        </div>
+    </div>
+</body>
+</html>
