@@ -1,6 +1,7 @@
 package basefunctions;
 
 import com.github.javafaker.Faker;
+import cubecartobjects.OptionGroupObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -103,4 +104,41 @@ public class FunctionLibrary {
         }
         return content.toString();
     }
+
+    // Serialization
+    public void writeJson(){
+        OptionGroupObject optionGroupObject1=new OptionGroupObject("Dish","A Quality");
+        OptionGroupObject optionGroupObject2=new OptionGroupObject("Salmon Fish","Import from Norway ");
+        OptionGroupObject optionGroupObject3=new OptionGroupObject("Apple","Fresh");
+        OptionGroupObject optionGroupObject4=new OptionGroupObject("Carpet","AA Quality");
+
+
+    }
+
+
+    /*  CustomerObject customerObject1 = new CustomerObject("Aynur","Alim","Mrs",
+                "0896754",true);
+
+        CustomerObject customerObject2 = new CustomerObject("Abdugeni","Adil","Mr",
+                "0896754",false);
+
+        ObjectMapper objectMapper = new ObjectMapper(); // Serialization with this Class ObjectMapper
+
+        String customer = null;
+        try {
+            customer = objectMapper.writeValueAsString(customerObject1);// convert Object value to
+            // String with this method. then we will write this String value to Jason file.
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            FileUtils.writeStringToFile(new File("jsonFile//CustomerInfoTeam2.json"),customer);
+            // creat file:  File file = new File(pathname)---> use FileUtils.writeStingToFile method to write content.
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}*/
+
 }

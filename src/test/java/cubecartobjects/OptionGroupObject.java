@@ -3,15 +3,15 @@ package cubecartobjects;
 public class OptionGroupObject {
 
     private String groupName;
-    private String groupType;
+
     private String description;
 
     public OptionGroupObject() {
     }
 
-    public OptionGroupObject(String groupName, String groupType, String description) {
+    public OptionGroupObject(String groupName,  String description) {
         this.groupName = groupName;
-        this.groupType = groupType;
+
         this.description = description;
     }
 
@@ -23,13 +23,9 @@ public class OptionGroupObject {
         this.groupName = groupName;
     }
 
-    public String getGroupType() {
-        return groupType;
-    }
 
-    public void setGroupType(String groupType) {
-        this.groupType = groupType;
-    }
+
+
 
     public String getDescription() {
         return description;
