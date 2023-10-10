@@ -25,7 +25,7 @@ public class RunClass extends BaseClass {
         loginPage = new LoginPage(driver);
         loginPage.logIn("testautomation1", "automation123!");
         dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.clickOnProductOptionLink();
+
         orderPage= new OrderPage(driver);
         functionLibrary = new FunctionLibrary(driver);
      productOptionsPage = new ProductOptionsPage(driver);
@@ -35,6 +35,7 @@ public class RunClass extends BaseClass {
     }
  @Test
     public void productOption(){
+     dashBoardPage.clickOnProductOptionLink();
         productOptionsPage.verifyAtLeastOneOptionGroupOnTable();
         productOptionsPage.editOptionGroup();
 
