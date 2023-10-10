@@ -115,11 +115,7 @@ public class FunctionLibrary {
     }
 
     // Serialization
-    //public void writeJson(){
-    public static void main(String[] args) {
-
-
-
+    public void writeJson(){
 
 
         OptionGroupObject optionGroupObject1=new OptionGroupObject("Dish","A Quality");
@@ -131,14 +127,15 @@ public class FunctionLibrary {
         optionGroupObjects.add(optionGroupObject2);
         optionGroupObjects.add(optionGroupObject3);
         optionGroupObjects.add(optionGroupObject4);
-        System.out.println(optionGroupObjects);
-        OptionGroups optionGroups = new OptionGroups(optionGroupObjects);
+
+
         ObjectMapper objectMapper = new ObjectMapper();
+        OptionGroups s = new OptionGroups(optionGroupObjects);
         String optionGroupInfo = null;
 
         try {
-            optionGroupInfo = objectMapper.writeValueAsString(optionGroups);// convert Object value to
-            System.out.println(optionGroupInfo);
+            optionGroupInfo = objectMapper.writeValueAsString(s);// convert Object value to
+
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -153,30 +150,45 @@ public class FunctionLibrary {
 
     }
 
+    public List<OptionGroupObject> readJson(){
 
-    /*  CustomerObject customerObject1 = new CustomerObject("Aynur","Alim","Mrs",
-                "0896754",true);
 
-        CustomerObject customerObject2 = new CustomerObject("Abdugeni","Adil","Mr",
-                "0896754",false);
 
-        ObjectMapper objectMapper = new ObjectMapper(); // Serialization with this Class ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        OptionGroups optionGroups=null;
 
-        String customer = null;
         try {
-            customer = objectMapper.writeValueAsString(customerObject1);// convert Object value to
-            // String with this method. then we will write this String value to Jason file.
-
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            FileUtils.writeStringToFile(new File("jsonFile//CustomerInfoTeam2.json"),customer);
-            // creat file:  File file = new File(pathname)---> use FileUtils.writeStingToFile method to write content.
+            optionGroups=objectMapper.readValue(new File("jsonFile/OptionGroupInfo.json"), OptionGroups.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        List<OptionGroupObject> optionGroupObjects = optionGroups.getOptionGroups();
+
+
+        /*ObjectMapper objectMapper = new ObjectMapper();
+        Users users=null;
+        try {
+            users = objectMapper.readValue(new File("jsonFile/loginUser.json"), Users.class);// readValue ask
+            // us to give class type here. format is: User.class. Means - parse Json file object to Users class.
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        List<LoginUser> loginUsers = users.getLoginUsers();
+        openBrowser();
+        LoginPage loginPage = new LoginPage(driver);
+        for (LoginUser eachUser: loginUsers){
+        loginPage.login(eachUser.getUserName(), eachUser.getPassword());
+        Logout logout =new Logout();
+        logout.logout();}
+        driver.close();
+        driver.quit();
     }
-}*/
+}
+   */
+     return optionGroupObjects;
+    }
+
+
 
 }
