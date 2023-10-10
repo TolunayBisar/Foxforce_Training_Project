@@ -24,6 +24,8 @@ public class DashBoardPage {
     WebElement mailingListLink;
     @FindBy(xpath = "//a[text()=\"Email Log\"]")
     WebElement emailLogLink;
+    @FindBy(xpath = "//*[@id=\"menu_Inventory\"]/li[5]/a")
+    WebElement promotionalCodes;
 
 
     public DashBoardPage(WebDriver driver) {
@@ -71,6 +73,10 @@ public class DashBoardPage {
     public void clickOnEmailLogLink(){
         functionLibrary.waitForElementPresent(emailLogLink);
         emailLogLink.click();
+    }
+    public void clickOnPromotionalCodes(){
+        functionLibrary.waitForElementPresent(promotionalCodes);
+        promotionalCodes.click();
     }
 
     public void logout() {
