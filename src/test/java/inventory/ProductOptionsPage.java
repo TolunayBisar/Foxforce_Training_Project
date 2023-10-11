@@ -46,25 +46,25 @@ public class ProductOptionsPage {
 
     @FindAll(@FindBy(xpath = "//img[@class='checkbox cbs']"))
     List<WebElement> checkBoxes;
-@FindAll(@FindBy(xpath = "//td[@style='text-align:center']/a/i"))
-List<WebElement> deleteIcons;
+    @FindAll(@FindBy(xpath = "//td[@style='text-align:center']/a/i"))
+    List<WebElement> deleteIcons;
 
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
-         random = new Random();
+        random = new Random();
 
 //
     }
 
-    public void verifyAtLeastOneOptionGroupOnTable() {
+    public boolean verifyAtLeastOneOptionGroupOnTable() {
         List<WebElement> optionGroupLocates = driver.findElements(By.xpath(
                 "//div/h3[text()='Option Groups']/following-sibling :: table/tbody/tr"));
         if (optionGroupLocates.size() > 0) {
             System.out.println("There is at least one Option Group on this page");
         }
-
+        return true;
     }
 
     public void editOptionGroup() {
@@ -80,20 +80,17 @@ List<WebElement> deleteIcons;
         System.out.println(afterCheckValue);
         if (Math.abs((Integer.parseInt(beforeCheckValue) - Integer.parseInt(afterCheckValue))) == 1) {
             System.out.println("Checkbox is working well");
+
         } else {
-            System.out.println("Checkbox is not warking");
+            System.out.println("Checkbox is not working");
         }
 
         // edit icon
-        int j = 0;
-
         int x = 0;
-
+     int beforeEditGroupQty= editIcons.size();
         functionLibrary.writeJson();
         for (OptionGroupObject s : functionLibrary.readJson()) {
             functionLibrary.sleep(1);
-
-
             for (int i = x; i < editIcons.size(); ) {
                 editIcons.get(i).click();
                 functionLibrary.sleep(1);
@@ -105,45 +102,69 @@ List<WebElement> deleteIcons;
                 editNameAndDescField.get(i + 1).clear();
                 editNameAndDescField.get(i + 1).sendKeys(s.getDescription());
                 System.out.println(s.getDescription());
-
-
                 break;
             }
             x = x + 2;
             functionLibrary.sleep(1);
         }
-
         saveButton.click();
+        int afterEditGroupQty= editIcons.size();
+    }
+    public boolean verifyEditOptionGroup() {
+
+        for (WebElement name : editNameAndDescField){
+            if (name.getText().contains(functionLibrary.readJson().toString())){
+               return true;
+            }else
+                return false;
+        }
+      return true;
 
     }
 
-    public void deleteOptionGroup() {
 
+
+    public boolean deleteOptionGroup() {
+        int beforeDelete = deleteIcons.size();
         deleteIcons.get(random.nextInt(deleteIcons.size())).click();
-        Alert alert=driver.switchTo().alert();
+        Alert alert = driver.switchTo().alert();
         alert.accept();
         saveButton.click();
-
+        int afterDelete = deleteIcons.size();
+        if ((beforeDelete - afterDelete) > 0) {
+            System.out.println("Successfully deleted");
+        }
+        return true;
     }
 
-    public void addNewOptionGroup() {
+
+    public int addNewOptionGroup() {
         // Add new group
+        int beforeAdd = editIcons.size();
+        System.out.println(beforeAdd);
         for (OptionGroupObject s : functionLibrary.readJson()) {
-            addGroupNameField.sendKeys(s.getGroupName());
+
+            addGroupNameField.sendKeys(s.getGroupName()+System.currentTimeMillis());
+
             break;
         }
         for (OptionGroupObject s : functionLibrary.readJson()) {
-            addDescriptionField.sendKeys(s.getDescription());
+
+            addDescriptionField.sendKeys(s.getDescription()+System.currentTimeMillis());
             break;
         }
 
         Select select = new Select(selectGroupType);
         select.selectByValue("2");
-
         checkBoxRequired.click();
+        functionLibrary.waitForElementPresent(saveButton);
         saveButton.click();
-
-
+        functionLibrary.sleep(1);
+        int afterAdd = editIcons.size();
+        System.out.println(afterAdd);
+        int addQuantity = afterAdd-beforeAdd;
+        System.out.println(addQuantity);
+        return addQuantity;
     }
 }
 

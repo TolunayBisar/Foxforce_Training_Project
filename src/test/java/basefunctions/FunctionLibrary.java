@@ -165,27 +165,6 @@ public class FunctionLibrary {
 
         List<OptionGroupObject> optionGroupObjects = optionGroups.getOptionGroups();
 
-
-        /*ObjectMapper objectMapper = new ObjectMapper();
-        Users users=null;
-        try {
-            users = objectMapper.readValue(new File("jsonFile/loginUser.json"), Users.class);// readValue ask
-            // us to give class type here. format is: User.class. Means - parse Json file object to Users class.
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        List<LoginUser> loginUsers = users.getLoginUsers();
-        openBrowser();
-        LoginPage loginPage = new LoginPage(driver);
-        for (LoginUser eachUser: loginUsers){
-        loginPage.login(eachUser.getUserName(), eachUser.getPassword());
-        Logout logout =new Logout();
-        logout.logout();}
-        driver.close();
-        driver.quit();
-    }
-}
-   */
      return optionGroupObjects;
     }
 

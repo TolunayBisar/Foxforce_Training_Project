@@ -6,6 +6,7 @@ import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import order.OrderPage;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -27,50 +28,43 @@ public class RunClass extends BaseClass {
         dashBoardPage = new DashBoardPage(driver);
         dashBoardPage.clickOnProductOptionLink();
         functionLibrary = new FunctionLibrary(driver);
-     productOptionsPage = new ProductOptionsPage(driver);
-
-
-
-    }
-@Test
-    public void verifyOptionGroupPage(){
-
-        productOptionsPage.verifyAtLeastOneOptionGroupOnTable();
-
+        productOptionsPage = new ProductOptionsPage(driver);
 
 
     }
- @Test
-    public void editProductOption(){
 
+    @Test
+    public void verifyOptionGroupPage() {
+        Assert.assertTrue(productOptionsPage.verifyAtLeastOneOptionGroupOnTable());
 
+    }
+
+    @Test
+    public void editProductOption() {
         productOptionsPage.editOptionGroup();
+        Assert.assertTrue(productOptionsPage.verifyEditOptionGroup());
 
-
- }
- @Test
-
- public void addProductOption(){
-
-     productOptionsPage.addNewOptionGroup();
-
- }
+    }
 
     @Test
 
-    public void deleteProductOption(){
+    public void addProductOption() {
+        Assert.assertEquals(productOptionsPage.addNewOptionGroup(), 2);
 
-        productOptionsPage.deleteOptionGroup();
+    }
 
+    @Test
+
+    public void deleteProductOption() {
+        Assert.assertTrue(productOptionsPage.deleteOptionGroup());
     }
 
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown() {
         driver.close();
         driver.quit();
     }
-
 
 
 }
