@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
-   public WebDriver driver;
+    WebDriver driver;
     FunctionLibrary functionLibrary;
     @FindBy(xpath = "//a[@href=\"#dashboard\"]")
     WebElement dashBoardLink;
@@ -24,9 +24,8 @@ public class DashBoardPage {
     WebElement mailingListLink;
     @FindBy(xpath = "//a[text()=\"Email Log\"]")
     WebElement emailLogLink;
-    @FindBy(css = "a#nav_products")
-    WebElement productsLink;
-
+    @FindBy(linkText= "Reviews")
+    WebElement reviewLink;
 
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
@@ -74,9 +73,9 @@ public class DashBoardPage {
         functionLibrary.waitForElementPresent(emailLogLink);
         emailLogLink.click();
     }
-    public void clickOnProductsLink(){
-        functionLibrary.waitForElementPresent(productsLink);
-        productsLink.click();
+    public void clickOnReviewLink(){
+        functionLibrary.waitForElementPresent(reviewLink);
+        reviewLink.click();
     }
 
     public void logout() {
