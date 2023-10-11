@@ -25,22 +25,44 @@ public class RunClass extends BaseClass {
         loginPage = new LoginPage(driver);
         loginPage.logIn("testautomation1", "automation123!");
         dashBoardPage = new DashBoardPage(driver);
-
-        orderPage= new OrderPage(driver);
+        dashBoardPage.clickOnProductOptionLink();
         functionLibrary = new FunctionLibrary(driver);
      productOptionsPage = new ProductOptionsPage(driver);
 
 
 
     }
- @Test
-    public void productOption(){
-     dashBoardPage.clickOnProductOptionLink();
+@Test
+    public void verifyOptionGroupPage(){
+
         productOptionsPage.verifyAtLeastOneOptionGroupOnTable();
+
+
+
+    }
+ @Test
+    public void editProductOption(){
+
+
         productOptionsPage.editOptionGroup();
 
 
  }
+ @Test
+
+ public void addProductOption(){
+
+     productOptionsPage.addNewOptionGroup();
+
+ }
+
+    @Test
+
+    public void deleteProductOption(){
+
+        productOptionsPage.deleteOptionGroup();
+
+    }
 
 
     @AfterClass
