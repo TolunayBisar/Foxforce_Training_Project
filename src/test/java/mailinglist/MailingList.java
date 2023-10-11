@@ -145,7 +145,6 @@ public class MailingList {
         Select select = new Select(dropDownInMailingList);
         List<WebElement> checkCustomBox = driver.findElements(By.xpath("//table//tbody/tr/td//div[@class=\"custom-checkbox\"]"));
         Random random = new Random();
-
         WebElement toSelected = checkCustomBox.get(random.nextInt(checkCustomBox.size()));
         toSelected.click();
         select.selectByVisibleText("Remove");
