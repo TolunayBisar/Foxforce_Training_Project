@@ -1,6 +1,5 @@
 package testrunners;
 
-
 import basefunctions.BaseClass;
 import basefunctions.TestDataHolder;
 import cubecartobjects.CustomerGroupObject;
@@ -50,5 +49,12 @@ public class CustomerGroupTestRunner extends BaseClass {
         dashBoardPag.clickOnCustomerListLink();
         customerListPage.createReport(customerObject);
         Assert.assertTrue(customerListPage.verifyCreateReport());
+    }
+
+    @Test(priority = 4)
+    public void searchCustomer(){
+        dashBoardPag.clickOnCustomerListLink();
+        customerListPage.searchCustomer();
+        Assert.assertTrue(customerListPage.verifySearchCustomer());
     }
 }
