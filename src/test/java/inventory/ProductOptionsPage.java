@@ -65,7 +65,8 @@ ExcelFileObject excelFileObject;
 WebElement addIcon;
     @FindBy(xpath = "//input[@value='Save']")
     WebElement saveButtonInAttributePage;
-
+@FindBy(linkText = "Option Attributes")
+WebElement optionAttributeTab;
 
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
@@ -188,11 +189,12 @@ WebElement addIcon;
 
 
     public void addNewOptionAttributes() {
+        optionAttributeTab.click();
         Select select = new Select(selectInAttribute);
         List<String> options = Arrays.asList(selectInAttribute.getText());
         List<String> attributesList = Arrays.asList("Fish","Kitchen","Textile","ABC","Fruit","book");
-        writeExcel.writeToExcel("optionGroupList","OptionGroupListFolder","group1",attributesList);
-        excelFileObject.setFile("optionGroupList/OptionGroupListFolder");
+        writeExcel.writeToExcel("OptionGroupListFolder/optionGroupList.xlsx","OptionGroupListFolder","group1",attributesList);
+        excelFileObject.setFile("OptionGroupListFolder/optionGroupList");
         excelFileObject.setSheet("group1");
         select.selectByValue(options.get(random.nextInt(options.size())));
         attributeNameField.sendKeys(functionLibrary.readExcelInfo().get(random.nextInt(attributesList.size())));

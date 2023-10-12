@@ -54,10 +54,17 @@ public class RunClass extends BaseClass {
     }
 
     @Test
-
     public void deleteProductOption() {
         Assert.assertTrue(productOptionsPage.deleteOptionGroup());
     }
+
+    @Test
+
+    public void OptionAttributeTab() {
+        productOptionsPage.addNewOptionAttributes();
+
+    }
+
 
 
     @AfterClass
