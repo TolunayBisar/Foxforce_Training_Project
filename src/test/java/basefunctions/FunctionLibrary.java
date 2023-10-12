@@ -3,9 +3,14 @@ package basefunctions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
+import cubecartobjects.ExcelFileObject;
 import cubecartobjects.OptionGroupObject;
 import cubecartobjects.OptionGroups;
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -168,6 +173,48 @@ public class FunctionLibrary {
      return optionGroupObjects;
     }
 
+
+    public List<String> readExcelInfo() {
+        ExcelFileObject excelFileObject = new ExcelFileObject();
+        String file = excelFileObject.getFile();
+        String sheetName= excelFileObject.getSheet();
+
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        XSSFWorkbook workbook = null;
+        try {
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        XSSFSheet sheet = workbook.getSheet(sheetName);
+
+
+        int rowCount = sheet.getLastRowNum();
+        int cellCount = sheet.getRow(0).getLastCellNum();// column count
+        System.out.println(rowCount);
+        System.out.println(cellCount);
+        List<String> c = new ArrayList<>();
+
+        for (int row = 0; row < rowCount; row++) {
+            XSSFRow rows = sheet.getRow(row);
+            for (int column = 0; column < cellCount; column++) {
+                XSSFCell columns = rows.getCell(column);
+
+                c.add(columns.getStringCellValue());
+
+            }
+            //System.out.println(c);
+
+        }
+        //System.out.println(c.size());
+        return c;
+
+    }
 
 
 }

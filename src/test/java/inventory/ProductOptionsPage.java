@@ -2,8 +2,10 @@ package inventory;
 
 import basefunctions.FunctionLibrary;
 import basefunctions.ScreenShotUtility;
+import cubecartobjects.ExcelFileObject;
 import cubecartobjects.OptionGroupObject;
 import dashboard.DashBoardPage;
+import order.CustomerInfoExcelList;
 import order.ReadCustomerInfoList;
 import order.ReadOrderInfoList;
 import org.openqa.selenium.Alert;
@@ -16,6 +18,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +27,9 @@ public class ProductOptionsPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
     Random random;
+CustomerInfoExcelList writeExcel;
+ExcelFileObject excelFileObject;
+
 
     @FindAll(@FindBy(xpath = "//div/h3[text()='Option Groups']/following-sibling :: table/tbody/tr/td/span[@class='editable']"))
     List<WebElement> editIcons;
@@ -49,12 +56,24 @@ public class ProductOptionsPage {
     @FindAll(@FindBy(xpath = "//td[@style='text-align:center']/a/i"))
     List<WebElement> deleteIcons;
 
+    @FindBy(id = "select_group_id")
+    WebElement selectInAttribute;
+
+    @FindBy(id = "new-value-name")
+    WebElement attributeNameField;
+@FindBy(xpath = "//i[@title='Add']")
+WebElement addIcon;
+    @FindBy(xpath = "//input[@value='Save']")
+    WebElement saveButtonInAttributePage;
+
+
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
         random = new Random();
-
+        writeExcel = new CustomerInfoExcelList(driver);
+        excelFileObject = new ExcelFileObject();
 //
     }
 
@@ -166,6 +185,21 @@ public class ProductOptionsPage {
         System.out.println(addQuantity);
         return addQuantity;
     }
+
+
+    public void addNewOptionAttributes() {
+        Select select = new Select(selectInAttribute);
+        List<String> options = Arrays.asList(selectInAttribute.getText());
+        List<String> attributesList = Arrays.asList("Fish","Kitchen","Textile","ABC","Fruit","book");
+        writeExcel.writeToExcel("optionGroupList","OptionGroupListFolder","group1",attributesList);
+        excelFileObject.setFile("optionGroupList/OptionGroupListFolder");
+        excelFileObject.setSheet("group1");
+        select.selectByValue(options.get(random.nextInt(options.size())));
+        attributeNameField.sendKeys(functionLibrary.readExcelInfo().get(random.nextInt(attributesList.size())));
+        selectInAttribute.click();
+    }
+
+
 }
 
 
