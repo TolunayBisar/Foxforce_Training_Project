@@ -68,6 +68,8 @@ WebElement addIcon;
 @FindBy(linkText = "Option Attributes")
 WebElement optionAttributeTab;
 
+
+
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -196,9 +198,15 @@ WebElement optionAttributeTab;
         writeExcel.writeToExcel("OptionGroupListFolder/optionGroupList.xlsx","OptionGroupListFolder","group1",attributesList);
         excelFileObject.setFile("OptionGroupListFolder/optionGroupList");
         excelFileObject.setSheet("group1");
-        select.selectByValue(options.get(random.nextInt(options.size())));
-        attributeNameField.sendKeys(functionLibrary.readExcelInfo().get(random.nextInt(attributesList.size())));
-        selectInAttribute.click();
+        functionLibrary.sleep(1);
+        select.selectByIndex((random.nextInt(options.size())));
+        functionLibrary.sleep(1);
+        ExcelFileObject excelFileObject = new ExcelFileObject("OptionGroupListFolder/optionGroupList.xlsx","group1");
+        attributeNameField.sendKeys(functionLibrary.readExcelInfo(excelFileObject.getFile(),
+                excelFileObject.getSheet()).get(random.nextInt(6)));
+
+        addIcon.click();
+        saveButtonInAttributePage.click();
     }
 
 

@@ -3,7 +3,6 @@ package basefunctions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import cubecartobjects.ExcelFileObject;
 import cubecartobjects.OptionGroupObject;
 import cubecartobjects.OptionGroups;
 import org.apache.commons.io.FileUtils;
@@ -22,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -174,10 +172,11 @@ public class FunctionLibrary {
     }
 
 
-    public List<String> readExcelInfo() {
-        ExcelFileObject excelFileObject = new ExcelFileObject();
-        String file = excelFileObject.getFile();
-        String sheetName= excelFileObject.getSheet();
+    public List<String> readExcelInfo(String file,String sheetName ) {
+//        ExcelFileObject excelFileObject = new ExcelFileObject();
+//        String file = excelFileObject.getFile();
+//        String sheetName= excelFileObject.getSheet();
+
 
         FileInputStream inputStream = null;
         try {
