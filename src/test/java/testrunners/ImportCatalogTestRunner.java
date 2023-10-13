@@ -1,7 +1,6 @@
 package testrunners;
 
 import basefunctions.BaseClass;
-import basefunctions.FunctionLibrary;
 import basefunctions.TestDataHolder;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
@@ -11,7 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class CatalogTestRunner extends BaseClass {
+public class ImportCatalogTestRunner extends BaseClass {
     TestDataHolder tdh=new TestDataHolder();
     LoginPage loginPage;
     DashBoardPage dashBoardPage;

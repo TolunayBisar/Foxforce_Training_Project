@@ -1,10 +1,7 @@
 package inventory;
 
 import basefunctions.FunctionLibrary;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -123,34 +120,7 @@ public class ImportCatalogPage {
         Select selectDelimiter=new Select(delimiterDropDown);
         selectDelimiter.selectByValue(",");
         saveButton.click();
-        actions.scrollToElement(optionHeadersBox).perform();
-        optionHeadersBox.click();
-        saveButton.click();
-    }
-    public void importCatalogDetail(String filePath){
-        Actions actions=new Actions(driver);
-        uploadField.click();
-        try {
-            Robot rb=new Robot();
-            StringSelection str=new StringSelection(filePath);
-            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str,null);
-            rb.keyPress(KeyEvent.VK_META);
-            rb.keyPress(KeyEvent.VK_V);
 
-            rb.keyRelease(KeyEvent.VK_META);
-            rb.keyRelease(KeyEvent.VK_V);
-
-            rb.keyPress(KeyEvent.VK_ENTER);
-            rb.keyRelease(KeyEvent.VK_ENTER);
-
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
-        }
-        Select selectFormat=new Select(importFormatDropDown);
-        selectFormat.selectByVisibleText("Comma-Separated Values (CSV)");
-        Select selectDelimiter=new Select(delimiterDropDown);
-        selectDelimiter.selectByValue(",");
-        saveButton.click();
         Select selectName=new Select(productNameDropDown);
         selectName.selectByValue("name");
         Select selectStatus=new Select(statusDropDown);
@@ -226,10 +196,49 @@ public class ImportCatalogPage {
         optionHeadersBox.click();
         saveButton.click();
     }
+    public void importCatalogDetail(String filePath){
+        JavascriptExecutor jse=(JavascriptExecutor)driver;
+        uploadField.click();
+        try {
+            StringSelection str=new StringSelection(filePath);
+            //Copy to clipboard
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str,null);
+
+            // Cmd + Tab is needed since it launches a Java app and the browser looses focus
+            Robot robot=new Robot();
+            robot.keyPress(KeyEvent.VK_META); robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyRelease(KeyEvent.VK_META);robot.keyRelease(KeyEvent.VK_TAB);
+            robot.delay(500);
+
+            //Open Goto window
+            robot.keyPress(KeyEvent.VK_META);robot.keyPress(KeyEvent.VK_SHIFT);robot.keyPress(KeyEvent.VK_G);
+            robot.keyRelease(KeyEvent.VK_META);robot.keyRelease(KeyEvent.VK_SHIFT);robot.keyRelease(KeyEvent.VK_G);
+
+            //Paste the clipboard value
+            robot.keyPress(KeyEvent.VK_META);robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_META);robot.keyRelease(KeyEvent.VK_V);
+
+            //Press Enter key to close the Goto window and Upload window
+            robot.keyPress(KeyEvent.VK_ENTER);robot.keyRelease(KeyEvent.VK_ENTER);
+            robot.delay(500);
+            robot.keyPress(KeyEvent.VK_ENTER);robot.keyRelease(KeyEvent.VK_ENTER);
+        } catch (AWTException e) {
+            throw new RuntimeException(e);
+        }
+        Select selectFormat=new Select(importFormatDropDown);
+        selectFormat.selectByVisibleText("Comma-Separated Values (CSV)");
+        Select selectDelimiter=new Select(delimiterDropDown);
+        selectDelimiter.selectByValue(",");
+        saveButton.click();
+
+        jse.executeScript("window.scrollBy(0,700)","");
+        jse.executeScript("arguments[0].click();",optionHeadersBox);
+        saveButton.click();
+    }
     public boolean verifyImportSuccess(){
-        WebElement successMessage=driver.findElement(By.xpath("//div[contains(text(),'Product import complete.')]"));
         try{
-        if (successMessage.isDisplayed())
+            WebElement successMessage=driver.findElement(By.xpath("//div[contains(text(),'Product import complete.')]"));
+            if (successMessage.isDisplayed())
             System.out.println("Import Successful.");
             return true;
         }catch (NoSuchElementException e){
