@@ -5,24 +5,29 @@ import basefunctions.TestDataHolder;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import inventory.ImportCatalogPage;
+import inventory.TestResultListener;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners(TestResultListener.class)
 public class ImportCatalogTestRunner extends BaseClass {
     TestDataHolder tdh=new TestDataHolder();
     LoginPage loginPage;
     DashBoardPage dashBoardPage;
     ImportCatalogPage importCatalogPage;
     @BeforeClass
-    public void setUp(){
+    public void setUp(ITestContext context){
         openBrowser(tdh.url);
         loginPage=new LoginPage(driver);
         loginPage.logIn(tdh.userName, tdh.passWord);
         dashBoardPage=new DashBoardPage(driver);
         dashBoardPage.verifyDashboardPage();
         importCatalogPage=new ImportCatalogPage(driver);
+        context.setAttribute("driver",driver);
     }
     @Test
     public void importCatalogTest(){

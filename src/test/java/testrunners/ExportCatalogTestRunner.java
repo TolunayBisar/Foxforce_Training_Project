@@ -4,17 +4,21 @@ import basefunctions.TestDataHolder;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import inventory.ExportCatalogPage;
+import inventory.TestResultListener;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
+@Listeners(TestResultListener.class)
 
 public class ExportCatalogTestRunner {
     WebDriver driver;
@@ -24,7 +28,7 @@ public class ExportCatalogTestRunner {
     ExportCatalogPage exportCatalogPage;
 
     @BeforeClass
-    public void setUp(){
+    public void setUp(ITestContext context){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options=new ChromeOptions();
         HashMap<String,Object> chromePrefs=new HashMap<>();
@@ -41,6 +45,7 @@ public class ExportCatalogTestRunner {
         dashBoardPage=new DashBoardPage(driver);
         dashBoardPage.verifyDashboardPage();
         exportCatalogPage=new ExportCatalogPage(driver);
+        context.setAttribute("driver",driver);
     }
     @Test
     public void exportCatalog(){
