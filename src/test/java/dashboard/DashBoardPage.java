@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
-   public WebDriver driver;
+    WebDriver driver;
     FunctionLibrary functionLibrary;
     @FindBy(xpath = "//a[@href=\"#dashboard\"]")
     WebElement dashBoardLink;

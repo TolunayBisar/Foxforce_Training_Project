@@ -36,7 +36,8 @@ public class CustomerGroupTestRunner extends BaseClass {
 
     @Test(priority = 2)
     public void createCustomerGroups(){
-        CustomerGroupObject customerGroupObject = new CustomerGroupObject("New Team","Welcome!!");
+        CustomerGroupObject customerGroupObject = new CustomerGroupObject(
+                "New Team","Welcome!!");
         dashBoardPag.clickOnCustomerListLink();
         customerListPage.addCustomerGroup(customerGroupObject);
         Assert.assertTrue(customerListPage.verifyCustomerGroupUpdatedMessage());
