@@ -32,6 +32,11 @@ public class ImportCatalogTestRunner extends BaseClass {
         Assert.assertTrue(importCatalogPage.verifyImportSuccess());
     }
     @Test
+    public void removeImportedCatalogs(){
+        dashBoardPage.clickOnImportCatalog();
+        Assert.assertTrue(importCatalogPage.removePreviousImports());
+    }
+    @Test(enabled = false)
     public void importCatalogWithRobot(){
         String filePath="/Users/user/IdeaProjects/foxforce-aliyeidris/TestData/catalog1.csv";
         dashBoardPage.clickOnImportCatalog();

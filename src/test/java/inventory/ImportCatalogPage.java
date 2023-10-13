@@ -3,9 +3,11 @@ package inventory;
 import basefunctions.FunctionLibrary;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import java.util.List;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -109,8 +111,18 @@ public class ImportCatalogPage {
     WebElement depthDropDown;
     @FindBy(name = "map[34]")
     WebElement dimensionUnitDropDown;
+    @FindBy(linkText = "Remove Previous Import")
+    WebElement removeLink;
     @FindBy(id = "opt_headers")
     WebElement optionHeadersBox;
+    @FindAll(
+            @FindBy(className = "custom-checkbox")
+    )
+    List<WebElement> allCheckboxes;
+    @FindAll(
+            @FindBy(css = ".success")
+    )
+    List<WebElement> removeSuccessMessage;
     public void importCatalog(String filePath){
         Actions actions=new Actions(driver);
         functionLibrary.waitForElementPresent(chooseFileField);
@@ -245,5 +257,16 @@ public class ImportCatalogPage {
             System.out.println("import failed!!!");
             return false;
         }
+    }
+    public boolean removePreviousImports(){
+    removeLink.click();
+    for(WebElement eachBox:allCheckboxes){
+        eachBox.click();
+    }
+    saveButton.click();
+    if (removeSuccessMessage.size()>=1){
+        return true;
+    }else
+        return false;
     }
 }
