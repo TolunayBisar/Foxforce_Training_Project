@@ -22,6 +22,10 @@ public class DashBoardPage {
     WebElement newsLettersLink;
     @FindBy(linkText = "Mailing List")
     WebElement mailingListLink;
+    @FindBy(linkText = "Import Catalogue")
+    WebElement importCatalogLink;
+    @FindBy(linkText = "Export Catalogue")
+    WebElement exportCatalogLink;
 
 
     public DashBoardPage(WebDriver driver) {
@@ -65,6 +69,14 @@ public class DashBoardPage {
     public void clickOnMailingListLink() {
         functionLibrary.waitForElementPresent(mailingListLink);
         mailingListLink.click();
+    }
+    public void clickOnImportCatalog(){
+        functionLibrary.waitForElementPresent(importCatalogLink);
+        importCatalogLink.click();
+    }
+    public void clickOnExportCatalog(){
+        functionLibrary.waitForElementPresent(exportCatalogLink);
+        exportCatalogLink.click();
     }
 
     public void logout() {
