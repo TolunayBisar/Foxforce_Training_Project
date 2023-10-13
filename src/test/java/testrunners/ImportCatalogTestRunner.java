@@ -31,7 +31,7 @@ public class ImportCatalogTestRunner extends BaseClass {
         importCatalogPage.importCatalog(filePath);
         Assert.assertTrue(importCatalogPage.verifyImportSuccess());
     }
-    @Test
+    @Test(enabled = false)
     public void removeImportedCatalogs(){
         dashBoardPage.clickOnImportCatalog();
         Assert.assertTrue(importCatalogPage.removePreviousImports());

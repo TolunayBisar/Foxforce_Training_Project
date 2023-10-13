@@ -32,8 +32,6 @@ public class ExportCatalogTestRunner {
         String downloadFilepath= System.getProperty("user.dir");
         chromePrefs.put("download.default directory", downloadFilepath);
         options.setExperimentalOption("prefs",chromePrefs);
-        options.addArguments ("--test-type");
-        options.addArguments("--disable-extensions");
         options.setCapability (CapabilityType.ACCEPT_INSECURE_CERTS, true);
         driver=new ChromeDriver(options);
         driver.get(tdh.url);
