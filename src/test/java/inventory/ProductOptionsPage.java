@@ -4,6 +4,7 @@ import basefunctions.FunctionLibrary;
 import basefunctions.ScreenShotUtility;
 import cubecartobjects.ExcelFileObject;
 import cubecartobjects.OptionGroupObject;
+import cubecartobjects.SetObject;
 import dashboard.DashBoardPage;
 import order.CustomerInfoExcelList;
 import order.ReadCustomerInfoList;
@@ -27,8 +28,8 @@ public class ProductOptionsPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
     Random random;
-CustomerInfoExcelList writeExcel;
-ExcelFileObject excelFileObject;
+    CustomerInfoExcelList writeExcel;
+    ExcelFileObject excelFileObject;
 
 
     @FindAll(@FindBy(xpath = "//div/h3[text()='Option Groups']/following-sibling :: table/tbody/tr/td/span[@class='editable']"))
@@ -61,14 +62,40 @@ ExcelFileObject excelFileObject;
 
     @FindBy(id = "new-value-name")
     WebElement attributeNameField;
-@FindBy(xpath = "//i[@title='Add']")
-WebElement addIcon;
+    @FindBy(xpath = "//i[@title='Add']")
+    WebElement addIcon;
     @FindBy(xpath = "//input[@value='Save']")
     WebElement saveButtonInAttributePage;
-@FindBy(linkText = "Option Attributes")
-WebElement optionAttributeTab;
+    @FindBy(linkText = "Option Attributes")
+    WebElement optionAttributeTab;
+
+    @FindAll(@FindBy(xpath = "//tbody[@class='reorder-list ui-sortable']/tr/td[2]/span[@class='editable']"))
+    List<WebElement> attributeIcons;
+
+    @FindBy(xpath = "//a[text()='Option Sets']")
+    WebElement optionSetsTab;
+
+    @FindBy(id = "new-set-name")
+    WebElement setNameField;
+    @FindBy(id = "new-set-desc")
+    WebElement setDescription;
+    @FindBy(xpath = "//div[@class='form_control']/input")
+    WebElement setSaveButton;
 
 
+    @FindBy(name = "set_id")
+   WebElement setDropdown;
+
+    @FindAll(@FindBy(xpath = "//select[@name=\"set_id\"]/option"))
+    List<WebElement> setList;
+
+    @FindBy(name = "add_to_set[]")
+    WebElement attributeToSetDropdown;
+    @FindAll(@FindBy(xpath = "//select[@name='add_to_set[]']/option"))
+    List<WebElement> optionOfAttribute;
+
+    @FindAll(@FindBy(xpath = "//fieldset[@class='field_select_target']/legend/following-sibling::div"))
+    List<WebElement> allAttributesOfSets;
 
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
@@ -109,7 +136,7 @@ WebElement optionAttributeTab;
 
         // edit icon
         int x = 0;
-     int beforeEditGroupQty= editIcons.size();
+        int beforeEditGroupQty = editIcons.size();
         functionLibrary.writeJson();
         for (OptionGroupObject s : functionLibrary.readJson()) {
             functionLibrary.sleep(1);
@@ -130,20 +157,20 @@ WebElement optionAttributeTab;
             functionLibrary.sleep(1);
         }
         saveButton.click();
-        int afterEditGroupQty= editIcons.size();
+        int afterEditGroupQty = editIcons.size();
     }
+
     public boolean verifyEditOptionGroup() {
 
-        for (WebElement name : editNameAndDescField){
-            if (name.getText().contains(functionLibrary.readJson().toString())){
-               return true;
-            }else
+        for (WebElement name : editNameAndDescField) {
+            if (name.getText().contains(functionLibrary.readJson().toString())) {
+                return true;
+            } else
                 return false;
         }
-      return true;
+        return true;
 
     }
-
 
 
     public boolean deleteOptionGroup() {
@@ -166,13 +193,13 @@ WebElement optionAttributeTab;
         System.out.println(beforeAdd);
         for (OptionGroupObject s : functionLibrary.readJson()) {
 
-            addGroupNameField.sendKeys(s.getGroupName()+System.currentTimeMillis());
+            addGroupNameField.sendKeys(s.getGroupName() + System.currentTimeMillis());
 
             break;
         }
         for (OptionGroupObject s : functionLibrary.readJson()) {
 
-            addDescriptionField.sendKeys(s.getDescription()+System.currentTimeMillis());
+            addDescriptionField.sendKeys(s.getDescription() + System.currentTimeMillis());
             break;
         }
 
@@ -184,29 +211,68 @@ WebElement optionAttributeTab;
         functionLibrary.sleep(1);
         int afterAdd = editIcons.size();
         System.out.println(afterAdd);
-        int addQuantity = afterAdd-beforeAdd;
+        int addQuantity = afterAdd - beforeAdd;
         System.out.println(addQuantity);
         return addQuantity;
     }
 
 
-    public void addNewOptionAttributes() {
+    public int addNewOptionAttributes() {
         optionAttributeTab.click();
+        int beforeAttrQty = attributeIcons.size();
         Select select = new Select(selectInAttribute);
         List<String> options = Arrays.asList(selectInAttribute.getText());
-        List<String> attributesList = Arrays.asList("Fish","Kitchen","Textile","ABC","Fruit","book");
-        writeExcel.writeToExcel("OptionGroupListFolder/optionGroupList.xlsx","OptionGroupListFolder","group1",attributesList);
+        List<String> attributesList = Arrays.asList("Fish", "Kitchen", "Textile", "ABC", "Fruit", "book");
+        writeExcel.writeToExcel("OptionGroupListFolder/optionGroupList.xlsx", "OptionGroupListFolder", "group1", attributesList);
         excelFileObject.setFile("OptionGroupListFolder/optionGroupList");
         excelFileObject.setSheet("group1");
         functionLibrary.sleep(1);
         select.selectByIndex((random.nextInt(options.size())));
         functionLibrary.sleep(1);
-        ExcelFileObject excelFileObject = new ExcelFileObject("OptionGroupListFolder/optionGroupList.xlsx","group1");
+        ExcelFileObject excelFileObject = new ExcelFileObject("OptionGroupListFolder/optionGroupList.xlsx", "group1");
         attributeNameField.sendKeys(functionLibrary.readExcelInfo(excelFileObject.getFile(),
-                excelFileObject.getSheet()).get(random.nextInt(6)));
+                excelFileObject.getSheet()).get(random.nextInt(5)));
 
         addIcon.click();
+
         saveButtonInAttributePage.click();
+        int afterAttrQty = attributeIcons.size();
+
+        return afterAttrQty - beforeAttrQty;
+    }
+
+
+    public boolean addNewOptionSets() {
+        boolean theResultOfSet = false;
+        SetObject setObject;
+        optionSetsTab.click();
+
+        //Create new Set
+        int beforeSetQty = setList.size();
+        setObject = new SetObject("Promotion", "Hot sale");
+        setNameField.sendKeys(setObject.getSetName());
+        setDescription.sendKeys(setObject.getSetDesc());
+        setSaveButton.click();
+        int afterSetQty = setList.size();
+
+        // add Attribute to Set
+        int beforeSelectAttributeToSet = allAttributesOfSets.size();
+
+        Select select = new Select(setDropdown);
+        select.selectByIndex(random.nextInt(setList.size()));
+        functionLibrary.sleep(1);
+
+        Select select1 = new Select(attributeToSetDropdown);
+        functionLibrary.sleep(1);
+        select1.selectByValue(optionOfAttribute.get(random.nextInt(optionOfAttribute.size())).getAttribute("value"));
+
+        setSaveButton.click();
+        int afterSelectAttributeToSet = allAttributesOfSets.size();
+        if (((afterSetQty-beforeSetQty)>0) && ((afterSelectAttributeToSet-beforeSelectAttributeToSet)>0) ){
+            return true;
+        }
+
+     return theResultOfSet;
     }
 
 

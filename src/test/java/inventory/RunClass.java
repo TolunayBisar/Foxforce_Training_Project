@@ -2,6 +2,7 @@ package inventory;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
+import cubecartobjects.SetObject;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import order.OrderPage;
@@ -16,8 +17,9 @@ public class RunClass extends BaseClass {
     DashBoardPage dashBoardPage;
     FunctionLibrary functionLibrary;
 
-    OrderPage orderPage;
     ProductOptionsPage productOptionsPage;
+
+    SetObject setObject;
 
 
     @BeforeClass
@@ -29,6 +31,7 @@ public class RunClass extends BaseClass {
         dashBoardPage.clickOnProductOptionLink();
         functionLibrary = new FunctionLibrary(driver);
         productOptionsPage = new ProductOptionsPage(driver);
+
 
 
     }
@@ -59,9 +62,16 @@ public class RunClass extends BaseClass {
     }
 
     @Test
-
     public void OptionAttributeTab() {
-        productOptionsPage.addNewOptionAttributes();
+        Assert.assertTrue(productOptionsPage.addNewOptionAttributes()>0);
+
+    }
+
+
+    @Test
+    public void OptionSetTab() {
+
+        Assert.assertTrue(productOptionsPage.addNewOptionSets());
 
     }
 

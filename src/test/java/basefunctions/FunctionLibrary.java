@@ -173,9 +173,7 @@ public class FunctionLibrary {
 
 
     public List<String> readExcelInfo(String file,String sheetName ) {
-//        ExcelFileObject excelFileObject = new ExcelFileObject();
-//        String file = excelFileObject.getFile();
-//        String sheetName= excelFileObject.getSheet();
+
 
 
         FileInputStream inputStream = null;
