@@ -18,6 +18,7 @@ public class PromotionalCodesPage {
     Faker faker = new Faker();
     FunctionLibrary functionLibrary;
     PromotionalCodesObject promotionalCodesObject;
+    String code = faker.code().asin();
 
     @FindBy(id = "tab_coupons")
     WebElement promotionalCodesTab;
@@ -76,8 +77,8 @@ public class PromotionalCodesPage {
     WebElement saveButtonForAssignedProducts;
     @FindBy(css = "div#gui_message>div.success")
     WebElement promotionalCodeAddedMessage;
-
-
+    @FindAll(@FindBy(xpath = "//*[@id=\"coupons\"]"))
+    List<WebElement> promotionalCodeList;
 
     public PromotionalCodesPage(WebDriver driver) {
         this.driver = driver;
@@ -103,9 +104,7 @@ public class PromotionalCodesPage {
         functionLibrary.waitForElementPresent(createPromotionalCodeTab);
         createPromotionalCodeTab.click();
         functionLibrary.waitForElementPresent(codeField);
-        String code = faker.code().asin();
         codeField.sendKeys(code);
-
         System.out.println(code);
         functionLibrary.waitForElementPresent(descriptionField);
         descriptionField.sendKeys(faker.harryPotter().quote());
@@ -163,10 +162,17 @@ public class PromotionalCodesPage {
             }
         }
 
+        public void createGiftCard(String orderNumber){}
+    public void editPromotionalCode(){
+
+        for (int i = 0; i < promotionalCodeList.size(); i++) {
+            if (promotionalCodeList.get(i).getText().equals(code)){
+                promotionalCodeList.get(i).click();
+            }
+        }
 
 
-    public void createGiftCard(String orderNumber){}
-    public void editPromotionalCode(int code){}
+    }
     public void deletePromotionalCode(int code){}
 
 }

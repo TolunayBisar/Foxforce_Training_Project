@@ -38,5 +38,9 @@ public class RunTestForPromotionalCodesPage extends BaseClass {
         promotionalCodesPage.createPromotionalCode();
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeAddedMessage());
     }
+    @Test(priority = 3)
+    public void editPromotionalCode(){
+
+    }
 
 }
