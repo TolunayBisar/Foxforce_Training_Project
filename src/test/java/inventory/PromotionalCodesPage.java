@@ -30,7 +30,7 @@ public class PromotionalCodesPage {
     WebElement giftCardsTab;
     @FindAll(
             @FindBy(xpath = "//*[@id=\"coupons\"]/table"))
-    List<WebElement> promotionalCodesList ;
+    List<WebElement> promotionalCodesList;
     @FindBy(xpath = "//*[@id=\"form-code\"]")
     WebElement codeField;
     @FindBy(name = "coupon[description]")
@@ -69,29 +69,24 @@ public class PromotionalCodesPage {
     WebElement orderNumberField;
     @FindBy(xpath = "//*[@id=\"page_content\"]/form/div[3]/input[2]")
     WebElement saveButton;
-    @FindBy(id = "tab_edit-products")
-    WebElement assignedProductsTab;
-    @FindBy(css =".ajax.textbox.add.display.clear_field" )
-    WebElement productField;
-    @FindBy(name = "incexc")
-    WebElement productListField;
-
+    @FindBy(xpath = "//*[@id=\"coupons\"]/table/tbody/tr[1]/td[7]/a[2]")
+    WebElement deleteIcon;
     @FindBy(css = "div#gui_message>div.success")
     WebElement promotionalCodeAddedMessage;
     @FindBy(xpath = "//*[@id=\"gui_message\"]/div")
     WebElement promotionalCodeUpdateMessage;
-    @FindBy(xpath = "//*[@id=\"coupons\"]/table/tbody/tr[1]/td[7]/a[1]")
-    WebElement editIcon;
+    @FindBy(css = "div#gui_message>div.success")
+    WebElement promotionalCodeDeletedMessage;
 
 
     public PromotionalCodesPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
 
     }
 
-    public boolean viewAtLeaseOnePromotionalCodes(){
+    public boolean viewAtLeaseOnePromotionalCodes() {
         if (promotionalCodesList.size() >= 1) {
             System.out.println("See at least one promotionalCodesPage");
             return true;
@@ -156,52 +151,27 @@ public class PromotionalCodesPage {
         saveButton.click();
     }
 
-        public boolean verifyPromotionalCodeAddedMessage() {
-            if (promotionalCodeAddedMessage.isDisplayed()) {
-                System.out.println("Promotional code added.");
-                return true;
-            } else {
-                System.out.println("Promotional code was not successful");
-                return false;
-            }
+    public boolean verifyPromotionalCodeAddedMessage() {
+        if (promotionalCodeAddedMessage.isDisplayed()) {
+            System.out.println("Promotional code added.");
+            return true;
+        } else {
+            System.out.println("Promotional code added was not successful");
+            return false;
         }
-
-        public void createGiftCard(){
-            String orderNumber="";
-            DashBoardPage dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.clickOnOrdersLink();
-            // order Number
-            List<WebElement> orderNumberList= driver.findElements
-                    (By.xpath("//tbody/tr/td/a[@title='Edit']"));
-            for (WebElement element:orderNumberList){
-                orderNumber = element.getText();
-                System.out.println(orderNumber);
-                break;
-            }
-            functionLibrary.sleep(3);
-            dashBoardPage.clickOnPromotionalCodes();
-            WebElement promotionalCodeLink = driver.findElement(By.xpath(String.format
-                    ("//tbody/tr/td/a[text()='%s']",code)));
-            promotionalCodeLink.click();
-            orderNumberField.sendKeys(orderNumber);
-            saveButton.click();
-    }
-    public boolean verifyGiftCard(){
-        giftCardsTab.click();
-        functionLibrary.sleep(2);
-        WebElement codeDisplay = driver.findElement(By.xpath(String.format
-                ("//tbody/tr/td[text()='%s']",code)));
-        return codeDisplay.isDisplayed();
     }
 
-    public void editPromotionalCode(){
+    public void editPromotionalCode() {
         promotionalCodesTab.click();
-        editIcon.click();
+        WebElement promotionalCodeLink = driver.findElement(By.xpath(String.format
+                ("//tbody/tr/td/a[text()='%s']", code)));
+        promotionalCodeLink.click();
         descriptionField.clear();
         descriptionField.sendKeys(faker.book().author());
         saveButton.click();
     }
-    public boolean verifyPromotionalCodeUpdateMessage(){
+
+    public boolean verifyPromotionalCodeUpdateMessage() {
         if (promotionalCodeUpdateMessage.isDisplayed()) {
             System.out.println("Promotional code updated.");
             return true;
@@ -211,6 +181,55 @@ public class PromotionalCodesPage {
         }
 
     }
-    public void deletePromotionalCode(int code){}
+
+    public void createGiftCard() {
+        // order Number
+        String orderNumber = "";
+        DashBoardPage dashBoardPage = new DashBoardPage(driver);
+        dashBoardPage.clickOnOrdersLink();
+        List<WebElement> orderNumberList = driver.findElements(By.xpath(
+                "//tbody/tr/td/a[@title='Edit']"));
+        for (WebElement element : orderNumberList) {
+            orderNumber = element.getText();
+            System.out.println(orderNumber);
+            break;
+        }
+        functionLibrary.sleep(3);
+        dashBoardPage.clickOnPromotionalCodes();
+        WebElement promotionalCodeLink = driver.findElement(By.xpath(String.format
+                ("//tbody/tr/td/a[text()='%s']", code)));
+        promotionalCodeLink.click();
+        orderNumberField.sendKeys(orderNumber);
+        saveButton.click();
+    }
+
+    public boolean verifyGiftCard() {
+        giftCardsTab.click();
+        functionLibrary.sleep(2);
+        WebElement codeDisplay = driver.findElement(By.xpath(String.format
+                ("//tbody/tr/td[text()='%s']", code)));
+        return codeDisplay.isDisplayed();
+    }
+
+    public void deletePromotionalCode() {
+        promotionalCodesTab.click();
+        functionLibrary.waitForElementPresent(deleteIcon);
+        functionLibrary.sleep(3);
+        deleteIcon.click();
+        functionLibrary.sleep(3);
+        driver.switchTo().alert().accept();
+    }
+
+    public boolean verifyPromotionalCodeDeleted() {
+        if (promotionalCodeDeletedMessage.isDisplayed()) {
+            System.out.println("Promotional code deleted.");
+            return true;
+        } else {
+            System.out.println("Promotional code deleted was not successful");
+            return false;
+        }
+    }
 
 }
+
+
