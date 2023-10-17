@@ -2,11 +2,10 @@ package inventory;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
-import cubecartobjects.SetObject;
+
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
-import order.OrderPage;
-import org.openqa.selenium.WebDriver;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +18,8 @@ public class RunClass extends BaseClass {
 
     ProductOptionsPage productOptionsPage;
 
-    SetObject setObject;
+  ManufacturersPage manufacturersPage;
+
 
 
     @BeforeClass
@@ -28,53 +28,71 @@ public class RunClass extends BaseClass {
         loginPage = new LoginPage(driver);
         loginPage.logIn("testautomation1", "automation123!");
         dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.clickOnProductOptionLink();
         functionLibrary = new FunctionLibrary(driver);
         productOptionsPage = new ProductOptionsPage(driver);
-
+manufacturersPage = new ManufacturersPage(driver);
 
 
     }
 
-    @Test
+    @Test(priority = 1)
     public void verifyOptionGroupPage() {
         Assert.assertTrue(productOptionsPage.verifyAtLeastOneOptionGroupOnTable());
 
     }
 
-    @Test
+    @Test (priority = 2)
     public void editProductOption() {
         productOptionsPage.editOptionGroup();
         Assert.assertTrue(productOptionsPage.verifyEditOptionGroup());
 
     }
 
-    @Test
+    @Test (priority = 3)
 
     public void addProductOption() {
         Assert.assertEquals(productOptionsPage.addNewOptionGroup(), 2);
 
     }
 
-    @Test
+    @Test(priority = 4)
     public void deleteProductOption() {
         Assert.assertTrue(productOptionsPage.deleteOptionGroup());
     }
 
-    @Test
+    @Test(priority = 5)
     public void OptionAttributeTab() {
         Assert.assertTrue(productOptionsPage.addNewOptionAttributes()>0);
 
     }
 
 
-    @Test
+    @Test(priority = 6)
     public void OptionSetTab() {
 
         Assert.assertTrue(productOptionsPage.addNewOptionSets());
 
     }
 
+    @Test(priority = 7)
+    public void editManufacture(){
+
+        Assert.assertTrue(manufacturersPage.editManufacture());
+
+    }
+
+    @Test(priority = 8)
+    public void deleteManufacture(){
+
+        Assert.assertTrue(manufacturersPage.deleteManufacture()>=1);
+
+    }
+    @Test(priority = 9)
+    public void addManufacture(){
+
+        Assert.assertTrue(manufacturersPage.addManufacture()>=1);
+
+    }
 
 
     @AfterClass

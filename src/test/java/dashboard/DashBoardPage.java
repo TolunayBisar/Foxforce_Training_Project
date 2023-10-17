@@ -28,6 +28,9 @@ public class DashBoardPage {
     @FindBy(xpath = "//ul[@id='menu_Inventory']/li/a[text()='Product Options']")
     WebElement productOptionLink;
 
+    @FindBy(xpath = "//a[text()='Manufacturers']")
+    WebElement manufactureLink;
+
 
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
@@ -79,6 +82,12 @@ public class DashBoardPage {
     public void clickOnProductOptionLink(){
         functionLibrary.waitForElementPresent(productOptionLink);
         productOptionLink.click();
+    }
+
+
+    public void clickOnManufactureLink() {
+        functionLibrary.waitForElementPresent(manufactureLink);
+        manufactureLink.click();
     }
 
     public void logout() {

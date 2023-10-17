@@ -27,6 +27,7 @@ import java.util.Random;
 public class ProductOptionsPage {
     WebDriver driver;
     FunctionLibrary functionLibrary;
+    DashBoardPage dashBoardPage;
     Random random;
     CustomerInfoExcelList writeExcel;
     ExcelFileObject excelFileObject;
@@ -101,6 +102,7 @@ public class ProductOptionsPage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         functionLibrary = new FunctionLibrary(driver);
+        dashBoardPage = new DashBoardPage(driver);
         random = new Random();
         writeExcel = new CustomerInfoExcelList(driver);
         excelFileObject = new ExcelFileObject();
@@ -108,6 +110,7 @@ public class ProductOptionsPage {
     }
 
     public boolean verifyAtLeastOneOptionGroupOnTable() {
+        dashBoardPage.clickOnProductOptionLink();
         List<WebElement> optionGroupLocates = driver.findElements(By.xpath(
                 "//div/h3[text()='Option Groups']/following-sibling :: table/tbody/tr"));
         if (optionGroupLocates.size() > 0) {
