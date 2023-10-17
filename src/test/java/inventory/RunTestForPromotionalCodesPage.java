@@ -3,6 +3,7 @@ package inventory;
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
 import basefunctions.TestDataHolder;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
@@ -39,8 +40,14 @@ public class RunTestForPromotionalCodesPage extends BaseClass {
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeAddedMessage());
     }
     @Test(priority = 3)
-    public void editPromotionalCode(){
-
+    public void createGiftCard(){
+        promotionalCodesPage.createGiftCard();
+        Assert.assertTrue(promotionalCodesPage.verifyGiftCard());
+    }
+    @Test(priority = 4)
+    public void updatePromotionalCode(){
+        promotionalCodesPage.editPromotionalCode();
+        Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeUpdateMessage());
     }
 
 }

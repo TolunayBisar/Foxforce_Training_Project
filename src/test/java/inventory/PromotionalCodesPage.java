@@ -4,6 +4,7 @@ import basefunctions.FunctionLibrary;
 import com.github.javafaker.Faker;
 import cubecartobjects.PromotionalCodesObject;
 import dashboard.DashBoardPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -17,6 +18,7 @@ public class PromotionalCodesPage {
     WebDriver driver;
     Faker faker = new Faker();
     FunctionLibrary functionLibrary;
+
     PromotionalCodesObject promotionalCodesObject;
     String code = faker.code().asin();
 
@@ -66,19 +68,21 @@ public class PromotionalCodesPage {
     @FindBy(name = "coupon[cart_order_id]")
     WebElement orderNumberField;
     @FindBy(xpath = "//*[@id=\"page_content\"]/form/div[3]/input[2]")
-    WebElement saveButtonForAddNewPromotionalCode;
+    WebElement saveButton;
     @FindBy(id = "tab_edit-products")
     WebElement assignedProductsTab;
     @FindBy(css =".ajax.textbox.add.display.clear_field" )
     WebElement productField;
     @FindBy(name = "incexc")
     WebElement productListField;
-    @FindBy(xpath = "//*[@id=\"page_content\"]/form/div[3]/input[2]")
-    WebElement saveButtonForAssignedProducts;
+
     @FindBy(css = "div#gui_message>div.success")
     WebElement promotionalCodeAddedMessage;
-    @FindAll(@FindBy(xpath = "//*[@id=\"coupons\"]"))
-    List<WebElement> promotionalCodeList;
+    @FindBy(xpath = "//*[@id=\"gui_message\"]/div")
+    WebElement promotionalCodeUpdateMessage;
+    @FindBy(xpath = "//*[@id=\"coupons\"]/table/tbody/tr[1]/td[7]/a[1]")
+    WebElement editIcon;
+
 
     public PromotionalCodesPage(WebDriver driver) {
         this.driver = driver;
@@ -148,8 +152,8 @@ public class PromotionalCodesPage {
         limitToManufacturerField.click();
         functionLibrary.sleep(1);
         limitToManufacturer.get(2).click();
-        functionLibrary.waitForElementPresent(saveButtonForAddNewPromotionalCode);
-        saveButtonForAddNewPromotionalCode.click();
+        functionLibrary.waitForElementPresent(saveButton);
+        saveButton.click();
     }
 
         public boolean verifyPromotionalCodeAddedMessage() {
@@ -162,15 +166,49 @@ public class PromotionalCodesPage {
             }
         }
 
-        public void createGiftCard(String orderNumber){}
-    public void editPromotionalCode(){
-
-        for (int i = 0; i < promotionalCodeList.size(); i++) {
-            if (promotionalCodeList.get(i).getText().equals(code)){
-                promotionalCodeList.get(i).click();
+        public void createGiftCard(){
+            String orderNumber="";
+            DashBoardPage dashBoardPage = new DashBoardPage(driver);
+        dashBoardPage.clickOnOrdersLink();
+            // order Number
+            List<WebElement> orderNumberList= driver.findElements
+                    (By.xpath("//tbody/tr/td/a[@title='Edit']"));
+            for (WebElement element:orderNumberList){
+                orderNumber = element.getText();
+                System.out.println(orderNumber);
+                break;
             }
-        }
+            functionLibrary.sleep(3);
+            dashBoardPage.clickOnPromotionalCodes();
+            WebElement promotionalCodeLink = driver.findElement(By.xpath(String.format
+                    ("//tbody/tr/td/a[text()='%s']",code)));
+            promotionalCodeLink.click();
+            orderNumberField.sendKeys(orderNumber);
+            saveButton.click();
+    }
+    public boolean verifyGiftCard(){
+        giftCardsTab.click();
+        functionLibrary.sleep(2);
+        WebElement codeDisplay = driver.findElement(By.xpath(String.format
+                ("//tbody/tr/td[text()='%s']",code)));
+        return codeDisplay.isDisplayed();
+    }
 
+    public void editPromotionalCode(){
+        promotionalCodesTab.click();
+        editIcon.click();
+        descriptionField.clear();
+        descriptionField.sendKeys(faker.book().author());
+        saveButton.click();
+    }
+    public boolean verifyPromotionalCodeUpdateMessage(){
+        if (promotionalCodeUpdateMessage.isDisplayed()) {
+            System.out.println("Promotional code updated.");
+            return true;
+        } else {
+            System.out.println("Promotional code was not updated successful");
+            return false;
+        }
 
     }
     public void deletePromotionalCode(int code){}
