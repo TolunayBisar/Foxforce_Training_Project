@@ -18,7 +18,6 @@ public class PromotionalCodesPage {
     WebDriver driver;
     Faker faker = new Faker();
     FunctionLibrary functionLibrary;
-
     PromotionalCodesObject promotionalCodesObject;
     String code = faker.code().asin();
 

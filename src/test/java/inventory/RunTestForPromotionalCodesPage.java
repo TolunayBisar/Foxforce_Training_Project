@@ -28,41 +28,34 @@ public class RunTestForPromotionalCodesPage extends BaseClass {
         promotionalCodesPage = new PromotionalCodesPage(driver);
 
     }
-
     @Test(priority = 1)
     public void verifyPromotionalCodes() {
         dashBoardPage.clickOnPromotionalCodes();
         Assert.assertTrue(promotionalCodesPage.viewAtLeaseOnePromotionalCodes());
     }
-
     @Test(priority = 2)
     public void createPromotionalCode() {
         dashBoardPage.clickOnPromotionalCodes();
         promotionalCodesPage.createPromotionalCode();
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeAddedMessage());
     }
-
     @Test(priority = 3)
     public void updatePromotionalCode() {
         promotionalCodesPage.editPromotionalCode();
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeUpdateMessage());
     }
-
     @Test(priority = 4)
     public void createGiftCard() {
         promotionalCodesPage.createGiftCard();
         Assert.assertTrue(promotionalCodesPage.verifyGiftCard());
     }
-
     @Test(priority = 5)
     public void deletePromotionalCode() {
         promotionalCodesPage.deletePromotionalCode();
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeDeleted());
     }
-
     @AfterClass
     public void tearDown() {
-
         closeBrowser();
     }
 
