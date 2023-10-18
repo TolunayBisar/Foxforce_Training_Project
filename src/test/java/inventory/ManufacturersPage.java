@@ -1,7 +1,9 @@
 package inventory;
 
 import basefunctions.FunctionLibrary;
+import cubecartobjects.ExcelFileObject;
 import dashboard.DashBoardPage;
+import order.CustomerInfoExcelList;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +19,9 @@ public class ManufacturersPage{
     FunctionLibrary functionLibrary;
     Random random;
     DashBoardPage dashBoardPage;
+
+    CustomerInfoExcelList writeExcel;
+    ExcelFileObject excelFileObject;
 
     @FindAll(@FindBy(css = ".fa.fa-pencil-square-o"))
     List<WebElement> manufactureEditIcons;
@@ -41,19 +46,15 @@ List<WebElement> manufactureNameList;
         this.driver = driver;
         PageFactory.initElements(driver,this);
         functionLibrary = new FunctionLibrary(driver) ;
-dashBoardPage= new DashBoardPage(driver);
+        dashBoardPage= new DashBoardPage(driver);
         random = new Random();
-
-    }
+        writeExcel = new CustomerInfoExcelList(driver);
+        excelFileObject = new ExcelFileObject();
+     }
 
     public boolean  editManufacture(){
         dashBoardPage.clickOnManufactureLink();
-
         manufactureEditIcons.get(random.nextInt(manufactureEditIcons.size())).click();
-
-//        ProductObjectClass productObjectClass = new ProductObjectClass();
-//        ProductObjectClass.setBand
-//        manufactureName.sendKeys(ProductObjectClass.getBand);
         manufactureName.clear();
         manufactureName.sendKeys("Sert");
         manufactureSite.sendKeys("www.sertplas.com.tr");
