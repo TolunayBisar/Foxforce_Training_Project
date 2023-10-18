@@ -121,7 +121,7 @@ public class ProductOptionsPage {
 
     public void editOptionGroup() {
 
-
+        dashBoardPage.clickOnProductOptionLink();
         //checkbox
         List<WebElement> checkBox = driver.findElements(By.xpath("//img[@class='checkbox cbs']"));
         List<WebElement> checkBoxValue = driver.findElements(By.xpath("//td/input[@class='toggle']"));
@@ -177,6 +177,7 @@ public class ProductOptionsPage {
 
 
     public boolean deleteOptionGroup() {
+        dashBoardPage.clickOnProductOptionLink();
         int beforeDelete = deleteIcons.size();
         deleteIcons.get(random.nextInt(deleteIcons.size())).click();
         Alert alert = driver.switchTo().alert();
@@ -191,6 +192,7 @@ public class ProductOptionsPage {
 
 
     public int addNewOptionGroup() {
+        dashBoardPage.clickOnProductOptionLink();
         // Add new group
         int beforeAdd = editIcons.size();
         System.out.println(beforeAdd);
@@ -221,6 +223,7 @@ public class ProductOptionsPage {
 
 
     public int addNewOptionAttributes() {
+        dashBoardPage.clickOnProductOptionLink();
         optionAttributeTab.click();
         int beforeAttrQty = attributeIcons.size();
         Select select = new Select(selectInAttribute);
@@ -246,6 +249,7 @@ public class ProductOptionsPage {
 
 
     public boolean addNewOptionSets() {
+        dashBoardPage.clickOnProductOptionLink();
         boolean theResultOfSet = false;
         SetObject setObject;
         optionSetsTab.click();

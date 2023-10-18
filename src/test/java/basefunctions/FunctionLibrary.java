@@ -95,6 +95,16 @@ public class FunctionLibrary {
         return fakeEmail;
     }
 
+    public String generateFakeManufacture() {
+        String fakeManufacture = Faker.instance().company().name();
+        return fakeManufacture;
+    }
+
+    public String generateFakeManufactureURL() {
+        String fakeManufactureURL = Faker.instance().company().url();
+        return fakeManufactureURL;
+    }
+
     public String readTextFile(String path) {
         StringBuilder content = new StringBuilder();
         FileInputStream fileInputStream = null;
