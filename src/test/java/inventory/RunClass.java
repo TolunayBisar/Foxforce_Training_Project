@@ -48,7 +48,7 @@ manufacturersPage = new ManufacturersPage(driver);
 
     }
 
-    @Test (priority = 3)
+    @Test (priority = 3,invocationCount = 3)
 
     public void addProductOption() {
         Assert.assertEquals(productOptionsPage.addNewOptionGroup(), 2);
@@ -84,7 +84,7 @@ manufacturersPage = new ManufacturersPage(driver);
     @Test(priority = 8)
     public void deleteManufacture(){
 
-        Assert.assertTrue(manufacturersPage.deleteManufacture()>=1);
+        Assert.assertTrue(manufacturersPage.deleteManufacture());
 
     }
     @Test(priority = 9)

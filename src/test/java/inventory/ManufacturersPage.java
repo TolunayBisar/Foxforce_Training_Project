@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -42,8 +43,13 @@ List<WebElement> manufactureNameList;
     @FindAll(@FindBy(css = ".fa.fa-trash"))
     List<WebElement> manufactureDeleteIcons;
 
+
+
     @FindBy(xpath = "//a[text()='Add Manufacturer']")
     WebElement addManufactureTab;
+
+    @FindBy(xpath = "//div[@class='pagination']/span/strong")
+    WebElement numberOfQty;
 
     public ManufacturersPage(WebDriver driver) {
         this.driver = driver;
@@ -64,20 +70,21 @@ List<WebElement> manufactureNameList;
                 functionLibrary.generateFakeManufacture(), functionLibrary.generateFakeManufactureURL(),
                 functionLibrary.generateFakeManufacture(), functionLibrary.generateFakeManufactureURL());
         writeExcel.writeToExcel("ManufactureListFolder/ManufactureList.xlsx", "ManufactureListFolder", "group1", ManufactureList);
-        excelFileObject.setFile("ManufactureListFolder/ManufactureList.xlsx");
-        excelFileObject.setSheet("group1");
+
         functionLibrary.sleep(1);
        // ExcelFileObject excelFileObject = new ExcelFileObject("ManufactureListFolder/ManufactureList.xlsx", "group1");
 
         dashBoardPage.clickOnManufactureLink();
         manufactureEditIcons.get(random.nextInt(manufactureEditIcons.size())).click();
         manufactureName.clear();
-        int i= random.nextInt(functionLibrary.readExcelInfo(excelFileObject.getFile(),excelFileObject.getSheet()).size());
+       // int i= random.nextInt(functionLibrary.readExcelInfo(excelFileObject.getFile(),excelFileObject.getSheet()).size());
+        excelFileObject.setFile("ManufactureListFolder/ManufactureList.xlsx");
+        excelFileObject.setSheet("group1");
         manufactureName.sendKeys(functionLibrary.readExcelInfo(excelFileObject.getFile(),
-                excelFileObject.getSheet()).get(i));
+                excelFileObject.getSheet()).get(0));
         manufactureSite.clear();
         manufactureSite.sendKeys(functionLibrary.readExcelInfo(excelFileObject.getFile(),
-                excelFileObject.getSheet()).get(i+1));
+                excelFileObject.getSheet()).get(1));
         submitButton.click();
        if (manufactureNameList.get(0).getText().contains(functionLibrary.readExcelInfo(excelFileObject.getFile(),
                excelFileObject.getSheet()).toString()));
@@ -85,28 +92,41 @@ List<WebElement> manufactureNameList;
        return true;
     }
 
-    public int deleteManufacture() {
+    public boolean deleteManufacture() {
         dashBoardPage.clickOnManufactureLink();
-        int beforeDelete=manufactureDeleteIcons.size();
+        boolean deleted = false;
+        List<String> beforeDeleteName = new ArrayList<>();
+        List<String> afterDeleteName = new ArrayList<>();
+      for (WebElement beforeDeleteLocate:manufactureNameList){
+          beforeDeleteName.add(beforeDeleteLocate.getText());
+      }
+        System.out.println(beforeDeleteName);
         manufactureDeleteIcons.get(random.nextInt(manufactureDeleteIcons.size())).click();
         driver.switchTo().alert().accept();
-        int afterDelete=manufactureDeleteIcons.size();
+        for (WebElement afterDeleteLocate:manufactureNameList){
+            afterDeleteName.add(afterDeleteLocate.getText());
+        }
+        System.out.println(afterDeleteName);
+        if (!(beforeDeleteName.contains(afterDeleteName))){
+            deleted = true;
+        }
 
-        return beforeDelete-afterDelete;
 
+      return deleted;
     }
 
     public int addManufacture() {
         dashBoardPage.clickOnManufactureLink();
+        String beforeAdd = numberOfQty.getText();
         addManufactureTab.click();
-        int beforeAdd = manufactureEditIcons.size();
+
         manufactureObject.setManufacture(functionLibrary.generateFakeManufacture());
         manufactureName.sendKeys(manufactureObject.getManufacture());
         manufactureObject.setManufactureURL(functionLibrary.generateFakeManufactureURL());
         manufactureSite.sendKeys( manufactureObject.getManufactureURL());
         submitButton.click();
-        int afterAdd = manufactureEditIcons.size();
-        return afterAdd-beforeAdd;
+        String afterAdd = numberOfQty.getText();
+        return Integer.parseInt(afterAdd)-Integer.parseInt(beforeAdd);
     }
 
 }

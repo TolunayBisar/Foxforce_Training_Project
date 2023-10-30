@@ -1,14 +1,11 @@
 package inventory;
 
 import basefunctions.FunctionLibrary;
-import basefunctions.ScreenShotUtility;
 import cubecartobjects.ExcelFileObject;
 import cubecartobjects.OptionGroupObject;
 import cubecartobjects.SetObject;
 import dashboard.DashBoardPage;
 import order.CustomerInfoExcelList;
-import order.ReadCustomerInfoList;
-import order.ReadOrderInfoList;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,9 +14,7 @@ import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.annotations.AfterClass;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -95,8 +90,9 @@ public class ProductOptionsPage {
     @FindAll(@FindBy(xpath = "//select[@name='add_to_set[]']/option"))
     List<WebElement> optionOfAttribute;
 
-    @FindAll(@FindBy(xpath = "//fieldset[@class='field_select_target']/legend/following-sibling::div"))
-    List<WebElement> allAttributesOfSets;
+    @FindAll(@FindBy(xpath = "//div/span[@class='actions']"))
+    List<WebElement> selectedAttributesOfSets;
+
 
     public ProductOptionsPage(WebDriver driver) {
         this.driver = driver;
@@ -125,9 +121,9 @@ public class ProductOptionsPage {
         //checkbox
         List<WebElement> checkBox = driver.findElements(By.xpath("//img[@class='checkbox cbs']"));
         List<WebElement> checkBoxValue = driver.findElements(By.xpath("//td/input[@class='toggle']"));
-        String beforeCheckValue = checkBoxValue.get(1).getAttribute("value");
+        String beforeCheckValue = checkBoxValue.get(0).getAttribute("value");
         System.out.println(beforeCheckValue);
-        checkBox.get(1).click();
+        checkBox.get(0).click();
         String afterCheckValue = checkBoxValue.get(1).getAttribute("value");
         System.out.println(afterCheckValue);
         if (Math.abs((Integer.parseInt(beforeCheckValue) - Integer.parseInt(afterCheckValue))) == 1) {
@@ -256,14 +252,14 @@ public class ProductOptionsPage {
 
         //Create new Set
         int beforeSetQty = setList.size();
-        setObject = new SetObject("Promotion", "Hot sale");
+        setObject = new SetObject("Promotion1", "Hot sale");
         setNameField.sendKeys(setObject.getSetName());
         setDescription.sendKeys(setObject.getSetDesc());
         setSaveButton.click();
         int afterSetQty = setList.size();
 
         // add Attribute to Set
-        int beforeSelectAttributeToSet = allAttributesOfSets.size();
+        int beforeSelectAttributeToSet = selectedAttributesOfSets.size();
 
         Select select = new Select(setDropdown);
         select.selectByIndex(random.nextInt(setList.size()));
@@ -271,15 +267,15 @@ public class ProductOptionsPage {
 
         Select select1 = new Select(attributeToSetDropdown);
         functionLibrary.sleep(1);
-        select1.selectByValue(optionOfAttribute.get(random.nextInt(optionOfAttribute.size())).getAttribute("value"));
+        select1.selectByIndex(random.nextInt(optionOfAttribute.size()));
 
         setSaveButton.click();
-        int afterSelectAttributeToSet = allAttributesOfSets.size();
+        int afterSelectAttributeToSet = selectedAttributesOfSets.size();
         if (((afterSetQty-beforeSetQty)>0) && ((afterSelectAttributeToSet-beforeSelectAttributeToSet)>0) ){
             return true;
         }
 
-     return theResultOfSet;
+     else return theResultOfSet;
     }
 
 
