@@ -22,10 +22,11 @@ public class ImportCatalogPage {
         PageFactory.initElements(driver,this);
         functionLibrary=new FunctionLibrary(driver);
     }
-    @FindBy(xpath = "//input[@type='file']")
-    WebElement chooseFileField;
     @FindBy(xpath = "//label[text()='Source (Max: 32M)']")
     WebElement uploadField;
+    @FindBy(xpath = "//input[@type='file']")
+    WebElement chooseFileField;
+
     @FindBy(id = "import_format")
     WebElement importFormatDropDown;
     @FindBy(id = "opt_delimiter")
@@ -218,7 +219,7 @@ public class ImportCatalogPage {
 
             // Cmd + Tab is needed since it launches a Java app and the browser looses focus
             Robot robot=new Robot();
-            robot.keyPress(KeyEvent.VK_META); robot.keyPress(KeyEvent.VK_TAB);
+            robot.keyPress(KeyEvent.VK_META);robot.keyPress(KeyEvent.VK_TAB);
             robot.keyRelease(KeyEvent.VK_META);robot.keyRelease(KeyEvent.VK_TAB);
             robot.delay(500);
 

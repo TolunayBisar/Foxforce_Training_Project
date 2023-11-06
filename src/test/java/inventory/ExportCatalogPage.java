@@ -56,7 +56,7 @@ driver.findElement (By.LinkText "32 bit Windows IE")).click);*/
                 driver.switchTo().window(openedWindow);
                 functionLibrary.sleep(2);
                 try {
-                    WebElement verifyText = driver.findElement(By.xpath("//strong[contains(text(),'Bedside table')]"));
+                    WebElement verifyText = driver.findElement(By.xpath("//body[contains(text(),'Master Category')]"));
                     if (verifyText.isDisplayed())
                         System.out.println("Export url works fine");
                 }catch (Exception e){
