@@ -181,7 +181,7 @@ public class PromotionalCodesPage {
 
     }
 
-    public void createGiftCard() {
+    public void createGiftCard()    {
         // order Number
         String orderNumber = "";
         DashBoardPage dashBoardPage = new DashBoardPage(driver);
