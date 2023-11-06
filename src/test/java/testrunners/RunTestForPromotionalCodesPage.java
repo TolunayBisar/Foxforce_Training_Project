@@ -1,10 +1,11 @@
-package inventory;
+package testrunners;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
 import basefunctions.TestDataHolder;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
+import inventory.PromotionalCodesPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
