@@ -15,20 +15,6 @@ import java.io.FileNotFoundException;
 import java.util.Set;
 
 public class ExportCatalogPage {
- /*   System.setProperty"webdriver.chrome.driver"
-            "C: \\Users\ \Hitendra\\Downloads\\chromedriver win32\\chromedriver.exe"
-
-    String downloadFilepath = "C: \\Users\\Hitendra\\Downloads";
-    HashMap<String, Object> chromePrefs = new HashMap<String, Object (); chromePrefs.put("profile.default_content_settings.popups", 0);
-chromePrefs.put ("download.default directory", downloadFilepath);
-    ChromeOptions options = new ChromeOptions ();
-options.setExperimentalOption("prefs", chromePrefs);
-options.addArguments ("--test-type"); options.addArguments"--disable-extensions"); //to disable browser extensior
-options.setCapability (CapabilityType.ACCEPT_SSL_CERTS, true);
-
-    driver = new ChromeDriver (options);
-driver.get("http: / /www.seleniumhq.org/download/");
-driver.findElement (By.LinkText "32 bit Windows IE")).click);*/
     WebDriver driver;
     FunctionLibrary functionLibrary;
 
