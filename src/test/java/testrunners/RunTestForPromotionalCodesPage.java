@@ -1,10 +1,11 @@
-package inventory;
+package testrunners;
 
 import basefunctions.BaseClass;
 import basefunctions.FunctionLibrary;
 import basefunctions.TestDataHolder;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
+import inventory.PromotionalCodesPage;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -55,8 +56,7 @@ public class RunTestForPromotionalCodesPage extends BaseClass {
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeDeleted());
     }
     @AfterClass
-    public void tearDown() {
-        closeBrowser();
+    public void tearDown() {closeBrowser();
     }
 
 }
