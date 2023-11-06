@@ -1,5 +1,6 @@
 package basefunctions;
 
+import dashboard.DashBoardPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,8 @@ public class BaseClass {
         driver.get(url);
     }
     public void closeBrowser(){
+
+
         driver.close();
         driver.quit();
     }

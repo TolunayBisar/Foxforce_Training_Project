@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class FunctionLibrary {
-    public WebDriver driver;
+    WebDriver driver;
+
     int timeOut=Integer.parseInt(readFromConfig("config.properties","timeout"));
 
     public FunctionLibrary(WebDriver driver) {
