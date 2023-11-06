@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPage {
-   public WebDriver driver;
+    WebDriver driver;
     FunctionLibrary functionLibrary;
     @FindBy(xpath = "//a[@href=\"#dashboard\"]")
     WebElement dashBoardLink;
@@ -26,7 +26,10 @@ public class DashBoardPage {
     WebElement importCatalogLink;
     @FindBy(linkText = "Export Catalogue")
     WebElement exportCatalogLink;
-
+    @FindBy(xpath = "//a[text()=\"Email Log\"]")
+    WebElement emailLogLink;
+    @FindBy(xpath = "//*[@id=\"menu_Inventory\"]/li[5]/a")
+    WebElement promotionalCodes;
 
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
@@ -79,8 +82,17 @@ public class DashBoardPage {
         exportCatalogLink.click();
     }
 
-    public void logout() {
+    public void clickOnEmailLogLink() {
+        functionLibrary.waitForElementPresent(emailLogLink);
+        emailLogLink.click();
+    }
 
+    public void clickOnPromotionalCodes() {
+        functionLibrary.waitForElementPresent(promotionalCodes);
+        promotionalCodes.click();
+    }
+
+    public void logout() {
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
 }

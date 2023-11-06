@@ -1,10 +1,10 @@
-package customersmodule;
-
+package testrunners;
 
 import basefunctions.BaseClass;
-import basefunctions.FunctionLibrary;
+import basefunctions.TestDataHolder;
 import cubecartobjects.CustomerGroupObject;
 import cubecartobjects.CustomerObject;
+import customersmodule.CustomerListPage;
 import dashboard.DashBoardPage;
 import dashboard.LoginPage;
 import org.testng.Assert;
@@ -13,20 +13,18 @@ import org.testng.annotations.Test;
 
 
 public class CustomerGroupTestRunner extends BaseClass {
+    TestDataHolder testDataHolder;
     LoginPage loginPage;
-    FunctionLibrary functionLibrary= new FunctionLibrary();
     DashBoardPage dashBoardPag;
     CustomerListPage customerListPage;
-    String url = functionLibrary.readFromConfig("config.properties","url");
-    String userName = functionLibrary.readFromConfig("config.properties","username1");
-    String passWord = functionLibrary.readFromConfig("config.properties","password");
 
 
     @BeforeClass
     public void setUp() {
-        openBrowser(url);
+        testDataHolder = new TestDataHolder();
+        openBrowser(testDataHolder.url);
         loginPage = new LoginPage(driver);
-        loginPage.logIn(userName,passWord);
+        loginPage.logIn(testDataHolder.userName, testDataHolder.passWord);
         dashBoardPag = new DashBoardPage(driver);
         customerListPage = new CustomerListPage(driver);
     }
@@ -38,7 +36,8 @@ public class CustomerGroupTestRunner extends BaseClass {
 
     @Test(priority = 2)
     public void createCustomerGroups(){
-        CustomerGroupObject customerGroupObject = new CustomerGroupObject("New Team","Welcome!!");
+        CustomerGroupObject customerGroupObject = new CustomerGroupObject(
+                "New Team","Welcome!!");
         dashBoardPag.clickOnCustomerListLink();
         customerListPage.addCustomerGroup(customerGroupObject);
         Assert.assertTrue(customerListPage.verifyCustomerGroupUpdatedMessage());
@@ -51,5 +50,12 @@ public class CustomerGroupTestRunner extends BaseClass {
         dashBoardPag.clickOnCustomerListLink();
         customerListPage.createReport(customerObject);
         Assert.assertTrue(customerListPage.verifyCreateReport());
+    }
+
+    @Test(priority = 4)
+    public void searchCustomer(){
+        dashBoardPag.clickOnCustomerListLink();
+        customerListPage.searchCustomer();
+        Assert.assertTrue(customerListPage.verifySearchCustomer());
     }
 }

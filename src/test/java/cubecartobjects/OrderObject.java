@@ -1,10 +1,18 @@
 package cubecartobjects;
 
 public class OrderObject {
-    private String customerInfo; private String dispatchDate; private String shippingMethod;
-    private String shippingDate; private String deliveryTracking; private double weight;
-    private int quantity; private String productName; private double discountAmount;
-    private double shippingCost; private double taxAmount; private String internalNotes;
+    private String customerInfo;
+    private String dispatchDate;
+    private String shippingMethod;
+    private String shippingDate;
+    private String deliveryTracking;
+    private double weight;
+    private int quantity;
+    private String productName;
+    private double discountAmount;
+    private double shippingCost;
+    private double taxAmount;
+    private String internalNotes;
     private String publicNotes;
 
     public OrderObject() {
