@@ -11,7 +11,7 @@ public class BaseClass {
     public  WebDriver driver;
     public  void openBrowser(String url){
 
-        WebDriverManager.chromedriver().setup();
+        //WebDriverManager.chromedriver().setup();
         ChromeOptions options=new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver=new ChromeDriver(options);
@@ -19,8 +19,8 @@ public class BaseClass {
         driver.get(url);
     }
     public void closeBrowser(){
-        DashBoardPage dashBoardPage = new DashBoardPage(driver);
-        dashBoardPage.logout();
+
+
         driver.close();
         driver.quit();
     }
