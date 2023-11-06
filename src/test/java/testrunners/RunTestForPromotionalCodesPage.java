@@ -56,8 +56,7 @@ public class RunTestForPromotionalCodesPage extends BaseClass {
         Assert.assertTrue(promotionalCodesPage.verifyPromotionalCodeDeleted());
     }
     @AfterClass
-    public void tearDown() {
-        closeBrowser();
+    public void tearDown() {closeBrowser();
     }
 
 }
