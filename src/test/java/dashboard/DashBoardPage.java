@@ -121,6 +121,10 @@ public class DashBoardPage {
         functionLibrary.waitForElementPresent(productsLink);
         productsLink.click();
     }
+    public void clickOnReviewLink(){
+        functionLibrary.waitForElementPresent(reviewLink);
+        reviewLink.click();
+    }
     public void logout() {
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
