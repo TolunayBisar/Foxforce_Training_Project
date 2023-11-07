@@ -1,8 +1,12 @@
 package cubecartobjects;
 
 public class NewsletterObject {
-    private String newsLetterSubject; private String senderName; private String senderEmail;
-    private String htmlContent; private String plainTextContent; private String recipientEmail;
+    private String newsLetterSubject;
+    private String senderName;
+    private String senderEmail;
+    private String htmlContent;
+    private String plainTextContent;
+    private String recipientEmail;
 
     public NewsletterObject() {
     }
