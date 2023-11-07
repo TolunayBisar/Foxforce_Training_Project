@@ -37,7 +37,8 @@ public class DashBoardPage {
     @FindBy(xpath = "//a[text()='Manufacturers']")
     WebElement manufactureLink;
 
-
+    @FindBy(linkText= "Reviews")
+    WebElement reviewLink;
     @FindBy(xpath = "//*[@id=\"menu_Inventory\"]/li[5]/a")
     WebElement promotionalCodes;
 
