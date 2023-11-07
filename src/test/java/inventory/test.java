@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 import java.sql.Connection;
 
 public class test extends BaseClass {
-
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
     ReviewPage reviewPage;
