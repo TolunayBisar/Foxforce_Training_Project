@@ -11,8 +11,12 @@ import org.testng.annotations.Test;
 
 import java.sql.Connection;
 
-public class test extends BaseClass {
-
+/**
+ * @author : Anar
+ * @created : 11/7/2023,11:23 PM
+ * @Email : abdanna369@gmail.com
+ **/
+public class AnarRun extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPag;
     ReviewPage reviewPage;
@@ -36,7 +40,7 @@ public class test extends BaseClass {
 //        dbConnection = new DBConnection();
 //        connection = dbConnection.connectToDataBaseServer(url,port,username,password,defaultDB, ConnectionType.MYSQL);
     }
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void addReview() {
         dashBoardPag.clickOnReviewLink();
         reviewPage.addReview();
@@ -59,4 +63,3 @@ public class test extends BaseClass {
         Assert.assertTrue(reviewPage.verifySearchReview());
     }
 }
-
