@@ -52,7 +52,7 @@ public class DBConnection {
                 }
                 String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=TRUE";
 
-                String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=FALSE";
+//                String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=FALSE";
                 try {
                     connection = DriverManager.getConnection(mySqlConnectionUrl, username, password);
                 } catch (SQLException e) {
