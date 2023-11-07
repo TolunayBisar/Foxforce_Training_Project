@@ -28,8 +28,6 @@ public class DashBoardPage {
     WebElement exportCatalogLink;
     @FindBy(xpath = "//a[text()=\"Email Log\"]")
     WebElement emailLogLink;
-
-
     @FindBy(xpath = "//ul[@id='menu_Inventory']/li/a[text()='Product Options']")
     WebElement productOptionLink;
 
@@ -39,7 +37,8 @@ public class DashBoardPage {
 
     @FindBy(xpath = "//*[@id=\"menu_Inventory\"]/li[5]/a")
     WebElement promotionalCodes;
-
+    @FindBy(linkText= "Reviews")
+    WebElement reviewLink;
 
     public DashBoardPage(WebDriver driver) {
         this.driver = driver;
@@ -96,11 +95,12 @@ public class DashBoardPage {
         functionLibrary.waitForElementPresent(emailLogLink);
         emailLogLink.click();
     }
-
-
     public void clickOnProductOptionLink(){
         functionLibrary.waitForElementPresent(productOptionLink);
         productOptionLink.click();
+    public void clickOnReviewLink(){
+        functionLibrary.waitForElementPresent(reviewLink);
+        reviewLink.click();
     }
 
 
@@ -119,5 +119,23 @@ public class DashBoardPage {
 
     public void logout() {
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
+    }
+
+    public void clickOnProductOptionLink() {
+    }
+
+    public void clickOnProductsLink() {
+    }
+
+    public void clickOnPromotionalCodes() {
+    }
+
+    public void clickOnExportCatalog() {
+    }
+
+    public void clickOnImportCatalog() {
+    }
+
+    public void clickOnManufactureLink() {
     }
 }

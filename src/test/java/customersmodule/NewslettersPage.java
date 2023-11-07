@@ -37,8 +37,8 @@ public class NewslettersPage {
             newsletterSubject,
             functionLibrary.generateFakeNames(),
             functionLibrary.generateFakeEmail(),
-            functionLibrary.readTextFile("src/test/java/customersmodule/htmlContent.txt"),
-            functionLibrary.readTextFile("src/test/java/customersmodule/plainText.txt"),
+            functionLibrary.readTextFile("src/Test/java/customersmodule/htmlContent.txt"),
+            functionLibrary.readTextFile("src/Test/java/customersmodule/plainText.txt"),
             functionLibrary.generateFakeEmail()
     );
     @FindBy(xpath = "//a[contains(text(),\"Create Newsletter\")]")

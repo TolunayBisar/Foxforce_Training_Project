@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+
  * @author : Alim Hamut
  * @created : 2023-10-20,7:25 p.m.
  * @Email : alimhamut.job@gmail.com
  **/
 
 public class DBConnection {
+    // creat a method to connect to data base
     public Connection connectToDataBaseServer(
             String dbUrl,
             String dbPort,
@@ -49,6 +51,8 @@ public class DBConnection {
                     throw new RuntimeException(e);
                 }
                 String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=TRUE";
+
+                String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=FALSE";
                 try {
                     connection = DriverManager.getConnection(mySqlConnectionUrl, username, password);
                 } catch (SQLException e) {

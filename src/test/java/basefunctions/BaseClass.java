@@ -11,6 +11,7 @@ public class BaseClass {
     public  void openBrowser(String url){
 
         WebDriverManager.chromedriver().setup();
+      //  WebDriverManager.chromedriver().setup();
         ChromeOptions options=new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         driver=new ChromeDriver(options);
