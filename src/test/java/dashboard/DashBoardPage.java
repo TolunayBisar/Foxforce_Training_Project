@@ -37,7 +37,8 @@ public class DashBoardPage {
     @FindBy(xpath = "//a[text()='Manufacturers']")
     WebElement manufactureLink;
 
-
+    @FindBy(linkText= "Reviews")
+    WebElement reviewLink;
     @FindBy(xpath = "//*[@id=\"menu_Inventory\"]/li[5]/a")
     WebElement promotionalCodes;
 
@@ -120,6 +121,10 @@ public class DashBoardPage {
     public void clickOnProductsLink(){
         functionLibrary.waitForElementPresent(productsLink);
         productsLink.click();
+    }
+    public void clickOnReviewLink(){
+        functionLibrary.waitForElementPresent(reviewLink);
+        reviewLink.click();
     }
     public void logout() {
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
