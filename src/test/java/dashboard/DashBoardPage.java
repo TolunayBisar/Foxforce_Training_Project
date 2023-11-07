@@ -82,4 +82,22 @@ public class DashBoardPage {
 
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
+
+    public void clickOnProductOptionLink() {
+    }
+
+    public void clickOnProductsLink() {
+    }
+
+    public void clickOnPromotionalCodes() {
+    }
+
+    public void clickOnExportCatalog() {
+    }
+
+    public void clickOnImportCatalog() {
+    }
+
+    public void clickOnManufactureLink() {
+    }
 }
