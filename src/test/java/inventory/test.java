@@ -18,12 +18,7 @@ public class test extends BaseClass {
     FunctionLibrary functionLibrary;
     DBConnection dbConnection;
     Connection connection;
-//    String fileName="config.properties";
-//    String url = functionLibrary.readFromConfig(fileName,"dburl");
-//    String port = functionLibrary.readFromConfig(fileName,"dbport");
-//    String username = functionLibrary.readFromConfig(fileName,"dbusername");
-//    String password = functionLibrary.readFromConfig(fileName,"dbpassword");
-//    String defaultDB = functionLibrary.readFromConfig(fileName,"dbname");
+
 
     @BeforeClass
     public void setUp() {
@@ -32,8 +27,7 @@ public class test extends BaseClass {
         loginPage.logIn("testautomation1", "automation123!");
         dashBoardPag = new DashBoardPage(driver);
         reviewPage = new ReviewPage(driver);
-//        dbConnection = new DBConnection();
-//        connection = dbConnection.connectToDataBaseServer(url,port,username,password,defaultDB, ConnectionType.MYSQL);
+
     }
     @Test (priority = 1)
     public void addReview() {
