@@ -16,9 +16,6 @@ public class test extends BaseClass {
     DashBoardPage dashBoardPag;
     ReviewPage reviewPage;
     FunctionLibrary functionLibrary;
-    DBConnection dbConnection;
-    Connection connection;
-
 
     @BeforeClass
     public void setUp() {
