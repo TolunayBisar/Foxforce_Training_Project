@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author : Anar
- * @created : 2023-10-16,23:09
- * @Email : abdanna369@gmail.com
+
+ * @author : Alim Hamut
+ * @created : 2023-10-20,7:25 p.m.
+ * @Email : alimhamut.job@gmail.com
  **/
 
 public class DBConnection {
@@ -49,6 +50,8 @@ public class DBConnection {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
+                String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=TRUE";
+
                 String mySqlConnectionUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + defaultDB + "?useSSL=FALSE";
                 try {
                     connection = DriverManager.getConnection(mySqlConnectionUrl, username, password);

@@ -1,32 +1,18 @@
 package basefunctions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
-import cubecartobjects.OptionGroupObject;
-import cubecartobjects.OptionGroups;
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class FunctionLibrary {
-    WebDriver driver;
-
+    public WebDriver driver;
     int timeOut=Integer.parseInt(readFromConfig("config.properties","timeout"));
 
     public FunctionLibrary(WebDriver driver) {
@@ -96,16 +82,6 @@ public class FunctionLibrary {
         return fakeEmail;
     }
 
-    public String generateFakeManufacture() {
-        String fakeManufacture = Faker.instance().company().name();
-        return fakeManufacture;
-    }
-
-    public String generateFakeManufactureURL() {
-        String fakeManufactureURL = Faker.instance().company().url();
-        return fakeManufactureURL;
-    }
-
     public String readTextFile(String path) {
         StringBuilder content = new StringBuilder();
         FileInputStream fileInputStream = null;
@@ -127,102 +103,4 @@ public class FunctionLibrary {
         }
         return content.toString();
     }
-
-    // Serialization
-    public void writeJson(){
-
-
-        OptionGroupObject optionGroupObject1=new OptionGroupObject("Dish","A Quality");
-        OptionGroupObject optionGroupObject2=new OptionGroupObject("Salmon Fish","Import from Norway ");
-        OptionGroupObject optionGroupObject3=new OptionGroupObject("Apple","Fresh");
-        OptionGroupObject optionGroupObject4=new OptionGroupObject("Carpet","AA Quality");
-        List<OptionGroupObject> optionGroupObjects =new ArrayList<>();
-        optionGroupObjects.add(optionGroupObject1);
-        optionGroupObjects.add(optionGroupObject2);
-        optionGroupObjects.add(optionGroupObject3);
-        optionGroupObjects.add(optionGroupObject4);
-
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        OptionGroups s = new OptionGroups(optionGroupObjects);
-        String optionGroupInfo = null;
-
-        try {
-            optionGroupInfo = objectMapper.writeValueAsString(s);// convert Object value to
-
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        // String with this method. then we will write this String value to Jason file.
-
-
-        try {
-            FileUtils.writeStringToFile(new File("jsonFile/OptionGroupInfo.json"),optionGroupInfo);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public List<OptionGroupObject> readJson(){
-
-
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        OptionGroups optionGroups=null;
-
-        try {
-            optionGroups=objectMapper.readValue(new File("jsonFile/OptionGroupInfo.json"), OptionGroups.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        List<OptionGroupObject> optionGroupObjects = optionGroups.getOptionGroups();
-
-     return optionGroupObjects;
-    }
-
-
-    public List<String> readExcelInfo(String file,String sheetName ) {
-
-
-
-        FileInputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        XSSFWorkbook workbook = null;
-        try {
-            workbook = new XSSFWorkbook(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        XSSFSheet sheet = workbook.getSheet(sheetName);
-
-
-        int rowCount = sheet.getLastRowNum();
-        int cellCount = sheet.getRow(0).getLastCellNum();// column count
-        System.out.println(rowCount);
-        System.out.println(cellCount);
-        List<String> c = new ArrayList<>();
-
-        for (int row = 0; row < rowCount; row++) {
-            XSSFRow rows = sheet.getRow(row);
-            for (int column = 0; column < cellCount; column++) {
-                XSSFCell columns = rows.getCell(column);
-
-                c.add(columns.getStringCellValue());
-
-            }
-            //System.out.println(c);
-
-        }
-        //System.out.println(c.size());
-        return c;
-
-    }
-
-
 }
