@@ -26,23 +26,23 @@ public class TestForMailing extends BaseClass {
 
     @Test(priority = 1)
     public void mailingListDashboard() {
-        // test and verify mailing list page
+        // Test and verify mailing list page
         dashBoardPag.clickOnMailingListLink();
         Assert.assertTrue(mailingList.verifyMailingListDashboard());
     }
 
     @Test(priority = 2)
     public void filterAndSearchEmail() {
-        // test filter mailing list
+        // Test filter mailing list
         dashBoardPag.clickOnMailingListLink();
-        mailingList.filterMailingList();  // test and verify search email function
+        mailingList.filterMailingList();  // Test and verify search email function
         mailingList.searchSubscribersNewsletter();
         Assert.assertTrue(mailingList.verifyNoFoundMessage());
     }
 
     @Test(priority = 3)
     public void importSubscribers() {
-        // test and verify importsubscribers
+        // Test and verify importsubscribers
         dashBoardPag.clickOnMailingListLink();
         mailingList.importSubscribers();
         Assert.assertTrue(mailingList.verifySuccessfullyImportSubscriber());
@@ -50,7 +50,7 @@ public class TestForMailing extends BaseClass {
 
     @Test(priority = 5)
     public void exportSubscribers() {
-        // test and verify exportSubscribers
+        // Test and verify exportSubscribers
         dashBoardPag.clickOnMailingListLink();
         mailingList.exportSubscribers();
         Assert.assertTrue(mailingList.verifyExportButton());
