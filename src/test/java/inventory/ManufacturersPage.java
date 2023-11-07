@@ -65,7 +65,6 @@ List<WebElement> manufactureNameList;
     public boolean  editManufacture(){
 
         List<String> ManufactureList = Arrays.asList(
-
                 functionLibrary.generateFakeManufacture(), functionLibrary.generateFakeManufactureURL(),
                 functionLibrary.generateFakeManufacture(), functionLibrary.generateFakeManufactureURL(),
                 functionLibrary.generateFakeManufacture(), functionLibrary.generateFakeManufactureURL(),

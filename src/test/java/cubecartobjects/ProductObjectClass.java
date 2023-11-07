@@ -1,13 +1,29 @@
 package cubecartobjects;
 
+import com.github.javafaker.Stock;
+
+/**
+ * @author : Alim Hamut
+ * @created : 2023-10-16,10:45 p.m.
+ * @Email : alimhamut.job@gmail.com
+ **/
 public class ProductObjectClass {
     private boolean status, automaticallyGenerateProductCode, includeInFeaturedProducts, includeInLatestProducts, availableForPurchase,
             useStockLevel, taxIncluded, optionDefault, optionNegative;
     private String productName, brand, condition, productCode, productWeight, dimensionUnit, productWidth, productHeight, productDepth,
-            stockLevel, stockLeverWarning, upcCode, eanCode, janCode, isbnCode, gtinCode, mpnCode, googleCategory, description,
-            shortDescription, retailPrice, salePrice, costPrice, taxClass, minimumQuantityPurchase, maximumQuantityPurchase,
-            quantity, price, categoryName, optionName, optionPrice, optionAbsolutePrice, optionSet, metaTitle, customSeoUrlPath,
-            metaDescription;
+                    stockLevel, stockLeverWarning, upcCode, eanCode, janCode, isbnCode, gtinCode, mpnCode, googleCategory, description,
+                    shortDescription, retailPrice, costPrice, taxClass, maximumQuantityPurchase, categoryName, optionName, optionPrice, optionAbsolutePrice, optionSet, metaTitle, customSeoUrlPath,
+                    metaDescription, folderName;
+    private int minimumQuantityPurchase, quantity;
+    private double price, salePrice;
+
+    public String getFolderName() {
+        return folderName;
+    }
+
+    public void setFolderName(String folderName) {
+        this.folderName = folderName;
+    }
 
     public boolean isStatus() {
         return status;
@@ -249,11 +265,11 @@ public class ProductObjectClass {
         this.retailPrice = retailPrice;
     }
 
-    public String getSalePrice() {
+    public double getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(String salePrice) {
+    public void setSalePrice(double salePrice) {
         this.salePrice = salePrice;
     }
 
@@ -273,11 +289,11 @@ public class ProductObjectClass {
         this.taxClass = taxClass;
     }
 
-    public String getMinimumQuantityPurchase() {
+    public int getMinimumQuantityPurchase() {
         return minimumQuantityPurchase;
     }
 
-    public void setMinimumQuantityPurchase(String minimumQuantityPurchase) {
+    public void setMinimumQuantityPurchase(int minimumQuantityPurchase) {
         this.minimumQuantityPurchase = minimumQuantityPurchase;
     }
 
@@ -289,19 +305,19 @@ public class ProductObjectClass {
         this.maximumQuantityPurchase = maximumQuantityPurchase;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -368,5 +384,4 @@ public class ProductObjectClass {
     public void setMetaDescription(String metaDescription) {
         this.metaDescription = metaDescription;
     }
-
 }

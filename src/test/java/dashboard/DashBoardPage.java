@@ -28,7 +28,8 @@ public class DashBoardPage {
     WebElement exportCatalogLink;
     @FindBy(xpath = "//a[text()=\"Email Log\"]")
     WebElement emailLogLink;
-
+    @FindBy(css = "a#nav_products")
+    WebElement productsLink;
 
     @FindBy(xpath = "//ul[@id='menu_Inventory']/li/a[text()='Product Options']")
     WebElement productOptionLink;
@@ -116,7 +117,10 @@ public class DashBoardPage {
         promotionalCodes.click();
     }
 
-
+    public void clickOnProductsLink(){
+        functionLibrary.waitForElementPresent(productsLink);
+        productsLink.click();
+    }
     public void logout() {
         driver.findElement(By.cssSelector(".fa.fa-sign-out")).click();
     }
