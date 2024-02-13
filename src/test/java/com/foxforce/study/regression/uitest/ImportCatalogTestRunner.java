@@ -31,7 +31,7 @@ public class ImportCatalogTestRunner extends BaseClass {
     }
     @Test
     public void importCatalogTest(){
-        String filePath="/Users/user/IdeaProjects/foxforce-aliyeidris/TestData/catalog1.csv";
+        String filePath="/Users/tolunaybisar/IdeaProjects/foxforce-tolunay/TestData/catalog1.csv";
         dashBoardPage.clickOnImportCatalog();
         importCatalogPage.importCatalog(filePath);
         Assert.assertTrue(importCatalogPage.verifyImportSuccess());
@@ -41,9 +41,9 @@ public class ImportCatalogTestRunner extends BaseClass {
         dashBoardPage.clickOnImportCatalog();
         Assert.assertTrue(importCatalogPage.removePreviousImports());
     }
-    @Test(enabled = false)
+    @Test()
     public void importCatalogWithRobot(){
-        String filePath="/Users/user/IdeaProjects/foxforce-aliyeidris/TestData/catalog1.csv";
+        String filePath="/Users/tolunaybisar/IdeaProjects/foxforce-tolunay/TestData/catalog1.csv";
         dashBoardPage.clickOnImportCatalog();
         importCatalogPage.importCatalogDetail(filePath);
         Assert.assertTrue(importCatalogPage.verifyImportSuccess());

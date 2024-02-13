@@ -19,6 +19,7 @@ public class RunClass extends BaseClass {
     ProductOptionsPage productOptionsPage;
 
   ManufacturersPage manufacturersPage;
+  ImportCatalogPage importCatalogPage;
 
 
 
@@ -31,6 +32,7 @@ public class RunClass extends BaseClass {
         functionLibrary = new FunctionLibrary(driver);
         productOptionsPage = new ProductOptionsPage(driver);
 manufacturersPage = new ManufacturersPage(driver);
+importCatalogPage = new ImportCatalogPage(driver);
 
 
     }
@@ -91,6 +93,12 @@ manufacturersPage = new ManufacturersPage(driver);
     public void addManufacture(){
 
         Assert.assertTrue(manufacturersPage.addManufacture()>=1);
+
+    }
+
+    @Test()
+    public void importTest(){
+        importCatalogPage.importCatalogDetail("/Users/tolunaybisar/IdeaProjects/foxforce-tolunay/TestData/catalog1.csv");
 
     }
 

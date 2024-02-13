@@ -22,7 +22,7 @@ public class ImportCatalogPage {
         PageFactory.initElements(driver,this);
         functionLibrary=new FunctionLibrary(driver);
     }
-    @FindBy(xpath = "//label[text()='Source (Max: 32M)']")
+    @FindBy(xpath = "//label[text()='Source (Max: 16M)']")
     WebElement uploadField;
     @FindBy(xpath = "//input[@type='file']")
     WebElement chooseFileField;
@@ -211,7 +211,8 @@ public class ImportCatalogPage {
     }
     public void importCatalogDetail(String filePath){
         JavascriptExecutor jse=(JavascriptExecutor)driver;
-        uploadField.click();
+        jse.executeScript("arguments[0].click();",uploadField);
+        //uploadField.click();
         try {
             StringSelection str=new StringSelection(filePath);
             //Copy to clipboard
@@ -244,9 +245,9 @@ public class ImportCatalogPage {
         selectDelimiter.selectByValue(",");
         saveButton.click();
 
-        jse.executeScript("window.scrollBy(0,700)","");
-        jse.executeScript("arguments[0].click();",optionHeadersBox);
-        saveButton.click();
+//        jse.executeScript("window.scrollBy(0,700)","");
+//        jse.executeScript("arguments[0].click();",optionHeadersBox);
+//        saveButton.click();
     }
     public boolean verifyImportSuccess(){
         try{

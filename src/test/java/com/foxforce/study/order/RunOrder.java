@@ -2,6 +2,7 @@ package com.foxforce.study.order;
 
 import com.foxforce.study.basefunctions.BaseClass;
 
+import com.foxforce.study.basefunctions.FunctionLibrary;
 import com.foxforce.study.dashboard.DashBoardPage;
 import com.foxforce.study.dashboard.LoginPage;
 
@@ -17,15 +18,17 @@ import org.testng.annotations.Test;
 public class RunOrder extends BaseClass {
     LoginPage loginPage;
     DashBoardPage dashBoardPage;
+    FunctionLibrary functionLibrary;
 
     OrderPage orderPage;
 
 
     @BeforeClass
     public void setUp() {
-        openBrowser("http://cubecartuat.unitedcoder.com/admin_tu8sml.php");
+        functionLibrary= new FunctionLibrary();
+        openBrowser(functionLibrary.readFromConfig("config.properties","url"));
         loginPage = new LoginPage(driver);
-        loginPage.logIn("testautomation1", "automation123!");
+        loginPage.logIn("cubecart", "cubecart");
         dashBoardPage = new DashBoardPage(driver);
         dashBoardPage.clickOnOrdersLink();
         orderPage= new OrderPage(driver);
